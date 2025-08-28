@@ -11,8 +11,18 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^17.2.1",
     "express": "^5.1.0",
+    "mongoose": "^8.18.0",
     "nanoid": "^5.1.5",
     "socket.io": "^4.8.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/proyectosestudiantiles1/Potencia-tu-mente..git"
+  },
+  "bugs": {
+    "url": "https://github.com/proyectosestudiantiles1/Potencia-tu-mente./issues"
+  },
+  "homepage": "https://github.com/proyectosestudiantiles1/Potencia-tu-mente.#readme"
 }
