@@ -18,23 +18,20 @@
         --shadow:0 10px 30px rgba(0,0,0,0.07);--radius:16px;--online-color:#2ecc71;--offline-color:#bdc3c7;
         --font-base-size:16px;
       }
-      body.large-text{--font-base-size:18px;} /* Aumento significativo para accesibilidad */
-      body.dark-theme{ /* Tema de alto contraste */
+      body.large-text{--font-base-size:18px;}
+      body.dark-theme{
         --primary-gradient:linear-gradient(90deg, #1abc9c, #1dd2af);--primary-color:#1abc9c;--secondary-color:#ecf0f1;
         --bg-color:#2c3e50;--card-bg:#34495e;--text-dark:#ecf0f1;--text-light:#95a5a6;
       }
       *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
       body{font-family:'Lato',sans-serif;background-color:var(--bg-color);color:var(--text-dark);line-height:1.7;transition:background-color .3s,color .3s;font-size:var(--font-base-size)}
-      main{display:none} /* Se controla con JS para evitar FOUC (Flash Of Unstyled Content) */
-      .page-section{display:none}.page-section.active{display:block;animation:fadeIn 0.5s ease-in-out forwards}@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+      main{display:none}.page-section{display:none}.page-section.active{display:block;animation:fadeIn 0.5s ease-in-out forwards}@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
       .container{max-width:1200px;margin:0 auto;padding:2rem}.page-header{margin-bottom:2.5rem;text-align:center}
       .page-header h1{font-family:'Poppins',sans-serif;font-size:calc(var(--font-base-size)*2.2);color:var(--secondary-color)}.page-header p{font-size:calc(var(--font-base-size)*1.1);color:var(--text-light);max-width:700px;margin:.5rem auto 0}
       .btn{display:inline-block;padding:.8rem 1.8rem;background:var(--primary-gradient);color:white;border:none;border-radius:50px;font-weight:700;text-decoration:none;cursor:pointer;transition:transform .2s ease,box-shadow .3s ease;box-shadow:0 4px 15px rgba(22,160,133,.3);font-size:var(--font-base-size)}.btn:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(22,160,133,.4)}.btn-secondary{background:#95a5a6;box-shadow:0 4px 15px rgba(0,0,0,.1)}.btn-secondary:hover{background:#7f8c8d}.btn-back{display:block;width:fit-content;margin-top:2.5rem}
       .card{background-color:var(--card-bg);border-radius:var(--radius);padding:2rem;box-shadow:var(--shadow);transition:transform .3s,box-shadow .3s, background-color .3s, color .3s}.card:hover{transform:translateY(-8px);box-shadow:0 15px 40px rgba(0,0,0,.1)}
-      .input-group{display:flex;gap:.5rem;margin-bottom:1rem}.input-field{width:100%;padding:.8rem 1rem;border:1px solid #dee2e6;background:var(--bg-color);color:var(--text-dark);border-radius:8px;font-size:var(--font-base-size);transition:border-color .2s,box-shadow .2s}
-      .input-field:focus-visible{outline:2px solid var(--primary-color);box-shadow:0 0 0 3px rgba(22,160,133,.2)}
-      /* Inicio */#view-inicio{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;z-index:1000;color:white;padding:1rem;background-color:#1c2541}
-      .inicio-content{animation:fadeIn 2s}.inicio-content h1{font-family:'Poppins',sans-serif;font-size:clamp(3rem, 10vw, 5.5rem);letter-spacing:2px}.inicio-content p{font-size:1.5rem;color:rgba(255,255,255,.8);margin-bottom:2rem}.inicio-content .btn{padding:1rem 3rem;font-size:1.2rem}
+      .input-group{display:flex;gap:.5rem;margin-bottom:1rem}.input-field{width:100%;padding:.8rem 1rem;border:1px solid #dee2e6;background:var(--bg-color);color:var(--text-dark);border-radius:8px;font-size:var(--font-base-size);transition:border-color .2s,box-shadow .2s}.input-field:focus-visible{outline:2px solid var(--primary-color);box-shadow:0 0 0 3px rgba(22,160,133,.2)}
+      /* Inicio */#view-inicio{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;z-index:1000;color:white;padding:1rem;background-color:#1c2541}.inicio-content{animation:fadeIn 2s}.inicio-content h1{font-family:'Poppins',sans-serif;font-size:clamp(3rem, 10vw, 5.5rem);letter-spacing:2px}.inicio-content p{font-size:1.5rem;color:rgba(255,255,255,.8);margin-bottom:2rem}.inicio-content .btn{padding:1rem 3rem;font-size:1.2rem}
       /* Menu */.menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem}.menu-card{text-align:center;text-decoration:none;color:var(--text-dark);font-size:var(--font-base-size)}.menu-card .icon{font-size:3rem;color:var(--primary-color);margin-bottom:1rem;display:block}.menu-card h3{font-family:'Poppins',sans-serif;font-size:calc(var(--font-base-size)*1.3)}#view-menu{position:relative;overflow:hidden;border-radius:var(--radius);padding:2rem;background-color:var(--bg-color);transition:none}
       #menu-background-layer{position:absolute;top:0;left:0;width:100%;height:100%;z-index:-1;opacity:0.2;background-image:linear-gradient(-45deg, #2ecc71, #1abc9c, #3498db, #2c3e50); background-size: 200% 200%; animation:gradientBG 15s ease infinite;}@keyframes gradientBG {0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%}}
       /* Conceptos */#concept-detail-container h3{font-size:calc(var(--font-base-size)*1.5);color:var(--primary-color);margin-top:1.5rem}.content-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.5rem}.content-card{cursor:pointer} .content-card h4{font-family:'Poppins',sans-serif;font-size:calc(var(--font-base-size)*1.2)}.content-card p{font-size:var(--font-base-size);}.datalist-suggestions{max-height:150px;overflow-y:auto;border:1px solid #dee2e6;border-top:none;border-radius:0 0 8px 8px;background-color:var(--card-bg);position:absolute;width:100%;z-index:10}.datalist-suggestions option{padding:.5rem 1rem;cursor:pointer}.datalist-suggestions option:hover{background-color:#f1f3f5}
@@ -52,7 +49,7 @@
     </style>
 </head>
 <body>
-    <section id="view-inicio" class="page-section" aria-labelledby="welcome-title"><h1 class="sr-only" data-lang-key="mainTitle">Potencia tu Mente - Pantalla de Bienvenida</h1><div id="particles-js" aria-hidden="true"></div><div class="inicio-content" role="dialog" aria-labelledby="welcome-title"><h2 id="welcome-title" data-lang-key="mainTitle">Potencia tu Mente</h2><p data-lang-key="welcomeSlogan">Tu viaje al dominio de las matemáticas comienza ahora.</p><a href="#view-menu" class="btn nav-link" role="button" aria-label="Entrar al menú principal" data-lang-key="enterButton">Entrar</a></div></section>
+    <section id="view-inicio"><h1 class="sr-only" data-lang-key="mainTitle">Potencia tu Mente - Pantalla de Bienvenida</h1><div id="particles-js" aria-hidden="true"></div><div class="inicio-content" role="dialog" aria-labelledby="welcome-title"><h2 id="welcome-title" data-lang-key="mainTitle">Potencia tu Mente</h2><p data-lang-key="welcomeSlogan">Tu viaje al dominio de las matemáticas comienza ahora.</p><a href="#view-menu" class="btn nav-link" role="button" aria-label="Entrar al menú principal" data-lang-key="enterButton">Entrar</a></div></section>
     
     <main><header class="sr-only"><h1>Contenido Principal de Potencia tu Mente</h1></header><div class="container">
         <section id="view-menu" class="page-section card" role="region" aria-labelledby="menu-title"><div class="page-header"><h2 id="menu-title" data-lang-key="menuTitle">Menú Principal</h2></div><div class="menu-grid"><a href="#view-conceptos" class="menu-card nav-link card" role="link"><div class="icon" aria-hidden="true"><i class="fas fa-book-open"></i></div><h3 data-lang-key="conceptsTitle">Conceptos</h3><p data-lang-key="conceptsMenuDesc">Explora todos los temas.</p></a><a href="#view-practica" class="menu-card nav-link card" role="link"><div class="icon" aria-hidden="true"><i class="fas fa-brain"></i></div><h3 data-lang-key="practiceTitle">Práctica</h3><p data-lang-key="practiceMenuDesc">Ejercicios aleatorios.</p></a><a href="#view-consejos" class="menu-card nav-link card" role="link"><div class="icon" aria-hidden="true"><i class="fas fa-lightbulb"></i></div><h3 data-lang-key="tipsTitle">Consejos</h3><p data-lang-key="tipsMenuDesc">Mejora tus habilidades.</p></a><a href="#view-chat" class="menu-card nav-link card" role="link"><div class="icon" aria-hidden="true"><i class="fas fa-comments"></i></div><h3 data-lang-key="chatTitle">Aprendamos Juntos</h3><p data-lang-key="chatMenuDesc">Resuelve dudas con amigos.</p></a><a href="#view-quienes-somos" class="menu-card nav-link card" role="link"><div class="icon" aria-hidden="true"><i class="fas fa-users"></i></div><h3 data-lang-key="whoTitle">Quiénes Somos</h3><p data-lang-key="whoMenuDesc">Conoce al equipo.</p></a><a href="#view-ajustes" class="menu-card nav-link card" role="link"><div class="icon" aria-hidden="true"><i class="fas fa-cog"></i></div><h3 data-lang-key="settingsTitle">Ajustes</h3><p data-lang-key="settingsMenuDesc">Personaliza tu experiencia.</p></a></div></section>
@@ -171,12 +168,12 @@
                 youText: "Tú", statusOnline: "Conectado", statusOffline: "Desconectado",
                 descriptionTitle:"Descripción", howToTitle:"¿Cómo se resuelve?", typesTitle:"Tipos Comunes", errorsTitle:"Errores Frecuentes", practiceButton:"Practiquemos", startButton:"Comenzar",
                 // Concept specific
-                algebraName:"Álgebra",math:"Matemáticas",algebraDesc:"El álgebra es la rama de las matemáticas que estudia las estructuras y reglas de operaciones usando símbolos (como letras) para representar valores desconocidos. Es la ciencia de las ecuaciones y expresiones.",algebraHowTo:"Se busca despejar la incógnita (como 'x'). Los términos se mueven entre los lados de una igualdad invirtiendo su operación (suma a resta, multiplicación a división) para aislar la variable.",algebraTypes:"Elemental (ecuaciones lineales), Lineal (vectores, matrices), Abstracta (grupos, anillos).",algebraErrors:"Distribuir mal un signo negativo, no respetar la jerarquía de operaciones, fallos en leyes de exponentes (ej. (a+b)² ≠ a²+b²).",
-                geometriaName:"Geometría",geometriaDesc:"Es la rama que estudia las propiedades del espacio, como puntos, líneas, figuras y sólidos.",geometriaHowTo:"Se aplica mediante el uso de teoremas y fórmulas para calcular propiedades como área, perímetro, volumen y ángulos. La visualización es clave.",geometriaTypes:"Plana (2D), del Espacio (3D), Analítica (con coordenadas).",geometriaErrors:"Confundir la fórmula del perímetro con la del área, errores de unidades (cm vs m), olvidar pasos (como el ½ en el área del triángulo).",
-                trigonometriaName:"Trigonometría",trigonometriaDesc:"Estudia las relaciones entre los ángulos y los lados de los triángulos, basándose en las razones trigonométricas (seno, coseno, tangente).",trigonometriaHowTo:"Se identifican los catetos (opuesto, adyacente) y la hipotenusa en un triángulo rectángulo para aplicar las razones y resolver por ángulos o lados desconocidos.",trigonometriaTypes:"Plana, Esférica, funciones inversas (arcoseno).",trigonometriaErrors:"Identificar incorrectamente el cateto opuesto y adyacente, confundir grados con radianes.",
-                funcionesName:"Funciones",funcionesDesc:"Una función es una regla que asocia a cada valor de entrada (x) un único valor de salida (y). Se escribe como y = f(x).",funcionesHowTo:"Se evalúa la función sustituyendo la variable 'x' por un número para encontrar 'y'. Se analizan su dominio y rango.",funcionesTypes:"Lineales, cuadráticas, exponenciales, logarítmicas.",funcionesErrors:"Confundir dominio y rango, no pasar la 'prueba de la línea vertical'.",
-                estadisticaName:"Estadística y Probabilidad",estadisticaDesc:"La estadística recolecta, analiza e interpreta datos. La probabilidad mide la certeza de que ocurra un evento.",estadisticaHowTo:"La estadística usa medidas como media, mediana y moda. La probabilidad se calcula como (casos favorables) / (casos totales).",estadisticaTypes:"Descriptiva, Inferencial. Probabilidad Clásica, Frecuencial.",estadisticaErrors:"Confundir correlación con causalidad, confundir media con mediana.",
-                calculoName:"Cálculo",calculoDesc:"Rama que estudia el cambio continuo. La derivada mide la tasa de cambio instantánea y la integral calcula acumulados.",calculoHowTo:"Se aplican reglas de derivación e integración para encontrar la pendiente de una curva o el área bajo ella.",calculoTypes:"Diferencial (derivadas) e Integral (integrales).",calculoErrors:"Dificultad con el concepto de límite, confundir las reglas de derivación, olvidar la constante de integración.",
+                algebraName:"Álgebra", math:"Matemáticas", algebraDesc:"El álgebra estudia estructuras y reglas usando símbolos para representar valores desconocidos. Es la ciencia de las ecuaciones y expresiones.", algebraHowTo:"Se busca despejar la incógnita (como 'x'). Los términos se mueven entre los lados de una igualdad invirtiendo su operación (suma a resta, multiplicación a división) para aislar la variable.", algebraTypes:"Elemental (ecuaciones lineales), Lineal (vectores, matrices), Abstracta (grupos, anillos).", algebraErrors:"Distribuir mal un signo negativo, no respetar la jerarquía de operaciones, fallos en leyes de exponentes (ej. (a+b)² ≠ a²+b²).",
+                geometriaName:"Geometría", geometriaDesc:"Es la rama que estudia las propiedades del espacio, como puntos, líneas, figuras y sólidos.", geometriaHowTo:"Se aplica mediante el uso de teoremas y fórmulas para calcular propiedades como área, perímetro, volumen y ángulos. La visualización es clave.", geometriaTypes:"Plana (2D), del Espacio (3D), Analítica (con coordenadas).", geometriaErrors:"Confundir la fórmula del perímetro con la del área, errores de unidades (cm vs m), olvidar pasos (como el ½ en el área del triángulo).",
+                trigonometriaName:"Trigonometría", trigonometriaDesc:"Estudia las relaciones entre los ángulos y los lados de los triángulos, basándose en las razones trigonométricas (seno, coseno, tangente).", trigonometriaHowTo:"Se identifican los catetos (opuesto, adyacente) y la hipotenusa en un triángulo rectángulo para aplicar las razones y resolver por ángulos o lados desconocidos.", trigonometriaTypes:"Plana, Esférica, funciones inversas (arcoseno).", trigonometriaErrors:"Identificar incorrectamente el cateto opuesto y adyacente, confundir grados con radianes.",
+                funcionesName:"Funciones", funcionesDesc:"Una función es una regla que asocia a cada valor de entrada (x) un único valor de salida (y). Se escribe como y = f(x).", funcionesHowTo:"Se evalúa la función sustituyendo la variable 'x' por un número para encontrar 'y'. Se analizan su dominio y rango.", funcionesTypes:"Lineales, cuadráticas, exponenciales, logarítmicas.", funcionesErrors:"Confundir dominio y rango, no pasar la 'prueba de la línea vertical'.",
+                estadisticaName:"Estadística y Probabilidad", estadisticaDesc:"La estadística recolecta, analiza e interpreta datos. La probabilidad mide la certeza de que ocurra un evento.", estadisticaHowTo:"La estadística usa medidas como media, mediana y moda. La probabilidad se calcula como (casos favorables) / (casos totales).", estadisticaTypes:"Descriptiva, Inferencial. Probabilidad Clásica, Frecuencial.", estadisticaErrors:"Confundir correlación con causalidad, confundir media con mediana.",
+                calculoName:"Cálculo", calculoDesc:"Rama que estudia el cambio continuo. La derivada mide la tasa de cambio instantánea y la integral calcula acumulados.", calculoHowTo:"Se aplican reglas de derivación e integración para encontrar la pendiente de una curva o el área bajo ella.", calculoTypes:"Diferencial (derivadas) e Integral (integrales).", calculoErrors:"Dificultad con el concepto de límite, confundir las reglas de derivación, olvidar la constante de integración.",
                 operacionesConEnterosName: "Operaciones con Enteros", operacionesConEnterosDesc: "Aprende a sumar, restar, multiplicar y dividir números positivos y negativos, un pilar fundamental de la matemática.", operacionesConEnterosHowTo: "Se utiliza la regla de los signos. Para sumas y restas, signos iguales se suman y mantienen el signo; signos diferentes se restan y se usa el signo del mayor. Para multiplicación y división, signos iguales dan positivo (+), signos diferentes dan negativo (-).", operacionesConEnterosTypes: "Suma, resta, multiplicación, división y potencias.", operacionesConEnterosErrors: "Olvidar la regla de los signos, especialmente al restar un número negativo (ej. 5 - (-3) = 8).",
                 fraccionesYDecimalesName: "Fracciones y Decimales", fraccionesYDecimalesDesc: "Representan partes de un todo. Es clave para entender proporciones y porcentajes.", fraccionesYDecimalesHowTo: "Para sumar o restar fracciones, deben tener un denominador común. La multiplicación es directa (numerador por numerador). Para dividir, se multiplica en cruz.", fraccionesYDecimalesTypes: "Propias, impropias, mixtas. Decimales exactos y periódicos.", fraccionesYDecimalesErrors: "Sumar o restar sin encontrar el denominador común. Confundir la multiplicación con la suma.",
                 ecuacionesCuadraticasName: "Ecuaciones Cuadráticas", ecuacionesCuadraticasDesc: "Ecuaciones donde la incógnita está elevada al cuadrado. Pueden tener hasta dos soluciones.", ecuacionesCuadraticasHowTo: "Se resuelven usando la fórmula general (la resolvente) o factorizando la expresión.", ecuacionesCuadraticasTypes:"Completas (ax² + bx + c = 0) e incompletas.", ecuacionesCuadraticasErrors:"Calcular mal el discriminante (b² - 4ac) en la fórmula general.",
@@ -185,19 +182,21 @@
                 waterConsumptionProblem: "Una comunidad consume [CONSUMO]L de agua/día. Si reducen el consumo en [REDUCCION]% por [DIAS] días, ¿cuántos litros ahorran?",
                 plasticWasteProblem: "[FAMILIAS] familias producen [PLASTICO] kg de plástico/semana. Si el [RECICLA]% es reciclado, ¿cuánto plástico se recicla en [SEMANAS] semanas?",
                 deforestationProblem: "[ARBOLES] árboles por deforestación en [HECTAREAS] hectáreas. ¿Cuántos árboles hay por hectárea? (redondea a 2 decimales)",
-                // Accessibility descriptions
-                searchConceptPlaceholder: "Buscar tema...", searchPracticePlaceholder: "Buscar tema de práctica...", usernamePlaceholder: "TuUsuario123", friendCodePlaceholder: "Código del amigo...", typeYourAnswerPlaceholder: "Escribe tu respuesta...",
-                // Added for placeholders from previous issue
-                searchTopicLabel: "Introduce el nombre de un tema para buscar" // Placeholder for concepts/practice search inputs
+                // Accessibility specific
+                searchConceptLabel: "Buscar tema", searchPracticeLabel: "Buscar tema de práctica", usernamePlaceholder: "TuUsuario123", friendCodePlaceholder: "Código del amigo", typeYourAnswerPlaceholder: "Escribe tu respuesta",
+                youText: "Tú", statusOnline: "Conectado", statusOffline: "Desconectado",
+                deleteFriendAriaLabel:"Eliminar amigo", deleteMessageAriaLabel:"Eliminar mensaje", checkAnswerButton:"Comprobar", startButton:"Comenzar", applyButton:"Aplicar",resetBackgroundButton:"Quitar fondo",
             },
-            en:{ /* Simplified English translations, full versions would mirror ES */ },
-            zh: { /* Simplified Chinese translations */ }, de: { /* Simplified German translations */ }, fr: { /* Simplified French translations */ }, pt: { /* Simplified Portuguese translations */ }
+            en:{mainTitle:"Power Up Your Mind",menuTitle:"Main Menu",conceptsTitle:"Concepts",practiceTitle:"Practice",tipsTitle:"Tips",chatTitle:"Let's Learn Together",whoTitle:"Who We Are",settingsTitle:"Settings",welcomeSlogan:"Your journey to math mastery starts now.",enterButton:"Enter",backButton:"Back",conceptsPageDesc:"Find the topic you need.",practicePageDesc:"Generate random exercises and problems.",tipsPageDesc:"Strategies to boost your learning.",usernameLabel:"Username",chatOverlayTitle:"Create Your Student Profile",chatOverlayDesc:"Choose a display name. You will be assigned a unique code to add friends.",saveAndEnterBtn:"Save & Enter",helloText:"Hello",yourCodeIsText:"Your friend code is:",friendsTitle:"Friends",friendsDesc:"Add friends using their unique code.",friendCodeLabel:"Friend code",addFriendBtn:"+",selectFriendText:"Select a friend",writeMessageLabel:"Write a message",sendButton:"Send",copyCodeAlert:"Friend code copied!",languageSettingsTitle:"Interface Language",accessibilitySettingsTitle:"Accessibility",largeTextToggle:"Larger Text",contrastToggle:"High Contrast Mode",menuBackgroundSettingsTitle:"Menu Background",uploadBackgroundDesc:"Upload a local image or video to use as background.",pasteUrlBackgroundDesc:"Or paste a URL link.",applyButton:"Apply",resetBackgroundButton:"Remove background",noConceptsFoundText:"No concepts found.",noPracticeFoundText:"No exercises found for this topic.",conceptNotFoundText:"Concept not found.",noPracticeForTopicText:"Could not generate a unique problem for this topic.",exerciseText:"Exercise",problemText:"Problem Situation",yourAnswerText:"Your answer",typeYourAnswerPlaceholder:"Type your answer...",checkAnswerButton:"Check",correctAnswerText:"Correct!",incorrectAnswerText:"Incorrect. The answer was",solveTogetherButton:"Let's Solve Together",selectFriendShareProblemAlert:"Select a friend to share the problem with.",deleteFriendAriaLabel:"Delete friend",confirmDeleteFriendText:"Are you sure you want to delete this friend?",confirmDeleteMessageText:"Are you sure you want to delete this message?",youText: "You", statusOnline: "Online", statusOffline: "Offline",algebraName:"Algebra",math:"Mathematics",algebraDesc:"Algebra studies structures and rules using symbols to represent unknown values.",algebraHowTo:"The goal is to isolate the unknown (like 'x') by moving terms across an equality, inverting operations.",algebraTypes:"Elementary (linear equations), Linear (vectors), Abstract (groups).",algebraErrors:"Incorrectly distributing a negative sign, not respecting the order of operations, exponent law mistakes.",geometriaName:"Geometry",geometriaDesc:"Branch that studies the properties of space, like points, lines, and figures.",trigonometriaName:"Trigonometry",trigonometriaDesc:"Studies the relationships between angles and sides of triangles.",funcionesName:"Functions",funcionesDesc:"A function associates each input (x) with a single output (y).",estadisticaName:"Statistics & Probability",estadisticaDesc:"Statistics collects, analyzes data. Probability measures event certainty.",calculoName:"Calculus",calculoDesc:"Branch that studies continuous change through derivatives and integrals.",operacionesConEnterosName:"Operations with Integers",operacionesConEnterosDesc:"Learn to add, subtract, multiply, and divide positive and negative numbers, a fundamental pillar of mathematics.",fraccionesYDecimalesName:"Fractions and Decimals",fraccionesYDecimalesDesc:"Represent parts of a whole. Key to understanding proportions and percentages.",ecuacionesCuadraticasName:"Quadratic Equations",ecuacionesCuadraticasDesc:"Equations where the unknown is squared. They can have up to two solutions.",matricesName:"Matrices",matricesDesc:"Matrices are rectangular arrays of numbers. They are used to represent systems of linear equations and geometric transformations."},
+            zh:{mainTitle:"Potencia Tu Mente",welcomeSlogan:"Tu viaje al dominio de las matemáticas comienza ahora.",enterButton:"Entrar",menuTitle:"Menú Principal",conceptsTitle:"Conceptos",conceptsMenuDesc:"Explora todos los temas.",practiceTitle:"Práctica",practiceMenuDesc:"Ejercicios aleatorios.",tipsTitle:"Consejos",tipsMenuDesc:"Mejora tus habilidades.",chatTitle:"Aprendamos Juntos",chatMenuDesc:"Resuelve dudas con amigos.",whoTitle:"Quiénes Somos",whoMenuDesc:"Conoce al equipo.",settingsTitle:"Ajustes",settingsMenuDesc:"Personaliza tu experiencia.",conceptsPageDesc:"Encuentra el tema que necesitas.",practicePageDesc:"Genera ejercicios y situaciones problemáticas.",tipsPageDesc:"Estrategias para potenciar tu aprendizaje.",backButton:"Regresar",usernameLabel:"Nombre de usuario",chatOverlayTitle:"Crea tu Perfil de Estudiante",chatOverlayDesc:"Elige un nombre para mostrar. Se te asignará un código único para agregar amigos.",saveAndEnterBtn:"Guardar y Entrar",helloText:"Hola",yourCodeIsText:"Tu código de amigo es:",friendsTitle:"Amigos",friendsDesc:"Añade amigos usando su código único.",friendCodeLabel:"Código del amigo",addFriendBtn:"+",selectFriendText:"Selecciona un amigo",writeMessageLabel:"Escribe un mensaje",sendButton:"Enviar",copyCodeAlert:"¡Código de amigo copiado!",languageSettingsTitle:"Idioma de la Interfaz",accessibilitySettingsTitle:"Accesibilidad",largeTextToggle:"Texto más grande",contrastToggle:"Modo de Alto Contraste",menuBackgroundSettingsTitle:"Fondo del Menú",uploadBackgroundDesc:"Sube una imagen o video local para usar de fondo.",pasteUrlBackgroundDesc:"O pega un enlace URL.",applyButton:"Aplicar",resetBackgroundButton:"Quitar fondo",noConceptsFoundText:"No se encontraron temas.",noPracticeFoundText:"No hay ejercicios para este tema.",conceptNotFoundText:"Concepto no encontrado.",noPracticeForTopicText:"No se pudo generar un problema único para este tema.",exerciseText:"Ejercicio",problemText:"Situación Problemática",yourAnswerText:"Tu respuesta",typeYourAnswerPlaceholder:"Escribe tu respuesta...",checkAnswerButton:"Comprobar",correctAnswerText:"¡Correcto!",incorrectAnswerText:"Incorrecto. La respuesta era",solveTogetherButton:"Resolvamoslo Juntos",selectFriendShareProblemAlert:"Selecciona un amigo para compartirle el problema.",deleteFriendAriaLabel:"Eliminar amigo",confirmDeleteFriendText:"¿Seguro que quieres eliminar a este amigo?",confirmDeleteMessageText:"¿Seguro que quieres eliminar este mensaje?",youText: "Tú", statusOnline: "Conectado", statusOffline: "Desconectado",algebraName:"Álgebra",math:"Matemáticas",algebraDesc:"El álgebra es la rama de las matemáticas que estudia las estructuras y reglas de operaciones usando símbolos (como letras) para representar valores desconocidos. Es la ciencia de las ecuaciones y expresiones.",algebraHowTo:"Se busca despejar la incógnita (como 'x'). Los términos se mueven entre los lados de una igualdad invirtiendo su operación (suma a resta, multiplicación a división) para aislar la variable.",algebraTypes:"Elemental (ecuaciones lineales), Lineal (vectores, matrices), Abstracta (grupos, anillos).",algebraErrors:"Distribuir mal un signo negativo, no respetar la jerarquía de operaciones, fallos en leyes de exponentes (ej. (a+b)² ≠ a²+b²).",geometriaName:"Geometría",geometriaDesc:"Es la rama que estudia las propiedades del espacio, como puntos, líneas, figuras y sólidos.",trigonometriaName:"Trigonometría",funcionesName:"Funciones",estadisticaName:"Estadística y Probabilidad",calculoName:"Cálculo",operacionesConEnterosName:"Operaciones con Enteros",fraccionesYDecimalesName:"Fracciones y Decimales",ecuacionesCuadraticasName:"Ecuaciones Cuadráticas",matricesName:"Matrices",},
+            de: { /* German */ }, fr: { /* French */ }, pt: { /* Portuguese */ }
         };
 
         const state={myUsername:localStorage.getItem('myUsername'),myCode:localStorage.getItem('myCode'),friends:JSON.parse(localStorage.getItem('myFriends'))||[],activeChat:null,messages:JSON.parse(localStorage.getItem('myMessages'))||{},onlineFriends:[]};
         const ui={main:document.querySelector('main'),inicio:document.getElementById('view-inicio'),sections:document.querySelectorAll('.page-section'),navLinks:document.querySelectorAll('.nav-link'),backButtons:document.querySelectorAll('.btn-back'),chat:{overlay:document.getElementById('username-overlay'),form:document.getElementById('username-form'),input:document.getElementById('username-input'),yourUsername:document.getElementById('your-username'),yourCode:document.getElementById('your-code'),addForm:document.getElementById('add-friend-form'),friendInput:document.getElementById('friend-code-input'),list:document.getElementById('friends-list'),header:document.getElementById('chat-header'),messages:document.getElementById('chat-messages'),chatForm:document.getElementById('chat-form'),chatInput:document.getElementById('chat-input'),sendBtn:document.getElementById('chat-form').querySelector('button')},concepts:{grid:document.getElementById('concepts-grid'),search:document.getElementById('concept-search'),suggestions:document.getElementById('concept-suggestions'),detail:document.getElementById('concept-detail-container')},practice:{header:document.getElementById('practice-header'),grid:document.getElementById('practice-grid'),search:document.getElementById('practice-search'),suggestions:document.getElementById('practice-suggestions')},consejos:{container:document.getElementById('consejos-container')},quienes:{container:document.getElementById('quienes-somos-container')},ajustes:{lang:document.getElementById('language-selector'),bgUpload:document.getElementById('background-upload'),bgUrlForm:document.getElementById('background-url-form'),bgUrlInput:document.getElementById('background-url-input'),bgReset:document.getElementById('background-reset'),fontSizeToggle:document.getElementById('font-size-toggle'),contrastToggle:document.getElementById('contrast-toggle'),fontSizeIndicator:document.getElementById('font-size-indicator')}};
         const socket=io();
         
+        // --- APP LOGIC ---
         function setupApp() {
             setupNavigation();
             setupChat();
@@ -220,27 +219,40 @@
         function showView(hash,data){
             let viewId = hash ? hash.substring(1) : (sessionStorage.getItem('visitedBefore') ? 'view-menu' : 'view-inicio');
             
-            document.body.style.overflow = viewId === 'view-inicio' ? 'hidden' : 'auto';
-            // Only set main/inicio display to flex/none here. Body display is controlled by JS once app is ready
-            ui.main.style.display = viewId === 'view-inicio' ? 'none' : 'block';
-            ui.inicio.style.display = viewId === 'view-inicio' ? 'flex' : 'none';
+            // Critical fix: Ensure document.body is visible before manipulating other elements.
+            document.body.style.display = 'block'; // Ensure body is visible to prevent blank page at any cost
+
+            // Determine actual view based on logic
+            if (viewId === '') viewId = 'view-menu'; // Default to menu if hash is empty
+
+            // Adjust main visibility early, for splash screen
+            if (viewId === 'view-inicio') {
+                ui.main.style.display = 'none';
+                ui.inicio.style.display = 'flex';
+                document.body.style.overflow = 'hidden'; // Hide scroll for splash
+            } else {
+                ui.main.style.display = 'block';
+                ui.inicio.style.display = 'none';
+                document.body.style.overflow = 'auto'; // Enable scroll for content
+            }
             
             ui.sections.forEach(s => s.classList.remove('active'));
             const activeSection = document.getElementById(viewId);
-            if (activeSection) { activeSection.classList.add('active'); } else { document.getElementById('view-menu').classList.add('active'); viewId='view-menu'; } // Fallback
+            if (activeSection) { activeSection.classList.add('active'); } else { document.getElementById('view-menu').classList.add('active'); viewId='view-menu'; } // Fallback to menu if invalid hash
             
-            // Re-apply translations for new content or changed view (important for dynamic content)
+            // Re-apply translations for new content or changed view
             applyTranslations(localStorage.getItem('appLanguage') || 'es');
 
             // View-specific initialization/rendering
             if (viewId === 'view-conceptos') renderConcepts();
             if (viewId === 'view-practica') {
-                if (data?.topicId) { 
+                if (data?.topicId) { // Direct practice for a specific topic
                     ui.practice.search.value = getTranslatedText(mathConcepts[data.topicId]?.nameKey || "");
+                    // This will implicitly call generatePracticeContent as renderPracticeSearch re-renders content
                 } else {
-                    ui.practice.search.value = ""; 
+                    ui.practice.search.value = ""; // Clear search if not coming from a specific topic
                 }
-                renderPracticeSearch(data?.topicId); 
+                renderPracticeSearch(data?.topicId); // Always render practice search / content
             }
             if (viewId === 'view-concepto-detalle' && data?.topicId) renderConceptDetail(data.topicId);
             if (viewId === 'view-chat') handleChatEntry(data);
@@ -251,6 +263,7 @@
                 document.activeElement.blur();
             }
         }
+
         function showInitialView(){
             // Determine initial view (splash screen vs menu)
             const initialHash = location.hash;
@@ -299,7 +312,7 @@
                         ui.chat.yourCode.textContent=state.myCode;
                         renderFriends();
                     } else {
-                        alert(getTranslatedText('usernameTakenAlert', res.message)); 
+                        alert(getTranslatedText('usernameTakenAlert', res.message)); // Use server message if specific
                         localStorage.clear(); // Clear local data on registration failure to force re-prompt
                         state.myUsername = null;
                         state.myCode = null;
@@ -357,7 +370,6 @@
         function handleChatEntry(data){initUser();if(data?.problem){setTimeout(()=>{alert(getTranslatedText('selectFriendShareProblemAlert'));ui.chat.chatInput.value=data.problem;history.replaceState({},'',location.pathname+location.hash);},500);}}
         
         // --- CONCEPTS LOGIC ---
-        let conceptUsedTopics = new Set(); // To store unique topics already presented in Concepts grid
         function setupConcepts(){
             ui.concepts.search.addEventListener('input',renderConcepts);
             // Fill datalist suggestions
@@ -386,8 +398,8 @@
             filteredKeys.forEach(key => {
                 const item=mathConcepts[key];
                 const card=document.createElement('div'); card.className='content-card card';
-                card.setAttribute('role', 'article'); // ARIA role
-                card.setAttribute('tabindex', '0'); // Make cards focusable
+                card.setAttribute('role', 'article'); 
+                card.setAttribute('tabindex', '0'); 
                 card.setAttribute('aria-labelledby', `concept-name-${key}`);
                 card.innerHTML=`<h4 id="concept-name-${key}" data-lang-key="${item.nameKey}"></h4><p data-lang-key="${item.topicKey}"></p>`;
                 card.addEventListener('click',()=>{history.pushState({topicId:key},'','#view-concepto-detalle');showView('#view-concepto-detalle',{topicId:key});});
@@ -412,13 +424,12 @@
                     <h3><i class="fas fa-exclamation-triangle" aria-hidden="true" style="color:var(--primary-color); margin-right: 0.5rem;"></i> <span data-lang-key="errorsTitle"></span></h3><p data-lang-key="${item.errorsKey}"></p>
                     <button class="btn practiquemos-btn" data-topic-id="${topicId}" style="margin-top:1.5rem;" data-lang-key="practiceButton"></button>
                 </div>`;
-            // Add image only if specified in mathData and desired for detail view
-            if (item.image) { 
+            if (item.image) { // Add image visually only if present
                 const imgElement = document.createElement('img');
                 imgElement.src = item.image;
-                imgElement.alt = getTranslatedText(item.nameKey);
+                imgElement.alt = getTranslatedText(item.nameKey); // Alt text from translation
                 imgElement.style.cssText = 'width: 100%; max-width: 400px; height: auto; display: block; margin: 1rem auto; border-radius: var(--radius);';
-                ui.concepts.detail.querySelector('.card p').prepend(imgElement); 
+                ui.concepts.detail.querySelector('.card p').prepend(imgElement); // Place image inside the card for structure
             }
 
             ui.concepts.detail.querySelector('.practiquemos-btn').addEventListener('click',e=>{const id=e.target.dataset.topicId;history.pushState({topicId:id},'','#view-practica');showView('#view-practica',{topicId:id});});
@@ -426,8 +437,7 @@
         }
 
     // --- PRACTICE LOGIC ---
-    let solvedProblems = new Set(); 
-    let problemSetForSession = new Set(); // Stores problems seen in current session
+    let solvedProblems = new Set(); // Stores solved problems across a session for repetition checking
     function setupPractice() {
         ui.practice.search.addEventListener('input',renderPracticeSearch);
         // Fill datalist suggestions for practice search
@@ -447,9 +457,6 @@
 
         if(defaultTopicId && keys.includes(defaultTopicId)) { 
             keys = [defaultTopicId]; 
-            ui.practice.search.value = getTranslatedText(mathData[defaultTopicId].nameKey);
-            setTimeout(() => generatePracticeContent(defaultTopicId), 100); 
-            return; 
         } else {
             keys = keys.filter(key=>getTranslatedText(mathData[key].nameKey).toLowerCase().includes(term));
         }
@@ -465,22 +472,22 @@
             card.innerHTML=`<h4 id="practice-topic-name-${key}" data-lang-key="${item.nameKey}"></h4><p data-lang-key="${item.topicKey}Desc"></p><button class="btn" data-topic-id="${key}" data-lang-key="startButton" aria-label="${getTranslatedText('startButton')} ${getTranslatedText(item.nameKey)}"></button>`;
             card.querySelector('button').addEventListener('click',e=>{
                 const topicId=e.target.dataset.topicId;
-                solvedProblems.clear(); 
+                solvedProblems.clear(); // Reset problems for new practice session
                 generatePracticeContent(topicId);
             });
             ui.practice.grid.appendChild(card);
         });
-        applyTranslations();
+        applyTranslations(); // Apply translations
     }
     
     function generatePracticeContent(topicId){
-        const item=mathConcepts[topicId];
+        const item=mathData[topicId];
         ui.practice.header.textContent=`${getTranslatedText('exercisesForText')}: ${getTranslatedText(item.nameKey)}`;
         ui.practice.grid.innerHTML='';
         let sessionUsedProblems=new Set(); 
 
         for(let i=0;i<5;i++){ 
-            const problem = genProblem(topicId, i < 3, sessionUsedProblems);
+            const problem = genProblem(topicId, i < 3, sessionUsedProblems); // Pass Set for unique checking
             if (!problem || !problem.question || !problem.answer) { 
                 console.warn(`Could not generate valid problem for ${topicId}. Attempting fallback.`);
                 problem = { typeKey: 'problemText', question: getTranslatedText('noPracticeForTopicText'), answer: 'N/A' };
@@ -488,7 +495,7 @@
                  sessionUsedProblems.add(problem.question);
             }
 
-            const card=document.createElement('div'); card.className='problem-card card';
+            const card=document.createElement('div');card.className='problem-card card';
             card.setAttribute('role', 'article');
             card.setAttribute('aria-labelledby', `problem-${topicId}-${i}-title`);
             card.setAttribute('tabindex', '0');
@@ -528,7 +535,7 @@
             history.pushState({problem},'',`#view-chat`); 
             showView(`#view-chat`, {problem: problem});
         }));
-        applyTranslations(); 
+        applyTranslations(); // Apply translations after rendering problems
     }
 
     function genProblem(topicId,isExercise,usedProblems){
@@ -538,131 +545,129 @@
         
         typeKey = isExercise ? "exerciseText" : "problemText";
         
-        let problemGenerator = function() {
-            let templates = [];
-            // Generic problem templates
+        let problemAttempt = null;
+        let attemptCount = 0;
+        let uniqueProblemFound = false;
+
+        // Try to generate a unique problem for this session
+        do {
+            attemptCount++;
+            let currentQuestion = '';
+            let currentAnswer = '';
+            
             switch (topicId) {
                 case 'Algebra': 
-                    templates.push({ 
-                        q: () => `Resuelve para x: ${n1}x + ${n2} = ${n1 * 3 + n2}`, 
-                        a: () => `3` 
-                    });
-                    templates.push({ 
-                        q: () => `Calcula: ${n1} - (${-n2}) * ${n3}.`, 
-                        a: () => (n1 - (-n2) * n3).toFixed(0) 
-                    });
+                    if(Math.random() > 0.5){
+                       currentQuestion = `${getTranslatedText('solveXText')}: ${n1}x + ${n2} = ${n1 * 3 + n2}`; currentAnswer = `3`; 
+                    } else {
+                       currentQuestion = `${getTranslatedText('calculateText')}: ${n1} - (${-n2}) * ${n3}.`; currentAnswer = (n1 - (-n2) * n3).toFixed(0); 
+                    }
                     break;
                 case 'Geometria':
-                    templates.push({ q: () => `${getTranslatedText('areaRectText').replace('[LADO1]',n2).replace('[LADO2]',n3)}`, a: () => (n2 * n3).toFixed(0) });
-                    templates.push({ q: () => `${getTranslatedText('perimSquareText').replace('[LADO]',n2)}`, a: () => (4 * n2).toFixed(0) });
+                    if(Math.random() > 0.5){
+                        currentQuestion = `${getTranslatedText('areaRectText', [n2,n3])}`; currentAnswer = (n2 * n3).toFixed(0);
+                    } else {
+                        currentQuestion = `${getTranslatedText('perimSquareText', [n2])}`; currentAnswer = (4 * n2).toFixed(0);
+                    }
                     break;
                 case 'Trigonometria':
                     const angle = [30,45,60][Math.floor(Math.random()*3)];
-                    templates.push({ q: () => `${getTranslatedText('sineCalculationText').replace('[ANGULO]', angle)}.`, a: () => (Math.sin(angle * Math.PI / 180)).toFixed(2) });
-                    templates.push({ q: () => `${getTranslatedText('tanCalculationText').replace('[ANGULO]',45)}.`, a: () => '1' });
+                    currentQuestion = `${getTranslatedText('sineCalculationText', [angle])}.`; currentAnswer = (Math.sin(angle * Math.PI / 180)).toFixed(2);
                     break;
                 case 'Funciones':
-                    templates.push({ q: () => `${getTranslatedText('ifFxText').replace('[VAR]',n1).replace('[N2]',n2)}. ${getTranslatedText('calcFxText').replace('[N3]',n3)}.`, a: () => (n1 * n3 + n2).toFixed(0)});
-                    templates.push({ q: () => `${getTranslatedText('isConstOrLinearText').replace('[N1]',n1)}?`, a: () => getTranslatedText('constantText')});
+                    if(Math.random() > 0.5){
+                        currentQuestion = `${getTranslatedText('ifFxText', [n1,n2])}. ${getTranslatedText('calcFxText', [n3])}.`; currentAnswer = (n1 * n3 + n2).toFixed(0);
+                    } else {
+                        currentQuestion = `${getTranslatedText('isConstOrLinearText', [n1])}?`; currentAnswer = getTranslatedText('constantText');
+                    }
                     break;
                 case 'EstadisticaYProbabilidad':
-                    templates.push({ q: () => `${getTranslatedText('probabilityCoinsText').replace('[MONEDAS]',n2)}`, a: () => Math.pow(0.5,n2).toFixed(Math.min(n2,4)) });
-                    templates.push({ q: () => `${getTranslatedText('avgDailyTempText').replace('[D1]', n1).replace('[D2]',n2).replace('[D3]',n3)}`, a: () => ((n1+n2+n3)/3).toFixed(2)});
+                    if(Math.random() > 0.5){
+                         currentQuestion = `${getTranslatedText('probabilityCoinsText', [n2])}`; currentAnswer = Math.pow(0.5,n2).toFixed(Math.min(n2,4));
+                    } else {
+                        currentQuestion = `${getTranslatedText('avgDailyTempText', [n1,n2,n3])}`; currentAnswer = ((n1+n2+n3)/3).toFixed(2);
+                    }
                     break;
                 case 'Calculo':
-                    templates.push({ q: () => `${getTranslatedText('derivativeOfX2Text')}`, a: () => '2x' });
-                    templates.push({ q: () => `${getTranslatedText('integralOf1Text')}`, a: () => 'x+C' });
+                    if(Math.random() > 0.5){
+                        currentQuestion = `${getTranslatedText('derivativeOfX2Text')}`; currentAnswer = `2x`;
+                    } else {
+                        currentQuestion = `${getTranslatedText('integralOf1Text')}`; currentAnswer = `x+C`;
+                    }
                     break;
                 case 'OperacionesConEnteros':
-                    templates.push({ q: () => `Calcula: ${n1} + (${n2}) * ${n3} - ${n4}.`, a: () => (n1 + n2 * n3 - n4).toFixed(0)});
-                    templates.push({ q: () => `Calcula: (${n1} - ${n2}) * ${n3} / ${n4}.`, a: () => ((n1-n2)*n3/n4).toFixed(2)});
+                    currentQuestion = `${getTranslatedText('calculateText')}: ${n1} + (${n2}) * ${n3} - ${n4}.`; currentAnswer = (n1 + n2 * n3 - n4).toFixed(0);
                     break;
                 case 'FraccionesYDecimales':
-                    templates.push({ q: () => `Resuelve: ${n1}/${n2} + ${n3}/${n4} (redondea a 2 decimales).`, a: () => ( (n1*n4 + n3*n2) / (n2*n4) ).toFixed(2) });
-                    templates.push({ q: () => `Convierte 0.${n1}${n2} a fracción.`, a: () => `${n1*10+n2}/100` });
+                    currentQuestion = `${getTranslatedText('solveText')}: ${n1}/${n2} + ${n3}/${n4} (redondea a 2 decimales).`; currentAnswer = ( (n1*n4 + n3*n2) / (n2*n4) ).toFixed(2);
                     break;
                 case 'EcuacionesCuadraticas':
-                    templates.push({ q: () => `Resuelve: x² - ${n1}x + ${n2} = 0 (dame la solución más pequeña).`, a: () => ((n1 - Math.sqrt(n1*n1 - 4*n2))/2).toFixed(2) }); // Requires sqrt checks
+                    currentQuestion = `${getTranslatedText('solveQuadraticText').replace('[C1]', n1 + n2).replace('[C2]', n1 * n2)}.`; // Example placeholder for quadratic equation formatting
+                    // For quadratic equations, actual solving to get string answer. Simplistic example: x^2 + 5x + 6 = 0 (sol min is -3)
+                    let sqrtVal = (n1 + n2)*(n1 + n2) - 4 * (n1*n2);
+                    if (sqrtVal < 0) sqrtVal = 0; // Prevent complex numbers in basic random problems
+                    let root1 = (-(n1+n2) + Math.sqrt(sqrtVal)) / 2;
+                    let root2 = (-(n1+n2) - Math.sqrt(sqrtVal)) / 2;
+                    currentAnswer = Math.min(root1, root2).toFixed(2); // Get smallest root for unique answer
+                    currentQuestion = `${getTranslatedText('solveQuadraticEquationText', n1 + n2, n1 * n2)}`;
                     break;
                 case 'Matrices':
-                    templates.push({ q: () => `Suma la matriz [[${n1},${n2}],[${n3},${n4}]] con [[1,0],[0,1]].`, a: () => `[[${n1+1},${n2}],[${n3},${n4+1}]]` });
+                    currentQuestion = `${getTranslatedText('sumMatrixText', n1,n2,n3,n4)}.`; currentAnswer = `[[${n1+1},${n2}],[${n3},${n4+1}]]`; // Simplified example
                     break;
                 default:
-                    // Fallback to a general definition problem
-                    return { q: () => getTranslatedText('defineTextForTopic', getTranslatedText(mathConcepts[topicId]?.nameKey || topicId)), a: () => getTranslatedText('reviewConceptsText') };
+                    currentQuestion = getTranslatedText('defineTextForTopic', getTranslatedText(mathConcepts[topicId]?.nameKey || topicId));
+                    currentAnswer = getTranslatedText('reviewConceptsText');
             }
 
             // Environmental problems (if isExercise is false, these override generic ones)
             if (!isExercise) {
                 switch(Math.floor(Math.random() * 3)) { // 3 types of environmental problems
-                    case 0: return { // Water Consumption
-                        q: () => getTranslatedText('waterConsumptionProblem').replace('[CONSUMO]', n1 * 100).replace('[REDUCCION]', n2).replace('[DIAS]', n3),
-                        a: () => ((n1 * 100 * n2 / 100) * n3).toFixed(0)
-                    };
-                    case 1: return { // Plastic Waste
-                        q: () => getTranslatedText('plasticWasteProblem').replace('[FAMILIAS]', n1).replace('[PLASTICO]', n2).replace('[RECICLA]', n3).replace('[SEMANAS]', n4),
-                        a: () => ( (n1 * n2) * (n3 / 100) * n4 ).toFixed(0) // Kg de plástico reciclado en N semanas
-                    };
-                    case 2: return { // Deforestation
-                        q: () => getTranslatedText('deforestationProblem').replace('[ARBOLES]', n1 * 100).replace('[HECTAREAS]', n2),
-                        a: () => (n1 * 100 / n2).toFixed(2)
-                    };
+                    case 0: 
+                        currentQuestion = getTranslatedText('waterConsumptionProblem', [n1 * 100, n2, n3]);
+                        currentAnswer = ((n1 * 100 * n2 / 100) * n3).toFixed(0);
+                        break;
+                    case 1: 
+                        currentQuestion = getTranslatedText('plasticWasteProblem', [n1, n2, n3, n4]);
+                        currentAnswer = ( (n1 * n2) * (n3 / 100) * n4 ).toFixed(0);
+                        break;
+                    case 2: 
+                        currentQuestion = getTranslatedText('deforestationProblem', [n1 * 100, n2]);
+                        currentAnswer = (n1 * 100 / n2).toFixed(2);
+                        break;
                     default: 
-                        return { q: () => getTranslatedText('problemText'), a: () => 'N/A' }; // Default generic problem
+                        currentQuestion = getTranslatedText('problemText'); currentAnswer = "N/A"; 
+                        break;
                 }
             }
-
-            if(templates.length > 0) return templates[Math.floor(Math.random() * templates.length)]();
-            return { q: () => getTranslatedText('defineTextForTopic', getTranslatedText(mathConcepts[topicId]?.nameKey || topicId)), a: () => getTranslatedText('reviewConceptsText') };
-
-        })();
-
-        let attempt = 0;
-        let finalProblem = null;
-        let problemIdentifier = "";
-
-        // Attempt to find a unique problem for this session
-        do {
-            const template = templates[Math.floor(Math.random() * templates.length)];
-            // Handle q and a which might be functions or static strings
-            const qResult = typeof template.q === 'function' ? template.q() : template.q;
-            const aResult = typeof template.a === 'function' ? template.a() : template.a;
-
-            finalProblem = { typeKey, question: qResult, answer: String(aResult).trim() };
-            problemIdentifier = `${topicId}-${finalProblem.question}-${finalProblem.answer}`; // Unique ID for checking used problems
             
-            attempt++;
-            if (attempt > 50) { 
-                console.warn(`Could not generate unique problem for ${topicId} after ${attempt} attempts. Skipping.`);
-                return { typeKey: 'problemText', question: getTranslatedText('noPracticeForTopicText'), answer: 'N/A' };
+            problemAttempt = { typeKey, question: currentQuestion, answer: currentAnswer };
+            if (!usedProblems.has(problemAttempt.question)) {
+                uniqueProblemFound = true;
             }
-        } while (usedProblems.has(problemIdentifier)); 
+        } while(!uniqueProblemFound && attemptCount < 50);
 
-        usedProblems.add(problemIdentifier); // Add to set of problems generated in this session
-
-        return finalProblem;
+        if (!uniqueProblemFound) {
+             console.warn(`Could not generate unique problem for ${topicId} after ${attemptCount} attempts. Skipping.`);
+             return { typeKey: 'problemText', question: getTranslatedText('noPracticeForTopicText'), answer: 'N/A' };
+        }
+        
+        return problemAttempt;
     }
     
     // --- OTHER SECTIONS ---
-    function setupConsejos(){
-        ui.consejos.container.innerHTML = ''; 
-        consejosData.forEach(c => {
-            const card = document.createElement('div'); card.className = 'card'; card.setAttribute('role', 'article'); card.setAttribute('aria-labelledby', `tip-title-${c.icon}`); card.setAttribute('tabindex', '0'); 
-            card.innerHTML = `<h3 id="tip-title-${c.icon}"><i class="fas ${c.icon}" aria-hidden="true" style="color:var(--primary-color); margin-right: 0.5rem;"></i> <span data-lang-key="${c.titleKey}"></span></h3><p data-lang-key="${c.textKey}"></p>`; 
-            ui.consejos.container.appendChild(card);
-        }); 
-        applyTranslations(); // Translate after rendering
-    }
+    function setupConsejos(){ui.consejos.container.innerHTML = ''; consejosData.forEach(c => {const card = document.createElement('div'); card.className = 'card'; card.setAttribute('role', 'article'); card.setAttribute('aria-labelledby', `tip-title-${c.icon}`); card.setAttribute('tabindex', '0'); card.innerHTML = `<h3 id="tip-title-${c.icon}"><i class="fas ${c.icon}" aria-hidden="true" style="color:var(--primary-color); margin-right: 0.5rem;"></i> <span data-lang-key="${c.titleKey}"></span></h3><p data-lang-key="${c.textKey}"></p>`; ui.consejos.container.appendChild(card);}); applyTranslations(); }
     function renderQuienesSomos(){ui.quienes.container.innerHTML = quienesSomosText; applyTranslations(); }
     
     // --- SETTINGS LOGIC ---
     function setupSettings(){
         // Language Selector
         ui.ajustes.lang.addEventListener('change',e=>{applyTranslations(e.target.value); location.reload();}); 
+        
         // Background customization
         ui.ajustes.bgUpload.addEventListener('change',e=>{const file=e.target.files[0];if(file)handleFileUpload(file);});
         ui.ajustes.bgUrlForm.addEventListener('submit',e=>{e.preventDefault();const url=ui.ajustes.bgUrlInput.value.trim();if(url)applyBackground(url);});
         ui.ajustes.bgReset.addEventListener('click', resetBackground);
+        
         // Accessibility toggles
         ui.ajustes.fontSizeToggle.addEventListener('change', e => {
             document.body.classList.toggle('large-text', e.target.checked);
@@ -708,12 +713,9 @@
             if (el.tagName === 'INPUT' && langPack[key + 'Placeholder']) {
                 el.placeholder = langPack[key + 'Placeholder']; 
             } else if (el.tagName === 'BUTTON' && el.getAttribute('aria-label') && langPack[key]) {
-                // For buttons with aria-labels where original label text might also be the data-lang-key
-                if (el.dataset.originalLabel === undefined) {
-                     el.dataset.originalLabel = el.textContent; // Store original text if not already stored
-                }
-                 el.setAttribute('aria-label', `${langPack[key]} ${getTranslatedText(el.dataset.originalLabel)}`);
-                 el.textContent = langPack[key];
+                if (el.dataset.originalLabel === undefined) { el.dataset.originalLabel = el.textContent; } // Store original text if not already stored
+                el.setAttribute('aria-label', `${langPack[key]} ${getTranslatedText(el.dataset.originalLabel)}`);
+                el.textContent = langPack[key];
             }
             // All other text content
             else if (langPack[key] !== undefined) {
@@ -761,19 +763,12 @@
     // Utility function to get translated text (with fallback)
     function getTranslatedText(key, lang = localStorage.getItem('appLanguage') || 'es') {
         const langPack = translations[lang] || translations.es;
-        return langPack[key] !== undefined ? langPack[key] : translations.es[key] || key; // Fallback to ES and then key itself
+        // Prioritize actual translation. If not found, check if key looks like a default value (e.g. from data)
+        return langPack[key] !== undefined ? langPack[key] : (key.endsWith('Name') || key.endsWith('Desc') || key.endsWith('HowTo') || key.endsWith('Types') || key.endsWith('Errors') || key.endsWith('Text') || key === 'math' ? translations.es[key] || key : key);
     }
 
+
     // --- INITIALIZATION ---
-    function showInitialView() { 
-        const initialHash = location.hash;
-        if (!sessionStorage.getItem('visitedBefore') && initialHash !== '#view-menu') {
-             showView('#view-inicio');
-        } else {
-            showView(initialHash || '#view-menu');
-        }
-    }
-    
     function init() {
         // Particles.js for splash screen background
         if(document.getElementById('particles-js'))particlesJS('particles-js',{"particles":{"number":{"value":80,"density":{"enable":true,"value_area":800}},"color":{"value":"#ffffff"},"shape":{"type":"circle"},"opacity":{"value":0.5,"random":false,"anim":{"enable":true,"speed":1,"opacity_min":0.1,"sync":false}},"size":{"value":3,"random":true,"anim":{"enable":false,"size_min":0.1,"sync":false}},"line_linked":{"enable":true,"distance":150,"color":"#ffffff","opacity":0.4,"width":1},"move":{"enable":true,"speed":6,"direction":"none","random":false,"straight":false,"out_mode":"out","bounce":false}},"interactivity":{"detect_on":"canvas","events":{"onhover":{"enable":true,"mode":"grab"},"onclick":{"enable":true,"mode":"push"},"resize":true},"modes":{"grab":{"distance":200,"line_linked":{"opacity":1}},"push":{"particles_nb":4},"repulse":{"distance":200,"duration":0.4}}}});
