@@ -10,43 +10,56 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>:root{--primary-gradient:linear-gradient(90deg, #1abc9c, #16a085);--primary-color:#16a085;--secondary-color:#2c3e50;--bg-color:#ecf0f1;--card-bg:#ffffff;--text-dark:#34495e;--text-light:#7f8c8d;--shadow:0 10px 30px rgba(0,0,0,0.07);--radius:16px;--online-color:#2ecc71;--offline-color:#bdc3c7;--font-base-size:16px}
-    body.large-text{--font-base-size:18px;} /* Increased to 18px for better accessibility */
-    body.dark-theme{--primary-gradient:linear-gradient(90deg, #1abc9c, #1dd2af);--primary-color:#1abc9c;--secondary-color:#ecf0f1;--bg-color:#2c3e50;--card-bg:#34495e;--text-dark:#ecf0f1;--text-light:#95a5a6;}
-    *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}body{font-family:'Lato',sans-serif;background-color:var(--bg-color);color:var(--text-dark);line-height:1.7;transition:background-color .3s,color .3s;font-size:var(--font-base-size)}
-    main{display:none}.page-section{display:none}.page-section.active{display:block;animation:fadeIn 0.5s ease-in-out forwards}@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}.container{max-width:1200px;margin:0 auto;padding:2rem}.page-header{margin-bottom:2.5rem;text-align:center}.page-header h1{font-family:'Poppins',sans-serif;font-size:calc(var(--font-base-size) * 2);color:var(--secondary-color)}.page-header p{font-size:calc(var(--font-base-size) * 1.1);color:var(--text-light);max-width:700px;margin:.5rem auto 0}
-    .btn{display:inline-block;padding:.8rem 1.8rem;background:var(--primary-gradient);color:white;border:none;border-radius:50px;font-weight:700;text-decoration:none;cursor:pointer;transition:transform .2s ease,box-shadow .3s ease;box-shadow:0 4px 15px rgba(22,160,133,.3);font-size:var(--font-base-size)}.btn:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(22,160,133,.4)}.btn-secondary{background:#95a5a6;box-shadow:0 4px 15px rgba(0,0,0,.1)}.btn-secondary:hover{background:#7f8c8d}.btn-back{display:block;width:fit-content;margin-top:2.5rem}
-    .card{background-color:var(--card-bg);border-radius:var(--radius);padding:2rem;box-shadow:var(--shadow);transition:transform .3s,box-shadow .3s, background-color .3s, color .3s}.card:hover{transform:translateY(-8px);box-shadow:0 15px 40px rgba(0,0,0,.1)}
-    .input-group{display:flex;gap:.5rem;margin-bottom:1rem}.input-field{width:100%;padding:.8rem 1rem;border:1px solid #dee2e6;background:var(--bg-bg);color:var(--text-dark);border-radius:8px;font-size:var(--font-base-size);transition:border-color .2s,box-shadow .2s}.input-field:focus-visible{outline:2px solid var(--primary-color);box-shadow:0 0 0 3px rgba(22,160,133,.2)}
-    /* Inicio */#view-inicio{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;z-index:1000;color:white;padding:1rem;background-color:#1c2541}.inicio-content{animation:fadeIn 2s}.inicio-content h1{font-family:'Poppins',sans-serif;font-size:clamp(3rem, 10vw, 5.5rem);letter-spacing:2px}.inicio-content p{font-size:1.5rem;color:rgba(255,255,255,.8);margin-bottom:2rem}.inicio-content .btn{padding:1rem 3rem;font-size:1.2rem}
-    /* Menu */.menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem}.menu-card{text-align:center;text-decoration:none;color:var(--text-dark);font-size:var(--font-p-size)}.menu-card .icon{font-size:3rem;color:var(--primary-color);margin-bottom:1rem;display:block}.menu-card h3{font-family:'Poppins',sans-serif;font-size:calc(var(--font-base-size)*1.3)}#view-menu{position:relative;overflow:hidden;border-radius:var(--radius);padding:2rem;background-color:var(--bg-color);transition:none}
-    #menu-background-layer{position:absolute;top:0;left:0;width:100%;height:100%;z-index:-1;opacity:0.2;background-image:linear-gradient(-45deg, #2ecc71, #1abc9c, #3498db, #2c3e50); background-size: 200% 200%; animation:gradientBG 15s ease infinite;}@keyframes gradientBG {0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%}}
-    /* Conceptos */#concept-detail-container h3{font-size:var(--font-h3-size);color:var(--primary-color);margin-top:1.5rem}.content-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.5rem}.content-card{cursor:pointer} .content-card h4{font-family:'Poppins',sans-serif;font-size:calc(var(--font-base-size)*1.2)}.content-card p {font-size:var(--font-small-size);}.datalist-suggestions{max-height:150px;overflow-y:auto;border:1px solid #dee2e6;border-top:none;border-radius:0 0 8px 8px;background-color:var(--card-bg);position:absolute;width:100%;z-index:10}.datalist-suggestions option{padding:.5rem 1rem;cursor:pointer}.datalist-suggestions option:hover{background-color:#f1f3f5}
-    /* Practice */.problem-card{margin-bottom:1.5rem}.problem-card .response-form{margin-top:1rem;display:flex;gap:.5rem}.problem-card .feedback{margin-top:.5rem;padding:.5rem;border-radius:8px;display:none;font-weight:700;font-size:var(--font-small-size)}.problem-card .feedback.correct{background-color:#d4edda;color:#155724}.problem-card .feedback.incorrect{background-color:#f8d7da;color:#721c24}
-    /* Chat */.chat-layout{display:grid;grid-template-columns:320px 1fr;gap:1.5rem;height:75vh;max-height:700px}#friends-list{overflow-y:auto;flex-grow:1}
-    .friend-item{padding:.8rem 1rem;border-radius:8px;cursor:pointer;margin-bottom:.5rem;display:flex;align-items:center;gap:.75rem;font-weight:500;transition:background-color .2s;font-size:var(--font-p-size)}.friend-item:hover,.friend-item.active{background-color:#e0e6e8}
-    .friend-status{width:10px;height:10px;border-radius:50%;background-color:var(--offline-color);transition:background-color .3s}.friend-status.online{background-color:var(--online-color)}
-    .friend-delete{background:none;border:none;color:var(--text-light);cursor:pointer;opacity:0;transition:opacity .2s;margin-left:auto;font-size:1.2rem}.friend-item:hover .friend-delete{opacity:1}
-    .chat-window{display:flex;flex-direction:column}.chat-messages{flex-grow:1;border:1px solid #dee2e6;border-radius:var(--radius);padding:1rem;overflow-y:auto;margin-bottom:1rem;background:var(--bg-color)}.message-bubble{position:relative;max-width:80%;width:fit-content;padding:.7rem 1.2rem;border-radius:20px;margin-bottom:.75rem;line-height:1.5;white-space:pre-wrap;word-wrap:break-word;font-size:var(--font-p-size)}
-    .message-bubble.sent{background:var(--primary-gradient);color:white;margin-left:auto;border-bottom-right-radius:5px}.message-bubble.received{background-color:#e9ecef;color:var(--text-dark);margin-right:auto;border-bottom-left-radius:5px}
-    .message-delete{position:absolute;top:50%;transform:translateY(-50%);right:-25px;background:none;border:none;color:var(--text-light);cursor:pointer;opacity:0;transition:opacity .2s;font-size:.8em}.message-bubble.sent:hover .message-delete{opacity:1}
-    #username-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;z-index:1000;animation:fadeIn .5s}
-    /* Settings */.settings-container h3 {font-family: 'Poppins', sans-serif; font-size: calc(var(--font-base-size)*1.3); color: var(--secondary-color);}.toggle-switch{display:flex;align-items:center;justify-content:space-between;width:100%}.toggle-switch p{font-size:var(--font-p-size);margin:0}.toggle-switch input{opacity:0;width:0;height:0}.slider{position:relative;cursor:pointer;width:50px;height:26px;background-color:#ccc;border-radius:26px;transition:.4s}.slider:before{position:absolute;content:"";height:18px;width:18px;left:4px;bottom:4px;background-color:white;border-radius:50%;transition:.4s}input:checked+.slider{background-color:var(--primary-color)}input:checked+.slider:before{transform:translateX(24px)}
-    /* Accessibility */ .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-    :focus-visible{outline:3px solid var(--primary-color) !important; outline-offset: 2px;}
+    
+    <style>
+      :root{
+        --primary-gradient:linear-gradient(90deg, #1abc9c, #16a085);--primary-color:#16a085;--secondary-color:#2c3e50;
+        --bg-color:#ecf0f1;--card-bg:#ffffff;--text-dark:#34495e;--text-light:#95a5a6;
+        --shadow:0 10px 30px rgba(0,0,0,0.07);--radius:16px;--online-color:#2ecc71;--offline-color:#bdc3c7;
+        --font-base-size:16px;
+      }
+      body.large-text{--font-base-size:18px;}
+      body.dark-theme{
+        --primary-gradient:linear-gradient(90deg, #1abc9c, #1dd2af);--primary-color:#1abc9c;--secondary-color:#ecf0f1;
+        --bg-color:#2c3e50;--card-bg:#34495e;--text-dark:#ecf0f1;--text-light:#95a5a6;
+      }
+      *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+      body{font-family:'Lato',sans-serif;background-color:var(--bg-color);color:var(--text-dark);line-height:1.7;transition:background-color .3s,color .3s;font-size:var(--font-base-size)}
+      main{display:none}.page-section{display:none}.page-section.active{display:block;animation:fadeIn 0.5s ease-in-out forwards}@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+      .container{max-width:1200px;margin:0 auto;padding:2rem}.page-header{margin-bottom:2.5rem;text-align:center}
+      .page-header h1{font-family:'Poppins',sans-serif;font-size:calc(var(--font-base-size)*2.2);color:var(--secondary-color)}.page-header p{font-size:calc(var(--font-base-size)*1.1);color:var(--text-light);max-width:700px;margin:.5rem auto 0}
+      .btn{display:inline-block;padding:.8rem 1.8rem;background:var(--primary-gradient);color:white;border:none;border-radius:50px;font-weight:700;text-decoration:none;cursor:pointer;transition:transform .2s ease,box-shadow .3s ease;box-shadow:0 4px 15px rgba(22,160,133,.3);font-size:var(--font-base-size)}.btn:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(22,160,133,.4)}.btn-secondary{background:#95a5a6;box-shadow:0 4px 15px rgba(0,0,0,.1)}.btn-secondary:hover{background:#7f8c8d}.btn-back{display:block;width:fit-content;margin-top:2.5rem}
+      .card{background-color:var(--card-bg);border-radius:var(--radius);padding:2rem;box-shadow:var(--shadow);transition:transform .3s,box-shadow .3s, background-color .3s, color .3s}.card:hover{transform:translateY(-8px);box-shadow:0 15px 40px rgba(0,0,0,.1)}
+      .input-group{display:flex;gap:.5rem;margin-bottom:1rem}.input-field{width:100%;padding:.8rem 1rem;border:1px solid #dee2e6;background:var(--bg-color);color:var(--text-dark);border-radius:8px;font-size:var(--font-base-size);transition:border-color .2s,box-shadow .2s}.input-field:focus-visible{outline:2px solid var(--primary-color);box-shadow:0 0 0 3px rgba(22,160,133,.2)}
+      /* Inicio */#view-inicio{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;z-index:1000;color:white;padding:1rem;background-color:#1c2541}
+      .inicio-content{animation:fadeIn 2s}.inicio-content h1{font-family:'Poppins',sans-serif;font-size:clamp(3rem, 10vw, 5.5rem);letter-spacing:2px}.inicio-content p{font-size:1.5rem;color:rgba(255,255,255,.8);margin-bottom:2rem}.inicio-content .btn{padding:1rem 3rem;font-size:1.2rem}
+      /* Menú */.menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem}.menu-card{text-align:center;text-decoration:none;color:var(--text-dark);font-size:var(--font-p-size)}.menu-card .icon{font-size:3rem;color:var(--primary-color);margin-bottom:1rem;display:block}.menu-card h3{font-family:'Poppins',sans-serif;font-size:calc(var(--font-base-size)*1.3)}#view-menu{position:relative;overflow:hidden;border-radius:var(--radius);padding:2rem;background-color:var(--bg-color);transition:none}
+      #menu-background-layer{position:absolute;top:0;left:0;width:100%;height:100%;z-index:-1;opacity:0.2;background-image:linear-gradient(-45deg, #2ecc71, #1abc9c, #3498db, #2c3e50); background-size: 200% 200%; animation:gradientBG 15s ease infinite;}@keyframes gradientBG {0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%}}
+      /* Conceptos */#concept-detail-container h3{font-size:calc(var(--font-base-size)*1.5);color:var(--primary-color);margin-top:1.5rem}.content-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.5rem}.content-card{cursor:pointer} .content-card h4{font-family:'Poppins',sans-serif;font-size:calc(var(--font-base-size)*1.2)}.content-card p{font-size:var(--font-base-size);}.datalist-suggestions{max-height:150px;overflow-y:auto;border:1px solid #dee2e6;border-top:none;border-radius:0 0 8px 8px;background-color:var(--card-bg);position:absolute;width:100%;z-index:10}.datalist-suggestions option{padding:.5rem 1rem;cursor:pointer}.datalist-suggestions option:hover{background-color:#f1f3f5}
+      /* Práctica */.problem-card{margin-bottom:1.5rem}.problem-card .response-form{margin-top:1rem;display:flex;gap:.5rem}.problem-card .feedback{margin-top:.5rem;padding:.5rem;border-radius:8px;display:none;font-weight:700;font-size:var(--font-base-size)}.problem-card .feedback.correct{background-color:#d4edda;color:#155724}.problem-card .feedback.incorrect{background-color:#f8d7da;color:#721c24}
+      /* Chat */.chat-layout{display:grid;grid-template-columns:320px 1fr;gap:1.5rem;height:75vh;max-height:700px}#friends-list{overflow-y:auto;flex-grow:1}
+      .friend-item{padding:.8rem 1rem;border-radius:8px;cursor:pointer;margin-bottom:.5rem;display:flex;align-items:center;gap:.75rem;font-weight:500;transition:background-color .2s;font-size:var(--font-base-size)}.friend-item:hover,.friend-item.active{background-color:#e0e6e8}
+      .friend-status{width:10px;height:10px;border-radius:50%;background-color:var(--offline-color);transition:background-color .3s}.friend-status.online{background-color:var(--online-color)}.friend-delete{background:none;border:none;color:var(--text-light);cursor:pointer;opacity:0;transition:opacity .2s;margin-left:auto;font-size:calc(var(--font-base-size)*1.2)}.friend-item:hover .friend-delete{opacity:1}
+      .chat-window{display:flex;flex-direction:column}.chat-messages{flex-grow:1;border:1px solid #dee2e6;border-radius:var(--radius);padding:1rem;overflow-y:auto;margin-bottom:1rem;background:var(--bg-color)}.message-bubble{position:relative;max-width:80%;width:fit-content;padding:.7rem 1.2rem;border-radius:20px;margin-bottom:.75rem;line-height:1.5;white-space:pre-wrap;word-wrap:break-word;font-size:var(--font-base-size)}
+      .message-bubble.sent{background:var(--primary-gradient);color:white;margin-left:auto;border-bottom-right-radius:5px}.message-bubble.received{background-color:#e9ecef;color:var(--text-dark);margin-right:auto;border-bottom-left-radius:5px}
+      .message-delete{position:absolute;top:50%;transform:translateY(-50%);right:-25px;background:none;border:none;color:var(--text-light);cursor:pointer;opacity:0;transition:opacity .2s;font-size:var(--font-base-size)}.message-bubble.sent:hover .message-delete{opacity:1}
+      /* Username Overlay */#username-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;z-index:1000;animation:fadeIn .5s}
+      /* Ajustes */.settings-container h3{font-family:'Poppins',sans-serif;font-size:calc(var(--font-base-size)*1.3);color:var(--secondary-color)}.toggle-switch{display:flex;align-items:center;justify-content:space-between;width:100%;margin-top:.5rem}.toggle-switch p{font-size:var(--font-base-size);margin:0}.toggle-switch input{opacity:0;width:0;height:0}
+      .slider{position:relative;cursor:pointer;width:50px;height:26px;background-color:#ccc;border-radius:26px;transition:.4s}.slider:before{position:absolute;content:"";height:18px;width:18px;left:4px;bottom:4px;background-color:white;border-radius:50%;transition:.4s}input:checked+.slider{background-color:var(--primary-color)}input:checked+.slider:before{transform:translateX(24px)}
+      /* Accesibilidad */ .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}:focus-visible{outline:3px solid var(--primary-color) !important; outline-offset: 2px;}
     </style>
 </head>
 <body>
-    <section id="view-inicio" class="page-section"><h1 class="sr-only" data-lang-key="mainTitle">Potencia tu Mente - Pantalla de Bienvenida</h1><div id="particles-js" aria-hidden="true"></div><div class="inicio-content" role="dialog" aria-labelledby="welcome-title"><h2 id="welcome-title" data-lang-key="mainTitle">Potencia tu Mente</h2><p data-lang-key="welcomeSlogan">Tu viaje al dominio de las matemáticas comienza ahora.</p><a href="#view-menu" class="btn nav-link" role="button" aria-label="Entrar al menú principal" data-lang-key="enterButton">Entrar</a></div></section>
+    <section id="view-inicio" class="page-section" aria-labelledby="welcome-title"><h1 class="sr-only" data-lang-key="mainTitle">Potencia tu Mente - Pantalla de Bienvenida</h1><div id="particles-js" aria-hidden="true"></div><div class="inicio-content" role="dialog" aria-labelledby="welcome-title"><h2 id="welcome-title" data-lang-key="mainTitle">Potencia tu Mente</h2><p data-lang-key="welcomeSlogan">Tu viaje al dominio de las matemáticas comienza ahora.</p><a href="#view-menu" class="btn nav-link" role="button" aria-label="Entrar al menú principal" data-lang-key="enterButton">Entrar</a></div></section>
     
     <main><header class="sr-only"><h1>Contenido Principal de Potencia tu Mente</h1></header><div class="container">
-        <section id="view-menu" class="page-section card" role="region" aria-labelledby="menu-title"><div class="page-header"><h2 id="menu-title" data-lang-key="menuTitle">Menú Principal</h2></div><div class="menu-grid"><a href="#view-conceptos" class="menu-card nav-link card" role="link"><div class="icon" aria-hidden="true"><i class="fas fa-book-open"></i></div><h3 data-lang-key="conceptsTitle">Conceptos</h3><p data-lang-key="conceptsMenuDesc">Explora todos los temas.</p></a><a href="#view-practica" class="menu-card nav-link card"><div class="icon" aria-hidden="true"><i class="fas fa-brain"></i></div><h3 data-lang-key="practiceTitle">Práctica</h3><p data-lang-key="practiceMenuDesc">Ejercicios aleatorios.</p></a><a href="#view-consejos" class="menu-card nav-link card"><div class="icon" aria-hidden="true"><i class="fas fa-lightbulb"></i></div><h3 data-lang-key="tipsTitle">Consejos</h3><p data-lang-key="tipsMenuDesc">Mejora tus habilidades.</p></a><a href="#view-chat" class="menu-card nav-link card"><div class="icon" aria-hidden="true"><i class="fas fa-comments"></i></div><h3 data-lang-key="chatTitle">Aprendamos Juntos</h3><p data-lang-key="chatMenuDesc">Resuelve dudas con amigos.</p></a><a href="#view-quienes-somos" class="menu-card nav-link card"><div class="icon" aria-hidden="true"><i class="fas fa-users"></i></div><h3 data-lang-key="whoTitle">Quiénes Somos</h3><p data-lang-key="whoMenuDesc">Conoce al equipo.</p></a><a href="#view-ajustes" class="menu-card nav-link card"><div class="icon" aria-hidden="true"><i class="fas fa-cog"></i></div><h3 data-lang-key="settingsTitle">Ajustes</h3><p data-lang-key="settingsMenuDesc">Personaliza tu experiencia.</p></a></div></section>
+        <section id="view-menu" class="page-section card" role="region" aria-labelledby="menu-title"><div class="page-header"><h2 id="menu-title" data-lang-key="menuTitle">Menú Principal</h2></div><div class="menu-grid"><a href="#view-conceptos" class="menu-card nav-link card" role="link"><div class="icon" aria-hidden="true"><i class="fas fa-book-open"></i></div><h3 data-lang-key="conceptsTitle">Conceptos</h3><p data-lang-key="conceptsMenuDesc">Explora todos los temas.</p></a><a href="#view-practica" class="menu-card nav-link card" role="link"><div class="icon" aria-hidden="true"><i class="fas fa-brain"></i></div><h3 data-lang-key="practiceTitle">Práctica</h3><p data-lang-key="practiceMenuDesc">Ejercicios aleatorios.</p></a><a href="#view-consejos" class="menu-card nav-link card" role="link"><div class="icon" aria-hidden="true"><i class="fas fa-lightbulb"></i></div><h3 data-lang-key="tipsTitle">Consejos</h3><p data-lang-key="tipsMenuDesc">Mejora tus habilidades.</p></a><a href="#view-chat" class="menu-card nav-link card" role="link"><div class="icon" aria-hidden="true"><i class="fas fa-comments"></i></div><h3 data-lang-key="chatTitle">Aprendamos Juntos</h3><p data-lang-key="chatMenuDesc">Resuelve dudas con amigos.</p></a><a href="#view-quienes-somos" class="menu-card nav-link card" role="link"><div class="icon" aria-hidden="true"><i class="fas fa-users"></i></div><h3 data-lang-key="whoTitle">Quiénes Somos</h3><p data-lang-key="whoMenuDesc">Conoce al equipo.</p></a><a href="#view-ajustes" class="menu-card nav-link card" role="link"><div class="icon" aria-hidden="true"><i class="fas fa-cog"></i></div><h3 data-lang-key="settingsTitle">Ajustes</h3><p data-lang-key="settingsMenuDesc">Personaliza tu experiencia.</p></a></div></section>
         
-        <section id="view-conceptos" class="page-section" role="region" aria-labelledby="conceptos-title"><div class="page-header"><h2 id="conceptos-title" data-lang-key="conceptsTitle">Conceptos Matemáticos</h2><p data-lang-key="conceptsPageDesc">Encuentra el tema que necesitas.</p></div><div class="filter-bar" role="search"><label for="concept-search" class="sr-only">Buscar tema</label><input type="search" id="concept-search" class="input-field" placeholder="Buscar tema..." list="concept-suggestions" aria-autocomplete="list" aria-controls="concept-suggestions" aria-label="Introduce el nombre de un concepto para buscar"></div><datalist id="concept-suggestions"></datalist><div id="concepts-grid" class="content-grid" aria-live="polite"></div><button class="btn btn-secondary btn-back" aria-label="Regresar a la página anterior" data-lang-key="backButton">Regresar</button></section>
+        <section id="view-conceptos" class="page-section" role="region" aria-labelledby="conceptos-title"><div class="page-header"><h2 id="conceptos-title" data-lang-key="conceptsTitle">Conceptos Matemáticos</h2><p data-lang-key="conceptsPageDesc">Encuentra el tema que necesitas.</p></div><div class="filter-bar" role="search"><label for="concept-search" class="sr-only" data-lang-key="searchConceptLabel">Buscar tema</label><input type="search" id="concept-search" class="input-field" placeholder="Buscar tema..." list="concept-suggestions" aria-autocomplete="list" aria-controls="concept-suggestions" aria-label="Introduce el nombre de un concepto para buscar"></div><datalist id="concept-suggestions"></datalist><div id="concepts-grid" class="content-grid" aria-live="polite"></div><button class="btn btn-secondary btn-back" aria-label="Regresar a la página anterior" data-lang-key="backButton">Regresar</button></section>
         
         <section id="view-concepto-detalle" class="page-section" role="region" aria-labelledby="concepto-detalle-title"><div id="concept-detail-container" aria-live="polite"></div><button class="btn btn-secondary btn-back" aria-label="Regresar a la página anterior" data-lang-key="backButton">Regresar</button></section>
         
-        <section id="view-practica" class="page-section" role="region" aria-labelledby="practica-title"><div class="page-header"><h2 id="practica-title" data-lang-key="practiceTitle">Centro de Práctica</h2><p id="practice-header" data-lang-key="practicePageDesc">Genera ejercicios y situaciones problemáticas.</p></div><div class="filter-bar" role="search"><label for="practice-search" class="sr-only">Buscar tema de práctica</label><input type="search" id="practice-search" class="input-field" placeholder="Buscar tema de práctica..." list="practice-suggestions" aria-autocomplete="list" aria-controls="practice-suggestions" aria-label="Introduce el nombre de un concepto para practicar"></div><datalist id="practice-suggestions"></datalist><div id="practice-grid" class="content-grid" aria-live="polite"></div><button class="btn btn-secondary btn-back" aria-label="Regresar a la página anterior" data-lang-key="backButton">Regresar</button></section>
+        <section id="view-practica" class="page-section" role="region" aria-labelledby="practica-title"><div class="page-header"><h2 id="practica-title" data-lang-key="practiceTitle">Centro de Práctica</h2><p id="practice-header" data-lang-key="practicePageDesc">Genera ejercicios y situaciones problemáticas.</p></div><div class="filter-bar" role="search"><label for="practice-search" class="sr-only" data-lang-key="searchPracticeLabel">Buscar tema de práctica</label><input type="search" id="practice-search" class="input-field" placeholder="Buscar tema de práctica..." list="practice-suggestions" aria-autocomplete="list" aria-controls="practice-suggestions" aria-label="Introduce el nombre de un concepto para practicar"></div><datalist id="practice-suggestions"></datalist><div id="practice-grid" class="content-grid" aria-live="polite"></div><button class="btn btn-secondary btn-back" aria-label="Regresar a la página anterior" data-lang-key="backButton">Regresar</button></section>
         
         <section id="view-consejos" class="page-section" role="region" aria-labelledby="consejos-title"><div class="page-header"><h2 id="consejos-title" data-lang-key="tipsTitle">Consejos para Estudiantes</h2><p data-lang-key="tipsPageDesc">Estrategias para potenciar tu aprendizaje.</p></div><div id="consejos-container" class="content-grid" aria-live="polite"></div><button class="btn btn-secondary btn-back" aria-label="Regresar a la página anterior" data-lang-key="backButton">Regresar</button></section>
         
@@ -143,263 +156,271 @@
             }
         };
 
-        const consejosData=[{icon:"fa-brain",titleKey:"tip1Title",textKey:"tip1Text"},{icon:"fa-pencil-alt",titleKey:"tip2Title",textKey:"tip2Text"},{icon:"fa-check-circle",titleKey:"tip3Title",textKey:"tip3Text"},{icon:"fa-chalkboard-teacher",titleKey:"tip4Title",textKey:"tip4Text"},{icon:"fa-lightbulb",titleKey:"tip5Title",textKey:"tip5Text"},{icon:"fa-book",titleKey:"tip6Title",textKey:"tip6Text"},{icon:"fa-users",titleKey:"tip7Title",textKey:"tip7Text"},{icon:"fa-clock",titleKey:"tip8Title",textKey:"tip8Text"},{icon:"fa-question",titleKey:"tip9Title",textKey:"tip9Text"},{icon:"fa-chart-line",titleKey:"tip10Title",textKey:"tip10Text"},{icon:"fa-dumbbell",titleKey:"tip11Title",textKey:"tip11Text"},{icon:"fa-bed",titleKey:"tip12Title",textKey:"tip12Text"}];
+        const consejosData=[{icon:"fa-brain",titleKey:"tip1Title"},{icon:"fa-pencil-alt",titleKey:"tip2Title"},{icon:"fa-check-circle",titleKey:"tip3Title"},{icon:"fa-chalkboard-teacher",titleKey:"tip4Title"},{icon:"fa-lightbulb",titleKey:"tip5Title"},{icon:"fa-book",titleKey:"tip6Title"},{icon:"fa-users",titleKey:"tip7Title"},{icon:"fa-clock",titleKey:"tip8Title"},{icon:"fa-question",titleKey:"tip9Title"},{icon:"fa-chart-line",titleKey:"tip10Title"},{icon:"fa-dumbbell",titleKey:"tip11Title"},{icon:"fa-bed",titleKey:"tip12Title"}];
         const quienesSomosText=`<p data-lang-key="quienesSomosText1">Somos un grupo de estudiantes de Educación para el Trabajo que hemos creado el proyecto “Potencia tu mente con matemáticas”, una plataforma web diseñada para apoyar el aprendizaje de las matemáticas de manera sencilla, práctica e interactiva. Nuestro objetivo es brindar a los estudiantes una herramienta accesible y motivadora que les permita reforzar sus conocimientos y superar las dificultades más comunes en esta área.</p><p style="margin-top:1rem;" data-lang-key="quienesSomosText2">Nos caracterizamos por ser un equipo responsable, creativo y comprometido con la innovación educativa. Cada integrante aporta sus ideas, habilidades y talentos, lo que nos permite trabajar de manera colaborativa y complementaria. Nos guía la convicción de que la educación es la clave para el desarrollo personal y social, y que el uso de la tecnología puede convertirse en un aliado poderoso para mejorar los procesos de enseñanza y aprendizaje.</p><p style="margin-top:1rem;" data-lang-key="quienesSomosText3">A través de este proyecto, buscamos ofrecer un servicio que no solo enseñe matemáticas, sino que también despierte en los estudiantes la confianza y el gusto por aprender. Queremos que “Potencia tu mente con matemáticas” sea un espacio digital donde cada usuario se sienta acompañado en su proceso educativo, encontrando materiales claros, niveles de práctica graduados y actividades interactivas que hagan del aprendizaje una experiencia dinámica.</p><p style="margin-top:1rem;" data-lang-key="quienesSomosText4">Creemos firmemente que nuestro esfuerzo contribuirá al desarrollo académico de los estudiantes y al fortalecimiento de sus competencias matemáticas, demostrando que con constancia, innovación y dedicación se puede transformar la manera en que aprendemos.</p>`;
         const translations={
             es:{
                 mainTitle:"Potencia tu Mente",menuTitle:"Menú Principal",conceptsTitle:"Conceptos",practiceTitle:"Práctica",tipsTitle:"Consejos",chatTitle:"Aprendamos Juntos",whoTitle:"Quiénes Somos",settingsTitle:"Ajustes",
-                welcomeSlogan: "Tu viaje al dominio de las matemáticas comienza ahora.", enterButton:"Entrar", backButton:"Regresar",
-                conceptsPageDesc:"Encuentra el tema que necesitas.", practicePageDesc:"Genera ejercicios y situaciones problemáticas.", tipsPageDesc:"Estrategias para potenciar tu aprendizaje.",
-                usernameLabel:"Nombre de usuario", chatOverlayTitle:"Crea tu Perfil de Estudiante",chatOverlayDesc:"Elige un nombre para mostrar. Se te asignará un código único para agregar amigos.",
-                saveAndEnterBtn:"Guardar y Entrar", helloText:"Hola",yourCodeIsText:"Tu código de amigo es:",friendsTitle:"Amigos",friendsDesc:"Añade amigos usando su código único.",friendCodeLabel:"Código del amigo",addFriendBtn:"+",
-                selectFriendText:"Selecciona un amigo",writeMessageLabel:"Escribe un mensaje",sendButton:"Enviar",
-                languageSettingsTitle:"Idioma de la Interfaz", accessibilitySettingsTitle:"Accesibilidad", largeTextToggle:"Texto más grande", contrastToggle:"Modo de Alto Contraste",
-                menuBackgroundSettingsTitle:"Fondo del Menú", uploadBackgroundDesc:"Sube una imagen o video local para usar de fondo.",pasteUrlBackgroundDesc:"O pega un enlace URL.",applyButton:"Aplicar",resetBackgroundButton:"Quitar fondo",
-                noConceptsFoundText: "No se encontraron temas.", noPracticeFoundText: "No hay ejercicios para este tema.",
-                exerciseText:"Ejercicio", problemText:"Situación Problemática", yourAnswerText: "Tu respuesta", typeYourAnswerPlaceholder: "Escribe tu respuesta...", checkAnswerButton: "Comprobar",
-                correctAnswerText:"¡Correcto!", incorrectAnswerText:"Incorrecto. La respuesta era", solveTogetherButton:"Resolvamoslo Juntos", selectFriendShareProblemAlert: "Selecciona un amigo para compartirle el problema.", copyCodeAlert: "¡Código de amigo copiado!",
-                algebraName:"Álgebra", math:"Matemáticas", algebraDesc:"El álgebra es la rama de las matemáticas que estudia las estructuras y reglas de operaciones usando símbolos (como letras) para representar valores desconocidos. Es la ciencia de las ecuaciones y expresiones.", algebraHowTo:"Se busca despejar la incógnita (como 'x'). Los términos se mueven entre los lados de una igualdad invirtiendo su operación (suma a resta, multiplicación a división) para aislar la variable.", algebraTypes:"Elemental (ecuaciones lineales), Lineal (vectores, matrices), Abstracta (grupos, anillos).", algebraErrors:"Distribuir mal un signo negativo, no respetar la jerarquía de operaciones, fallos en leyes de exponentes (ej. (a+b)² ≠ a²+b²).",
-                geometriaName:"Geometría", geometriaDesc:"Es la rama que estudia las propiedades del espacio, como puntos, líneas, figuras y sólidos.", geometriaHowTo:"Se aplica mediante el uso de teoremas y fórmulas para calcular propiedades como área, perímetro, volumen y ángulos. La visualización es clave.", geometriaTypes:"Plana (2D), del Espacio (3D), Analítica (con coordenadas).", geometriaErrors:"Confundir la fórmula del perímetro con la del área, errores de unidades (cm vs m), olvidar pasos (como el ½ en el área del triángulo).",
-                trigonometriaName:"Trigonometría", trigonometriaDesc:"Estudia las relaciones entre los ángulos y los lados de los triángulos, basándose en las razones trigonométricas (seno, coseno, tangente).", trigonometriaHowTo:"Se identifican los catetos (opuesto, adyacente) y la hipotenusa en un triángulo rectángulo para aplicar las razones y resolver por ángulos o lados desconocidos.", trigonometriaTypes:"Plana, Esférica, funciones inversas (arcoseno).", trigonometriaErrors:"Identificar incorrectamente el cateto opuesto y adyacente, confundir grados con radianes.",
-                funcionesName:"Funciones", funcionesDesc:"Una función es una regla que asocia a cada valor de entrada (x) un único valor de salida (y). Se escribe como y = f(x).", funcionesHowTo:"Se evalúa la función sustituyendo la variable 'x' por un número para encontrar 'y'. Se analizan su dominio y rango.", funcionesTypes:"Lineales, cuadráticas, exponenciales, logarítmicas.", funcionesErrors:"Confundir dominio y rango, no pasar la 'prueba de la línea vertical'.",
-                estadisticaName:"Estadística y Probabilidad", estadisticaDesc:"La estadística recolecta, analiza e interpreta datos. La probabilidad mide la certeza de que ocurra un evento.", estadisticaHowTo:"La estadística usa medidas como media, mediana y moda. La probabilidad se calcula como (casos favorables) / (casos totales).", estadisticaTypes:"Descriptiva, Inferencial. Probabilidad Clásica, Frecuencial.", estadisticaErrors:"Confundir correlación con causalidad, confundir media con mediana.",
-                calculoName:"Cálculo", calculoDesc:"Rama que estudia el cambio continuo. La derivada mide la tasa de cambio instantánea y la integral calcula acumulados.", calculoHowTo:"Se aplican reglas de derivación e integración para encontrar la pendiente de una curva o el área bajo ella.", calculoTypes:"Diferencial (derivadas) e Integral (integrales).", calculoErrors:"Dificultad con el concepto de límite, confundir las reglas de derivación, olvidar la constante de integración.",
+                welcomeSlogan:"Tu viaje al dominio de las matemáticas comienza ahora.",enterButton:"Entrar",backButton:"Regresar",
+                conceptsPageDesc:"Encuentra el tema que necesitas.",practicePageDesc:"Genera ejercicios y situaciones problemáticas.",tipsPageDesc:"Estrategias para potenciar tu aprendizaje.",
+                usernameLabel:"Nombre de usuario",chatOverlayTitle:"Crea tu Perfil de Estudiante",chatOverlayDesc:"Elige un nombre para mostrar. Se te asignará un código único para agregar amigos.",
+                saveAndEnterBtn:"Guardar y Entrar",helloText:"Hola",yourCodeIsText:"Tu código de amigo es:",friendsTitle:"Amigos",friendsDesc:"Añade amigos usando su código único.",friendCodeLabel:"Código del amigo",addFriendBtn:"+",
+                selectFriendText:"Selecciona un amigo",writeMessageLabel:"Escribe un mensaje",sendButton:"Enviar",copyCodeAlert:"¡Código de amigo copiado!",
+                languageSettingsTitle:"Idioma de la Interfaz",accessibilitySettingsTitle:"Accesibilidad",largeTextToggle:"Texto más grande",contrastToggle:"Modo de Alto Contraste",
+                menuBackgroundSettingsTitle:"Fondo del Menú",uploadBackgroundDesc:"Sube una imagen o video local para usar de fondo.",pasteUrlBackgroundDesc:"O pega un enlace URL.",applyButton:"Aplicar",resetBackgroundButton:"Quitar fondo",
+                noConceptsFoundText:"No se encontraron temas.",noPracticeFoundText:"No hay ejercicios para este tema.",conceptNotFoundText:"Concepto no encontrado.",noPracticeForTopicText:"No se pudo generar un problema único para este tema.",
+                exerciseText:"Ejercicio",problemText:"Situación Problemática",yourAnswerText:"Tu respuesta",typeYourAnswerPlaceholder:"Escribe tu respuesta...",checkAnswerButton:"Comprobar",
+                correctAnswerText:"¡Correcto!",incorrectAnswerText:"Incorrecto. La respuesta era",solveTogetherButton:"Resolvamoslo Juntos",selectFriendShareProblemAlert:"Selecciona un amigo para compartirle el problema.",
+                deleteFriendAriaLabel:"Eliminar amigo",confirmDeleteFriendText:"¿Seguro que quieres eliminar a este amigo?",confirmDeleteMessageText:"¿Seguro que quieres eliminar este mensaje?",
+                algebraName:"Álgebra",math:"Matemáticas",algebraDesc:"El álgebra es la rama de las matemáticas que estudia las estructuras y reglas de operaciones usando símbolos (como letras) para representar valores desconocidos. Es la ciencia de las ecuaciones y expresiones.",algebraHowTo:"Se busca despejar la incógnita (como 'x'). Los términos se mueven entre los lados de una igualdad invirtiendo su operación (suma a resta, multiplicación a división) para aislar la variable.",algebraTypes:"Elemental (ecuaciones lineales), Lineal (vectores, matrices), Abstracta (grupos, anillos).",algebraErrors:"Distribuir mal un signo negativo, no respetar la jerarquía de operaciones, fallos en leyes de exponentes (ej. (a+b)² ≠ a²+b²).",
+                geometriaName:"Geometría",geometriaDesc:"Es la rama que estudia las propiedades del espacio, como puntos, líneas, figuras y sólidos.",geometriaHowTo:"Se aplica mediante el uso de teoremas y fórmulas para calcular propiedades como área, perímetro, volumen y ángulos. La visualización es clave.",geometriaTypes:"Plana (2D), del Espacio (3D), Analítica (con coordenadas).",geometriaErrors:"Confundir la fórmula del perímetro con la del área, errores de unidades (cm vs m), olvidar pasos (como el ½ en el área del triángulo).",
+                trigonometriaName:"Trigonometría",trigonometriaDesc:"Estudia las relaciones entre los ángulos y los lados de los triángulos, basándose en las razones trigonométricas (seno, coseno, tangente).",trigonometriaHowTo:"Se identifican los catetos (opuesto, adyacente) y la hipotenusa en un triángulo rectángulo para aplicar las razones y resolver por ángulos o lados desconocidos.",trigonometriaTypes:"Plana, Esférica, funciones inversas (arcoseno).",trigonometriaErrors:"Identificar incorrectamente el cateto opuesto y adyacente, confundir grados con radianes.",
+                funcionesName:"Funciones",funcionesDesc:"Una función es una regla que asocia a cada valor de entrada (x) un único valor de salida (y). Se escribe como y = f(x).",funcionesHowTo:"Se evalúa la función sustituyendo la variable 'x' por un número para encontrar 'y'. Se analizan su dominio y rango.",funcionesTypes:"Lineales, cuadráticas, exponenciales, logarítmicas.",funcionesErrors:"Confundir dominio y rango, no pasar la 'prueba de la línea vertical'.",
+                estadisticaName:"Estadística y Probabilidad",estadisticaDesc:"La estadística recolecta, analiza e interpreta datos. La probabilidad mide la certeza de que ocurra un evento.",estadisticaHowTo:"La estadística usa medidas como media, mediana y moda. La probabilidad se calcula como (casos favorables) / (casos totales).",estadisticaTypes:"Descriptiva, Inferencial. Probabilidad Clásica, Frecuencial.",estadisticaErrors:"Confundir correlación con causalidad, confundir media con mediana.",
+                calculoName:"Cálculo",calculoDesc:"Rama que estudia el cambio continuo. La derivada mide la tasa de cambio instantánea y la integral calcula acumulados.",calculoHowTo:"Se aplican reglas de derivación e integración para encontrar la pendiente de una curva o el área bajo ella.",calculoTypes:"Diferencial (derivadas) e Integral (integrales).",calculoErrors:"Dificultad con el concepto de límite, confundir las reglas de derivación, olvidar la constante de integración.",
                 operacionesConEnterosName: "Operaciones con Enteros", operacionesConEnterosDesc: "Aprende a sumar, restar, multiplicar y dividir números positivos y negativos, un pilar fundamental de la matemática.", operacionesConEnterosHowTo: "Se utiliza la regla de los signos. Para sumas y restas, signos iguales se suman y mantienen el signo; signos diferentes se restan y se usa el signo del mayor. Para multiplicación y división, signos iguales dan positivo (+), signos diferentes dan negativo (-).", operacionesConEnterosTypes: "Suma, resta, multiplicación, división y potencias.", operacionesConEnterosErrors: "Olvidar la regla de los signos, especialmente al restar un número negativo (ej. 5 - (-3) = 8).",
                 fraccionesYDecimalesName: "Fracciones y Decimales", fraccionesYDecimalesDesc: "Representan partes de un todo. Es clave para entender proporciones y porcentajes.", fraccionesYDecimalesHowTo: "Para sumar o restar fracciones, deben tener un denominador común. La multiplicación es directa (numerador por numerador). Para dividir, se multiplica en cruz.", fraccionesYDecimalesTypes: "Propias, impropias, mixtas. Decimales exactos y periódicos.", fraccionesYDecimalesErrors: "Sumar o restar sin encontrar el denominador común. Confundir la multiplicación con la suma.",
                 ecuacionesCuadraticasName: "Ecuaciones Cuadráticas", ecuacionesCuadraticasDesc: "Ecuaciones donde la incógnita está elevada al cuadrado. Pueden tener hasta dos soluciones.", ecuacionesCuadraticasHowTo: "Se resuelven usando la fórmula general (la resolvente) o factorizando la expresión.", ecuacionesCuadraticasTypes: "Completas (ax² + bx + c = 0) e incompletas.", ecuacionesCuadraticasErrors: "Calcular mal el discriminante (b² - 4ac) en la fórmula general.",
                 matricesName: "Matrices", matricesDesc: "Las matrices son arreglos rectangulares de números. Se usan para representar sistemas de ecuaciones lineales y transformaciones geométricas.", matricesHowTo: "Se operan con sumas, restas, multiplicación por escalar y multiplicación entre matrices, siguiendo reglas específicas de dimensiones.", matricesTypes: "Fila, columna, nula, cuadrada, identidad, transpuesta.", matricesErrors: "Intentar sumar/restar matrices de diferente dimensión; multiplicar matrices con dimensiones incompatibles."
             },
-            en: { /* ... Simplified English translations, full versions would mirror ES */ },
-            zh: { /* Simplified Chinese translations */ },
-            de: { /* Simplified German translations */ },
-            fr: { /* Simplified French translations */ },
-            pt: { /* Simplified Portuguese translations */ }
-        };
+            en:{mainTitle:"Power Up Your Mind",menuTitle:"Main Menu",conceptsTitle:"Concepts",practiceTitle:"Practice",tipsTitle:"Tips",chatTitle:"Let's Learn Together",whoTitle:"Who We Are",settingsTitle:"Settings",welcomeSlogan:"Your journey to math mastery starts now.",enterButton:"Enter",backButton:"Back",conceptsPageDesc:"Find the topic you need.",practicePageDesc:"Generate random exercises and problems.",tipsPageDesc:"Strategies to boost your learning.",usernameLabel:"Username",chatOverlayTitle:"Create Your Student Profile",chatOverlayDesc:"Choose a display name. You will be assigned a unique code to add friends.",saveAndEnterBtn:"Save & Enter",helloText:"Hello",yourCodeIsText:"Your friend code is:",friendsTitle:"Friends",friendsDesc:"Add friends using their unique code.",friendCodeLabel:"Friend code",addFriendBtn:"+",selectFriendText:"Select a friend",writeMessageLabel:"Write a message",sendButton:"Send",copyCodeAlert:"Friend code copied!",algebraName:"Algebra",math:"Mathematics",algebraDesc:"Algebra studies structures and rules using symbols to represent unknown values.",algebraHowTo:"Solve by isolating the unknown (like 'x') by moving terms across an equality, inverting operations.",algebraTypes:"Elementary (linear equations), Linear (vectors), Abstract (groups).",algebraErrors:"Incorrectly distributing a negative sign, not respecting the order of operations, exponent law mistakes.",tip1Title:"Understand, don't memorize",tip1Text:"Understanding why formulas work will allow you to solve any type of problem, not just the ones you've seen before."},
+            zh:{},de:{},fr:{},pt:{}};
+            
+            const state={myUsername:localStorage.getItem('myUsername'),myCode:localStorage.getItem('myCode'),friends:JSON.parse(localStorage.getItem('myFriends'))||[],activeChat:null,messages:JSON.parse(localStorage.getItem('myMessages'))||{},onlineFriends:[]};
+            const ui={main:document.querySelector('main'),inicio:document.getElementById('view-inicio'),sections:document.querySelectorAll('.page-section'),navLinks:document.querySelectorAll('.nav-link'),backButtons:document.querySelectorAll('.btn-back'),chat:{overlay:document.getElementById('username-overlay'),form:document.getElementById('username-form'),input:document.getElementById('username-input'),yourUsername:document.getElementById('your-username'),yourCode:document.getElementById('your-code'),addForm:document.getElementById('add-friend-form'),friendInput:document.getElementById('friend-code-input'),list:document.getElementById('friends-list'),header:document.getElementById('chat-header'),messages:document.getElementById('chat-messages'),chatForm:document.getElementById('chat-form'),chatInput:document.getElementById('chat-input'),sendBtn:document.getElementById('chat-form').querySelector('button')},concepts:{grid:document.getElementById('concepts-grid'),search:document.getElementById('concept-search'),suggestions:document.getElementById('concept-suggestions'),detail:document.getElementById('concept-detail-container')},practice:{header:document.getElementById('practice-header'),grid:document.getElementById('practice-grid'),search:document.getElementById('practice-search'),suggestions:document.getElementById('practice-suggestions')},consejos:{container:document.getElementById('consejos-container')},quienes:{container:document.getElementById('quienes-somos-container')},ajustes:{lang:document.getElementById('language-selector'),bgUpload:document.getElementById('background-upload'),bgUrlForm:document.getElementById('background-url-form'),bgUrlInput:document.getElementById('background-url-input'),bgReset:document.getElementById('background-reset'),fontSizeToggle:document.getElementById('font-size-toggle'),contrastToggle:document.getElementById('contrast-toggle'),fontSizeIndicator:document.getElementById('font-size-indicator')}};
+            const socket=io();
 
-        const state={myUsername:localStorage.getItem('myUsername'),myCode:localStorage.getItem('myCode'),friends:JSON.parse(localStorage.getItem('myFriends'))||[],activeChat:null,messages:JSON.parse(localStorage.getItem('myMessages'))||{},onlineFriends:[]};
-        const ui={main:document.querySelector('main'),inicio:document.getElementById('view-inicio'),sections:document.querySelectorAll('.page-section'),navLinks:document.querySelectorAll('.nav-link'),backButtons:document.querySelectorAll('.btn-back'),chat:{overlay:document.getElementById('username-overlay'),form:document.getElementById('username-form'),input:document.getElementById('username-input'),yourUsername:document.getElementById('your-username'),yourCode:document.getElementById('your-code'),addForm:document.getElementById('add-friend-form'),friendInput:document.getElementById('friend-code-input'),list:document.getElementById('friends-list'),header:document.getElementById('chat-header'),messages:document.getElementById('chat-messages'),chatForm:document.getElementById('chat-form'),chatInput:document.getElementById('chat-input'),sendBtn:document.getElementById('chat-form').querySelector('button')},concepts:{grid:document.getElementById('concepts-grid'),search:document.getElementById('concept-search'),suggestions:document.getElementById('concept-suggestions'),detail:document.getElementById('concept-detail-container')},practice:{header:document.getElementById('practice-header'),grid:document.getElementById('practice-grid'),search:document.getElementById('practice-search'),suggestions:document.getElementById('practice-suggestions')},consejos:{container:document.getElementById('consejos-container')},quienes:{container:document.getElementById('quienes-somos-container')},ajustes:{lang:document.getElementById('language-selector'),bgUpload:document.getElementById('background-upload'),bgUrlForm:document.getElementById('background-url-form'),bgUrlInput:document.getElementById('background-url-input'),bgReset:document.getElementById('background-reset'),fontSizeToggle:document.getElementById('font-size-toggle'),contrastToggle:document.getElementById('contrast-toggle'),fontSizeIndicator:document.getElementById('font-size-indicator')}};
-        const socket=io();
-        
-        // --- APP LOGIC ---
-        function initApp() {
-            setupNavigation();
-            setupChat();
-            setupConcepts();
-            setupPractice();
-            setupConsejos();
-            setupSettings();
-            renderStaticContent();
-            showInitialView();
-        }
-        
-        // --- NAVIGATION ---
-        function setupNavigation(){
-            ui.navLinks.forEach(link=>link.addEventListener('click',handleNav));
-            ui.backButtons.forEach(btn=>btn.addEventListener('click',()=>history.back()));
-            window.addEventListener('popstate',()=>showView(location.hash,history.state));
-        }
-        function handleNav(e){e.preventDefault();const href=e.currentTarget.getAttribute('href');history.pushState({},'',href);sessionStorage.setItem('visitedBefore','true');showView(href);}
-        
-        function showView(hash,data){
-            let viewId = hash ? hash.substring(1) : (sessionStorage.getItem('visitedBefore') ? 'view-menu' : 'view-inicio');
-            // If the hash is empty (e.g. initial load or invalid hash), set to view-menu after splash screen
-            if (viewId === '') {
-                viewId = 'view-menu';
-                history.replaceState({}, '', '#view-menu'); // Update URL to reflect menu
+            // --- APP LOGIC ---
+            function setupApp() {
+                setupNavigation();
+                setupChat();
+                setupConcepts();
+                setupPractice();
+                setupConsejos();
+                setupSettings();
+                renderStaticContent();
+                // showInitialView() se llama al final en init()
             }
             
-            document.body.style.overflow = viewId === 'view-inicio' ? 'hidden' : 'auto';
-            ui.main.style.display = viewId === 'view-inicio' ? 'none' : 'block';
-            ui.inicio.style.display = viewId === 'view-inicio' ? 'flex' : 'none';
-            
-            ui.sections.forEach(s => s.classList.remove('active'));
-            const activeSection = document.getElementById(viewId);
-            if (activeSection) {
-                activeSection.classList.add('active');
-            } else {
-                document.getElementById('view-menu').classList.add('active'); // Fallback to menu if view not found
-                viewId = 'view-menu';
+            // --- NAVIGATION ---
+            function setupNavigation(){
+                ui.navLinks.forEach(link=>link.addEventListener('click',handleNav));
+                ui.backButtons.forEach(btn=>btn.addEventListener('click',()=>history.back()));
+                window.addEventListener('popstate',()=>showView(location.hash,history.state));
             }
+            function handleNav(e){e.preventDefault();const href=e.currentTarget.getAttribute('href');history.pushState({},'',href);sessionStorage.setItem('visitedBefore','true');showView(href);}
             
-            // Re-apply translations for new content
-            applyTranslations(localStorage.getItem('appLanguage') || 'es');
+            function showView(hash,data){
+                let viewId = hash ? hash.substring(1) : (sessionStorage.getItem('visitedBefore') ? 'view-menu' : 'view-inicio');
+                
+                document.body.style.overflow = viewId === 'view-inicio' ? 'hidden' : 'auto';
+                ui.main.style.display = viewId === 'view-inicio' ? 'none' : 'block';
+                ui.inicio.style.display = viewId === 'view-inicio' ? 'flex' : 'none';
+                
+                ui.sections.forEach(s => s.classList.remove('active'));
+                const activeSection = document.getElementById(viewId);
+                if (activeSection) { activeSection.classList.add('active'); } else { document.getElementById('view-menu').classList.add('active'); viewId='view-menu'; } // Fallback to menu if invalid hash
+                
+                // Re-apply translations for new content or changed view
+                applyTranslations(localStorage.getItem('appLanguage') || 'es');
 
-            // View-specific initialization/rendering
-            if (viewId === 'view-conceptos') renderConcepts();
-            if (viewId === 'view-practica') {
-                if (data?.topicId) { // Direct practice for a specific topic
-                    ui.practice.search.value = getTranslatedText(mathConcepts[data.topicId]?.nameKey || "");
-                    renderPracticeSearch(data.topicId); // This will then call generatePracticeContent
-                } else {
-                    renderPracticeSearch(); // General practice view
+                if (viewId === 'view-conceptos') renderConcepts();
+                if (viewId === 'view-practica') {
+                    if (data?.topicId) { // Direct practice for a specific topic
+                        ui.practice.search.value = getTranslatedText(mathData[data.topicId]?.nameKey || "");
+                        // This will implicitly call generatePracticeContent as renderPracticeSearch re-renders content
+                    } else {
+                        ui.practice.search.value = ""; // Clear search if not coming from a specific topic
+                    }
+                    renderPracticeSearch(data?.topicId); // Always render practice search / content
+                }
+                if (viewId === 'view-concepto-detalle' && data?.topicId) renderConceptDetail(data.topicId);
+                if (viewId === 'view-chat') handleChatEntry(data);
+                // No specific init for view-consejos or quienes-somos, static content handled by renderStaticContent
+                if (viewId === 'view-ajustes') initSettingsDisplay();
+                
+                // Hide keyboard on mobile after navigation
+                if (document.activeElement instanceof HTMLElement) {
+                    document.activeElement.blur();
                 }
             }
-            if (viewId === 'view-concepto-detalle' && data?.topicId) renderConceptDetail(data.topicId);
-            if (viewId === 'view-chat') handleChatEntry(data);
 
-            // Hide keyboard on mobile after navigation
-            if (document.activeElement instanceof HTMLElement) {
-                document.activeElement.blur();
-            }
-        }
-        function showInitialView(){
-            // Determine initial view (splash screen vs menu)
-            if (!sessionStorage.getItem('visitedBefore') && location.hash !== '#view-menu') {
-                showView('#view-inicio');
-            } else {
-                showView(location.hash || '#view-menu');
-            }
-        }
-
-    // --- CHAT LOGIC ---
-    function setupChat(){
-        // Handlers
-        ui.chat.form.addEventListener('submit',handleUsernameRegister);
-        ui.chat.yourCode.addEventListener('click',copyUserCode);
-        ui.chat.addForm.addEventListener('submit',addFriend);
-        ui.chat.list.addEventListener('click',handleFriendListClick);
-        ui.chat.chatForm.addEventListener('submit',sendChatMessage);
-        ui.chat.messages.addEventListener('click',handleMessageDelete);
-        
-        // Socket listeners
-        socket.on('private message',handleNewMessage);
-        socket.on('online users update',updateOnlineFriends);
-        socket.on('system message',displaySystemMessage);
-
-        initUser(); // Initial check for user profile
-    }
-
-    function initUser(){
-        if(state.myUsername&&state.myCode){
-            ui.chat.overlay.style.display='none';
-            socket.emit('register user',state.myUsername,res=>{
-                if(res.success){
-                    ui.chat.yourUsername.textContent=state.myUsername;
-                    ui.chat.yourCode.textContent=state.myCode;
-                    renderFriends();
+            function showInitialView(){
+                const initialHash = location.hash;
+                if (!sessionStorage.getItem('visitedBefore') && initialHash !== '#view-menu') {
+                    showView('#view-inicio');
                 } else {
-                    alert(getTranslatedText('usernameTakenAlert', res.message)); // Use server message if specific
-                    localStorage.clear(); // Clear local data on registration failure
-                    state.myUsername = null;
-                    state.myCode = null;
-                    initUser(); // Re-prompt user
+                    showView(initialHash || '#view-menu');
+                }
+            }
+
+        // --- CHAT LOGIC ---
+        function setupChat(){
+            initUser();
+            ui.chat.form.addEventListener('submit',handleUsernameRegister);
+            ui.chat.yourCode.addEventListener('click',copyUserCode);
+            ui.chat.addForm.addEventListener('submit',addFriend);
+            ui.chat.list.addEventListener('click',handleFriendListClick);
+            ui.chat.chatForm.addEventListener('submit',sendChatMessage);
+            ui.chat.messages.addEventListener('click',handleMessageDelete);
+            
+            // Socket listeners
+            socket.on('private message',handleNewMessage);
+            socket.on('online users update',updateOnlineFriends);
+            socket.on('system message',displaySystemMessage);
+
+            // Re-render friends on initial connect in case state was already populated from localStorage
+            socket.on('connect', () => { 
+                if (state.myUsername) { // If user is already stored locally, try to re-register
+                    socket.emit('register user', state.myUsername, res => {
+                        if (res.success) { 
+                            ui.chat.yourUsername.textContent = state.myUsername; 
+                            ui.chat.yourCode.textContent = state.myCode; 
+                            renderFriends(); // Re-render friends list with latest online status
+                        }
+                    });
                 }
             });
-        }else{ui.chat.overlay.style.display='flex';}
-    }
-    function handleUsernameRegister(e){e.preventDefault();const name=ui.chat.input.value.trim();if(name.length<3)return alert(getTranslatedText('usernameMinLengthAlert'));socket.emit('register user',name,res=>{if(res.success){state.myUsername=res.username;state.myCode=res.userCode;localStorage.setItem('myUsername',state.myUsername);localStorage.setItem('myCode',state.myCode);initUser();}else{alert(getTranslatedText('usernameTakenAlert', res.message));}});}
-    function copyUserCode(){navigator.clipboard.writeText(state.myCode).then(()=>alert(getTranslatedText('copyCodeAlert'))); }
-    function addFriend(e){e.preventDefault();const code=ui.chat.friendInput.value.trim();if(code&&code!==state.myCode&&!state.friends.find(f=>f.code===code)){socket.emit('add friend',code,res=>{if(res.success){state.friends.push(res);localStorage.setItem('myFriends',JSON.stringify(state.friends));renderFriends();}else{alert(getTranslatedText('friendNotFoundAlert', res.message));}});}
-    ui.chat.friendInput.value='';}
-    function renderFriends(){
-        ui.chat.list.innerHTML='';
-        state.friends.forEach(f=>{
-            const el=document.createElement('div');
-            el.className='friend-item';
-            el.dataset.code=f.code;
-            el.dataset.username=f.username; // Added for convenience
-            const isOnline=state.onlineFriends.includes(f.username);
-            el.innerHTML=`
-                <div class="friend-info" style="display:flex;align-items:center;gap:0.75rem;">
-                    <span class="friend-status ${isOnline?'online':''}"></span>
-                    <span>${f.username}</span>
-                </div>
-                <button class="friend-delete" title="Eliminar amigo" aria-label="${getTranslatedText('deleteFriendAriaLabel')} ${f.username}">&times;</button>
-            `;
-            if(f.code===state.activeChat)el.classList.add('active');
-            ui.chat.list.appendChild(el);
-        });
-    }
-    function setActiveChat(code){const friend=state.friends.find(f=>f.code===code);if(friend){state.activeChat=code;ui.chat.header.textContent=`${getTranslatedText('chatWithText')} ${friend.username}`;ui.chat.chatInput.disabled=false;ui.chat.sendBtn.disabled=false;renderFriends();renderMessages();ui.chat.chatInput.focus();}}
-    function handleFriendListClick(e){const friendItem=e.target.closest('.friend-item');if(e.target.matches('.friend-delete')){const code=friendItem.dataset.code;const friendName=friendItem.dataset.username;if(confirm(`${getTranslatedText('confirmDeleteFriendText')} ${friendName}?`)){deleteFriend(code);}}else if(friendItem){setActiveChat(friendItem.dataset.code);}}
-    function deleteFriend(codeToDelete) { // Centralized delete friend logic
-        state.friends = state.friends.filter(f => f.code !== codeToDelete);
-        localStorage.setItem('myFriends', JSON.stringify(state.friends));
-        if (state.activeChat === codeToDelete) {
-            state.activeChat = null;
-            ui.chat.header.textContent = getTranslatedText('selectFriendText');
-            ui.chat.chatInput.disabled = true;
-            ui.chat.sendBtn.disabled = true;
         }
-        renderFriends();
-        renderMessages();
-    }
-    function sendChatMessage(e){e.preventDefault();const msgText = ui.chat.chatInput.value.trim();if(msgText&&state.activeChat){const message={id:Date.now(),text:msgText};socket.emit('private message',{toCode:state.activeChat,message});handleNewMessage(state.myUsername,message,true);}
-    ui.chat.chatInput.value='';}
-    function handleNewMessage(from,message,self=false){const friend=state.friends.find(f=>f.username===from);const partnerCode=self?state.activeChat:(friend?friend.code:null);if(partnerCode){if(!state.messages[partnerCode])state.messages[partnerCode]=[];state.messages[partnerCode].push({from:from,id:message.id,text:message.text});localStorage.setItem('myMessages',JSON.stringify(state.messages));if(partnerCode===state.activeChat)renderMessages();}}
-    function updateOnlineFriends(users){state.onlineFriends=users;renderFriends();}
-    function displaySystemMessage({recipient,text}){if(state.activeChat===recipient){const el=document.createElement('p');el.style.textAlign='center';el.style.color='var(--text-light)';el.textContent=text;ui.chat.messages.appendChild(el);}}
-    function renderMessages(){ui.chat.messages.innerHTML='';if(state.activeChat&&state.messages[state.activeChat]){state.messages[state.activeChat].forEach(({from,id,text})=>{const bubble=document.createElement('div');bubble.className=`message-bubble ${from===state.myUsername?'sent':'received'}`;bubble.innerHTML=`<span>${text.replace(/\n/g,'<br>')}</span>`;if(from===state.myUsername){const delBtn=document.createElement('button');delBtn.className='message-delete';delBtn.innerHTML='&times;';delBtn.dataset.id=id;bubble.appendChild(delBtn);}
-    ui.chat.messages.appendChild(bubble);});ui.chat.messages.scrollTop=ui.chat.messages.scrollHeight;}}
-    function handleMessageDelete(e){if(e.target.matches('.message-delete')){const messageId=Number(e.target.dataset.id); if(confirm(getTranslatedText('confirmDeleteMessageText'))) {state.messages[state.activeChat]=state.messages[state.activeChat].filter(msg=>msg.id!==messageId);localStorage.setItem('myMessages',JSON.stringify(state.messages));renderMessages();}})}
-    function handleChatEntry(data){initUser();if(data?.problem){setTimeout(()=>{alert(getTranslatedText('selectFriendShareProblemAlert'));ui.chat.chatInput.value=data.problem;history.replaceState({},'',location.pathname+location.hash);},500);}}
-    
-    // --- CONCEPTS LOGIC ---
-    let conceptUsedTopics = new Set(); // To store unique topics already presented in Concepts grid
-    function setupConcepts(){
-        ui.concepts.search.addEventListener('input',renderConcepts);
-        // Fill datalist suggestions
-        Object.keys(mathConcepts).forEach(key => {
-            const option = document.createElement('option');
-            option.value = getTranslatedText(mathConcepts[key].nameKey);
-            ui.concepts.suggestions.appendChild(option);
-        });
-        renderConcepts(); // Initial render
-    }
-    
-    function renderConcepts(){
-        const term = ui.concepts.search.value.toLowerCase();
-        ui.concepts.grid.innerHTML='';
-        let conceptsToRender = Object.keys(mathConcepts);
 
-        // Filter based on search term
-        const filteredKeys = conceptsToRender.filter(key => 
-            getTranslatedText(mathConcepts[key].nameKey).toLowerCase().includes(term) ||
-            getTranslatedText(mathConcepts[key].topicKey).toLowerCase().includes(term)
-        );
+        function initUser(){
+            if(state.myUsername&&state.myCode){
+                ui.chat.overlay.style.display='none';
+                socket.emit('register user',state.myUsername,res=>{
+                    if(res.success){
+                        ui.chat.yourUsername.textContent=state.myUsername;
+                        ui.chat.yourCode.textContent=state.myCode;
+                        renderFriends();
+                    } else {
+                        alert(getTranslatedText('usernameTakenAlert', res.message)); 
+                        localStorage.clear(); // Clear local data on registration failure to force re-prompt
+                        state.myUsername = null;
+                        state.myCode = null;
+                        initUser(); // Re-prompt user
+                    }
+                });
+            }else{ui.chat.overlay.style.display='flex';}
+        }
+        function handleUsernameRegister(e){e.preventDefault();const name=ui.chat.input.value.trim();if(name.length<3)return alert(getTranslatedText('usernameMinLengthAlert'));socket.emit('register user',name,res=>{if(res.success){state.myUsername=res.username;state.myCode=res.userCode;localStorage.setItem('myUsername',state.myUsername);localStorage.setItem('myCode',state.myCode);initUser();}else{alert(getTranslatedText('usernameTakenAlert', res.message));}});}
+        function copyUserCode(){navigator.clipboard.writeText(state.myCode).then(()=>alert(getTranslatedText('copyCodeAlert'))); }
+        function addFriend(e){e.preventDefault();const code=ui.chat.friendInput.value.trim();if(code&&code!==state.myCode&&!state.friends.find(f=>f.code===code)){socket.emit('add friend',code,res=>{if(res.success){state.friends.push(res);localStorage.setItem('myFriends',JSON.stringify(state.friends));renderFriends();}else{alert(getTranslatedText('friendNotFoundAlert', res.message));}});}
+        ui.chat.friendInput.value='';}
+        function renderFriends(){
+            ui.chat.list.innerHTML='';
+            state.friends.forEach(f=>{
+                const el=document.createElement('div');
+                el.className='friend-item';
+                el.dataset.code=f.code;
+                el.dataset.username=f.username; // Added for convenience
+                const isOnline=state.onlineFriends.includes(f.username);
+                el.innerHTML=`
+                    <div class="friend-info" style="display:flex;align-items:center;gap:0.75rem;">
+                        <span class="friend-status ${isOnline?'online':''}" aria-label="${isOnline ? getTranslatedText('statusOnline') : getTranslatedText('statusOffline')}"></span>
+                        <span class="sr-only">${isOnline ? getTranslatedText('statusOnline') : getTranslatedText('statusOffline')}</span>
+                        <span>${f.username}</span>
+                    </div>
+                    <button class="friend-delete" title="${getTranslatedText('deleteFriendAriaLabel')}" aria-label="${getTranslatedText('deleteFriendAriaLabel')} ${f.username}">&times;</button>
+                `;
+                if(f.code===state.activeChat)el.classList.add('active');
+                ui.chat.list.appendChild(el);
+            });
+        }
+        function setActiveChat(code){const friend=state.friends.find(f=>f.code===code);if(friend){state.activeChat=code;ui.chat.header.textContent=`${getTranslatedText('chatWithText')} ${friend.username}`;ui.chat.chatInput.disabled=false;ui.chat.sendBtn.disabled=false;renderFriends();renderMessages();ui.chat.chatInput.focus();}}
+        function handleFriendListClick(e){const friendItem=e.target.closest('.friend-item');if(e.target.matches('.friend-delete')){const code=friendItem.dataset.code;const friendName=friendItem.dataset.username;if(confirm(`${getTranslatedText('confirmDeleteFriendText')} ${friendName}?`)){deleteFriend(code);}}else if(friendItem){setActiveChat(friendItem.dataset.code);}}
+        function deleteFriend(codeToDelete) { // Centralized delete friend logic
+            state.friends = state.friends.filter(f => f.code !== codeToDelete);
+            localStorage.setItem('myFriends', JSON.stringify(state.friends));
+            if (state.activeChat === codeToDelete) {
+                state.activeChat = null;
+                ui.chat.header.textContent = getTranslatedText('selectFriendText');
+                ui.chat.chatInput.disabled = true;
+                ui.chat.sendBtn.disabled = true;
+            }
+            renderFriends();
+            renderMessages();
+        }
+        function sendChatMessage(e){e.preventDefault();const msgText = ui.chat.chatInput.value.trim();if(msgText&&state.activeChat){const message={id:Date.now(),text:msgText};socket.emit('private message',{toCode:state.activeChat,message});handleNewMessage(state.myUsername,message,true);}
+        ui.chat.chatInput.value='';}
+        function handleNewMessage(from,message,self=false){const friend=state.friends.find(f=>f.username===from);const partnerCode=self?state.activeChat:(friend?friend.code:null);if(partnerCode){if(!state.messages[partnerCode])state.messages[partnerCode]=[];state.messages[partnerCode].push({from,id:message.id,text:message.text});localStorage.setItem('myMessages',JSON.stringify(state.messages));if(partnerCode===state.activeChat)renderMessages();}}
+        function updateOnlineFriends(users){state.onlineFriends=users;renderFriends();}
+        function displaySystemMessage({recipient,text}){if(state.activeChat===recipient){const el=document.createElement('p');el.style.textAlign='center';el.style.color='var(--text-light)';el.textContent=text;ui.chat.messages.appendChild(el);}}
+        function renderMessages(){ui.chat.messages.innerHTML='';if(state.activeChat&&state.messages[state.activeChat]){state.messages[state.activeChat].forEach(({from,id,text})=>{const bubble=document.createElement('div');bubble.className=`message-bubble ${from===state.myUsername?'sent':'received'}`;bubble.innerHTML=`<span class="sr-only">${from === state.myUsername ? getTranslatedText('youText') : from}: </span><span>${text.replace(/\n/g,'<br>')}</span>`;if(from===state.myUsername){const delBtn=document.createElement('button');delBtn.className='message-delete';delBtn.innerHTML='&times;';delBtn.dataset.id=id;delBtn.setAttribute('aria-label', getTranslatedText('deleteMessageAriaLabel'));bubble.appendChild(delBtn);}
+        ui.chat.messages.appendChild(bubble);});ui.chat.messages.scrollTop=ui.chat.messages.scrollHeight;}}
+        function handleMessageDelete(e){if(e.target.matches('.message-delete')){const messageId=Number(e.target.dataset.id);if(confirm(getTranslatedText('confirmDeleteMessageText'))){state.messages[state.activeChat]=state.messages[state.activeChat].filter(msg=>msg.id!==messageId);localStorage.setItem('myMessages',JSON.stringify(state.messages));renderMessages();}}}
+        function handleChatEntry(data){initUser();if(data?.problem){setTimeout(()=>{alert(getTranslatedText('selectFriendShareProblemAlert'));ui.chat.chatInput.value=data.problem;history.replaceState({},'',location.pathname+location.hash);},500);}}
         
-        if(filteredKeys.length===0){ui.concepts.grid.innerHTML=`<p class="card" data-lang-key="noConceptsFoundText"></p>`;applyTranslations(); return;}
+        // --- CONCEPTS LOGIC ---
+        function setupConcepts(){
+            ui.concepts.search.addEventListener('input',renderConcepts);
+            // Fill datalist suggestions for concepts
+            Object.keys(mathConcepts).forEach(key => {
+                const option = document.createElement('option');
+                option.value = getTranslatedText(mathConcepts[key].nameKey);
+                ui.concepts.suggestions.appendChild(option);
+            });
+            renderConcepts(); // Initial render
+        }
+        function renderConcepts(){
+            const term = ui.concepts.search.value.toLowerCase();
+            ui.concepts.grid.innerHTML='';
+            const filteredKeys = Object.keys(mathConcepts).filter(key => 
+                getTranslatedText(mathConcepts[key].nameKey).toLowerCase().includes(term) ||
+                getTranslatedText(mathConcepts[key].topicKey).toLowerCase().includes(term)
+            );
+            
+            if(filteredKeys.length===0){ui.concepts.grid.innerHTML=`<p class="card" data-lang-key="noConceptsFoundText"></p>`;applyTranslations(); return;}
 
-        // Render cards
-        filteredKeys.forEach(key => {
-            const item=mathConcepts[key];
-            const card=document.createElement('div'); card.className='content-card card';
-            card.setAttribute('role', 'article'); // ARIA role
-            card.setAttribute('aria-labelledby', `concept-name-${key}`);
-            card.setAttribute('tabindex', '0'); // Make cards focusable
-            card.innerHTML=`<h4 id="concept-name-${key}" data-lang-key="${item.nameKey}">${item.nameKey}</h4><p data-lang-key="${item.topicKey}Desc">${item.topicKey}</p>`;
-            card.addEventListener('click',()=>{history.pushState({topicId:key},'','#view-concepto-detalle');showView('#view-concepto-detalle',{topicId:key});});
-            ui.concepts.grid.appendChild(card);
-        });
-        applyTranslations();
-    }
-    
-    function renderConceptDetail(topicId){
-        const item=mathConcepts[topicId];
-        if(!item){ui.concepts.detail.innerHTML=`<p class="card" data-lang-key="conceptNotFoundText"></p>`;applyTranslations(); return;}
-        ui.concepts.detail.innerHTML=`
-            <h1 class="sr-only" data-lang-key="${item.nameKey}">${item.nameKey}</h1>
-            <div class="page-header">
-                <h2 id="concepto-detalle-title" data-lang-key="${item.nameKey}"></h2>
-                <p data-lang-key="${item.topicKey}Desc"></p>
-            </div>
-            <div class="card" role="article" aria-labelledby="concept-detail-title">
-                <h3><i class="fas fa-info-circle" aria-hidden="true" style="color:var(--primary-color); margin-right: 0.5rem;"></i> <span data-lang-key="descriptionTitle"></span></h3><p data-lang-key="${item.descriptionKey}"></p>
-                <h3><i class="fas fa-ruler-combined" aria-hidden="true" style="color:var(--primary-color); margin-right: 0.5rem;"></i> <span data-lang-key="howToTitle"></span></h3><p data-lang-key="${item.howToKey}"></p>
-                <h3><i class="fas fa-list-alt" aria-hidden="true" style="color:var(--primary-color); margin-right: 0.5rem;"></i> <span data-lang-key="typesTitle"></span></h3><p data-lang-key="${item.typesKey}"></p>
-                <h3><i class="fas fa-exclamation-triangle" aria-hidden="true" style="color:var(--primary-color); margin-right: 0.5rem;"></i> <span data-lang-key="errorsTitle"></span></h3><p data-lang-key="${item.errorsKey}"></p>
-                <button class="btn practiquemos-btn" data-topic-id="${topicId}" style="margin-top:1.5rem;" data-lang-key="practiceButton"></button>
-            </div>`;
-        ui.concepts.detail.querySelector('.practiquemos-btn').addEventListener('click',e=>{const id=e.target.dataset.topicId;history.pushState({topicId:id},'','#view-practica');showView('#view-practica',{topicId:id});});
-        applyTranslations(); 
-    }
+            filteredKeys.forEach(key => {
+                const item=mathConcepts[key];
+                const card=document.createElement('div'); card.className='content-card card';
+                card.setAttribute('role', 'article');
+                card.setAttribute('tabindex', '0');
+                card.setAttribute('aria-labelledby', `concept-name-${key}`);
+                // Images are now optional in mathData
+                card.innerHTML=`
+                    <h4 id="concept-name-${key}" data-lang-key="${item.nameKey}"></h4>
+                    <p data-lang-key="${item.topicKey}"></p>
+                `;
+                card.addEventListener('click',()=>{history.pushState({topicId:key},'','#view-concepto-detalle');showView('#view-concepto-detalle',{topicId:key});});
+                ui.concepts.grid.appendChild(card);
+            });
+            applyTranslations(); // Translate newly rendered content
+        }
+        
+        function renderConceptDetail(topicId){
+            const item=mathConcepts[topicId];
+            if(!item){ui.concepts.detail.innerHTML=`<p class="card" data-lang-key="conceptNotFoundText"></p>`;applyTranslations(); return;}
+            ui.concepts.detail.innerHTML=`
+                <h1 class="sr-only" data-lang-key="${item.nameKey}"></h1>
+                <div class="page-header">
+                    <h2 id="concepto-detalle-title" data-lang-key="${item.nameKey}"></h2>
+                    <p data-lang-key="${item.topicKey}"></p>
+                </div>
+                <div class="card" role="article" aria-labelledby="concepto-detalle-title">
+                    <p><img class="sr-only" src="${item.image}" alt="${getTranslatedText(item.nameKey)}" /> </p>
+                    <h3><i class="fas fa-info-circle" aria-hidden="true" style="color:var(--primary-color); margin-right: 0.5rem;"></i> <span data-lang-key="descriptionTitle"></span></h3><p data-lang-key="${item.descriptionKey}"></p>
+                    <h3><i class="fas fa-ruler-combined" aria-hidden="true" style="color:var(--primary-color); margin-right: 0.5rem;"></i> <span data-lang-key="howToTitle"></span></h3><p data-lang-key="${item.howToKey}"></p>
+                    <h3><i class="fas fa-list-alt" aria-hidden="true" style="color:var(--primary-color); margin-right: 0.5rem;"></i> <span data-lang-key="typesTitle"></span></h3><p data-lang-key="${item.typesKey}"></p>
+                    <h3><i class="fas fa-exclamation-triangle" aria-hidden="true" style="color:var(--primary-color); margin-right: 0.5rem;"></i> <span data-lang-key="errorsTitle"></span></h3><p data-lang-key="${item.errorsKey}"></p>
+                    <button class="btn practiquemos-btn" data-topic-id="${topicId}" style="margin-top:1.5rem;" data-lang-key="practiceButton"></button>
+                </div>`;
+            if (item.image) { // Add image visually only if present
+                const imgElement = document.createElement('img');
+                imgElement.src = item.image;
+                imgElement.alt = getTranslatedText(item.nameKey); // Alt text from translation
+                imgElement.style.cssText = 'width: 100%; max-width: 400px; height: auto; display: block; margin: 1rem auto; border-radius: var(--radius);';
+                ui.concepts.detail.querySelector('.card p').prepend(imgElement); // Place image inside the card for structure
+            }
+
+            ui.concepts.detail.querySelector('.practiquemos-btn').addEventListener('click',e=>{const id=e.target.dataset.topicId;history.pushState({topicId:id},'','#view-practica');showView('#view-practica',{topicId:id});});
+            applyTranslations(); 
+        }
 
     // --- PRACTICE LOGIC ---
-    let solvedProblems = new Set(); 
-    let problemSetForSession = new Set(); // Stores problems seen in current session
+    let solvedProblems = new Set(); // Stores solved problems across a session for repetition checking
     function setupPractice(){
         ui.practice.search.addEventListener('input',renderPracticeSearch);
-        // Fill datalist suggestions
+        // Fill datalist suggestions for practice search
         Object.keys(mathData).forEach(key => {
             const option = document.createElement('option');
             option.value = getTranslatedText(mathData[key].nameKey);
@@ -414,9 +435,8 @@
         ui.practice.grid.innerHTML='';
         let keys = Object.keys(mathData);
 
-        if(defaultTopicId && keys.includes(defaultTopicId)) { // If specific topic requested, override search
-            keys = [defaultTopicId];
-            ui.practice.search.value = getTranslatedText(mathData[defaultTopicId].nameKey); // Prefill search
+        if(defaultTopicId && keys.includes(defaultTopicId)) { 
+            keys = [defaultTopicId]; // If specific topic requested
         } else {
             keys = keys.filter(key=>getTranslatedText(mathData[key].nameKey).toLowerCase().includes(term));
         }
@@ -428,9 +448,13 @@
             const card=document.createElement('div'); card.className='content-card card';
             card.setAttribute('role', 'article');
             card.setAttribute('tabindex', '0');
-            card.setAttribute('aria-labelledby', `practice-name-${key}`);
-            card.innerHTML=`<h4 id="practice-name-${key}" data-lang-key="${item.nameKey}">${item.nameKey}</h4><p data-lang-key="${item.topicKey}Desc"></p><button class="btn" data-topic-id="${key}" data-lang-key="startButton"></button>`;
-            card.querySelector('button').addEventListener('click',e=>generatePracticeContent(e.target.dataset.topicId));
+            card.setAttribute('aria-labelledby', `practice-topic-name-${key}`);
+            card.innerHTML=`<h4 id="practice-topic-name-${key}" data-lang-key="${item.nameKey}"></h4><p data-lang-key="${item.topicKey}Desc"></p><button class="btn" data-topic-id="${key}" data-lang-key="startButton" aria-label="${getTranslatedText('startButton')} ${getTranslatedText(item.nameKey)}"></button>`;
+            card.querySelector('button').addEventListener('click',e=>{
+                const topicId=e.target.dataset.topicId;
+                solvedProblems.clear(); // Reset problems for new practice session
+                generatePracticeContent(topicId);
+            });
             ui.practice.grid.appendChild(card);
         });
         applyTranslations();
@@ -440,133 +464,149 @@
         const item=mathData[topicId];
         ui.practice.header.textContent=`${getTranslatedText('exercisesForText')}: ${getTranslatedText(item.nameKey)}`;
         ui.practice.grid.innerHTML='';
-        solvedProblems.clear(); // Reset solved problems for new session
-        problemSetForSession.clear(); // Reset set of problems for this specific practice content generation
+        let sessionUsedProblems=new Set(); 
 
         for(let i=0;i<5;i++){ // Generate 5 problems
-            const problem = genProblem(topicId, i<3, problemSetForSession); // Use specific set for unique problems this session
+            const problem = genProblem(topicId, i < 3, sessionUsedProblems); // Pass Set for unique checking
             if (!problem) { console.warn(`Could not generate unique problem for ${topicId}.`); continue; }
-            problemSetForSession.add(problem.question); // Track problems for current generation
-
+            sessionUsedProblems.add(problem.question);
+            
             const card=document.createElement('div');card.className='problem-card card';
             card.setAttribute('role', 'article');
-            card.setAttribute('tabindex', '0');
-            card.setAttribute('aria-labelledby', `problem-title-${topicId}-${i}`);
+            card.setAttribute('aria-labelledby', `problem-${topicId}-${i}-title`);
+            card.setAttribute('tabindex', '0'); // Make problem cards focusable
             card.innerHTML=`
-                <h4 id="problem-title-${topicId}-${i}" class="sr-only">${getTranslatedText(problem.typeKey)} para ${getTranslatedText(item.nameKey)}</h4>
-                <p><strong><span data-lang-key="${problem.typeKey}">${problem.typeKey}</span>:</strong> ${problem.question}</p>
+                <h4 id="problem-${topicId}-${i}-title" class="sr-only">${getTranslatedText(problem.typeKey)} para ${getTranslatedText(item.nameKey)}</h4>
+                <p><strong><span data-lang-key="${problem.typeKey}"></span>:</strong> ${problem.question}</p>
                 <div class="response-form">
                     <label for="response-${topicId}-${i}" class="sr-only">${getTranslatedText('yourAnswerText')}</label>
                     <input type="text" id="response-${topicId}-${i}" class="input-field problem-answer" placeholder="${getTranslatedText('typeYourAnswerPlaceholder')}" aria-label="${getTranslatedText('yourAnswerText')}">
-                    <button class="btn check-answer-btn" data-lang-key="checkAnswerButton" aria-label="Comprobar respuesta">Comprobar</button>
+                    <button class="btn check-answer-btn" data-lang-key="checkAnswerButton" aria-label="${getTranslatedText('checkAnswerButton')}"></button>
                 </div>
                 <div class="feedback" role="alert" aria-live="assertive"></div>
-                <button class="btn solve-together-btn" style="margin-top: 1rem;" data-lang-key="solveTogetherButton" aria-label="Resolver este problema con un amigo">Resolvamoslo Juntos</button>
+                <button class="btn solve-together-btn" style="margin-top: 1rem;" data-lang-key="solveTogetherButton" aria-label="${getTranslatedText('solveTogetherButton')}"></button>
             `;
             ui.practice.grid.appendChild(card);
             
-            // Check answer logic
             card.querySelector('.check-answer-btn').addEventListener('click', e=>{
                 const input=e.target.previousElementSibling;
                 const feedback=e.target.parentElement.nextElementSibling;
-                const userAnswer=input.value.trim();
-                const correctAnswer=String(problem.answer).trim(); // Ensure string comparison
+                const userAnswer=input.value.trim().toLowerCase();
+                const correctAnswer=String(problem.answer).trim().toLowerCase();
                 
-                if(userAnswer.toLowerCase() === correctAnswer.toLowerCase()){
+                if(userAnswer === correctAnswer){
                     feedback.textContent=getTranslatedText('correctAnswerText');
                     feedback.className='feedback correct';
                 }else{
-                    feedback.textContent=`${getTranslatedText('incorrectAnswerText')} ${correctAnswer}`;
+                    feedback.textContent=`${getTranslatedText('incorrectAnswerText')} ${problem.answer}`;
                     feedback.className='feedback incorrect';
                 }
                 feedback.style.display='block';
                 e.target.disabled = true; // Disable check button after one try
+                input.disabled = true; // Disable input
             });
         }
-        // Link to chat functionality
         document.querySelectorAll('.solve-together-btn').forEach(btn=>btn.addEventListener('click',e=>{
             const problem=e.target.parentElement.querySelector('p').textContent; // Get the problem text
             history.pushState({problem},'',`#view-chat`); 
             showView(`#view-chat`, {problem: problem});
         }));
-        applyTranslations(); // Apply translations after rendering problems
+        applyTranslations(); 
     }
 
-    function genProblem(topicId,isExercise,used){
-        let question,answer,n1,n2,n3,n4; // Added n4 for more complexity
-        const baseNum = Math.floor(Math.random()*10)+1; // Base number for diverse operations
-        const multiplier = Math.floor(Math.random()*3)+2; // Small multiplier
-        const modifier = Math.floor(Math.random()*5)+1; // Small number for +/-
-
-        // Problem types
-        const algebra1Templates = [
-            {q: (a,b,c) => `Resuelve: ${a}x + ${b} = ${c}.`, a: (a,b,c) => ((c-b)/a).toFixed(2), type: "linear"},
-            {q: (a,b,c) => `Resuelve: ${a} * (x + ${b}) = ${c}.`, a: (a,b,c) => (c/a - b).toFixed(2), type: "linear"},
-            {q: (a,b) => `Calcula: ${a} - (${-b}) * 2.`, a: (a,b) => a - (-b) * 2, type: "arithmetic"},
-            // Ambiental
-            {q: (a,b,c) => `Una comunidad consume ${a}L de agua al día. Si reducen el consumo en ${b}% durante ${c} días, ¿cuántos litros ahorran?`, a: (a,b,c) => ((a*b/100)*c).toFixed(2), type: "environmental"}
-        ];
-
-        let attempt = 0;
-        let generatedProblem = null;
-        let problemTextId = ''; // A string that uniquely identifies the problem details
+    function genProblem(topicId,isExercise,usedProblems){
+        let question,answer,typeKey;
+        const n1=Math.floor(Math.random()*50)+1; const n2=Math.floor(Math.random()*15)+2; const n3=Math.floor(Math.random()*25)+5; 
+        const n4=Math.floor(Math.random()*10)+1; const n5=Math.floor(Math.random()*7)+1; // Added n4, n5 for more variety
         
+        typeKey = isExercise ? "exerciseText" : "problemText";
+        
+        // Define common problem templates
+        const templates = {
+            Algebra: [
+                { q: () => `Resuelve: ${n1}x + ${n2} = ${n1 * 3 + n2}`, a: () => 3 }, // x = 3
+                { q: () => `Factoriza: ${n1}x + ${n1 * n2}.`, a: () => `${n1}(x + ${n2})` },
+                { q: () => `Si A=${n1} y B=${n2}, ¿cuál es el valor de A*B - (A+B)?`, a: () => n1*n2 - (n1+n2) }
+            ],
+            Geometria: [
+                { q: () => `Calcula el área de un rectángulo con lados de ${n2} u y ${n3} u.`, a: () => (n2 * n3) },
+                { q: () => `El perímetro de un cuadrado es ${4 * n2} u. ¿Cuál es la longitud de un lado?`, a: () => n2 },
+                { q: () => `En un círculo con radio ${n2}u, ¿cuál es su diámetro?`, a: () => 2*n2}
+            ],
+            Trigonometria: [
+                { q: () => `Calcula el seno de 30 grados (con 2 decimales).`, a: () => '0.50' },
+                { q: () => `Si el cateto opuesto es ${n2} y la hipotenusa es ${n2 * 2}, ¿cuánto es el seno?`, a: () => '0.50'},
+                { q: () => `¿Cuánto es tan(45°)?`, a: () => '1' }
+            ],
+            Funciones: [
+                { q: () => `Si f(x) = 2x + ${n1}, calcula f(${n2}).`, a: () => (2 * n2 + n1)},
+                { q: () => `Si f(x) = x² - ${n1}, calcula f(${n2}).`, a: () => (n2*n2 - n1)},
+                { q: () => `¿Es f(x) = ${n1} una función constante o lineal?`, a: () => 'constante'}
+            ],
+            EstadisticaYProbabilidad: [
+                { q: () => `En un grupo de ${n1} personas, ${n2} tienen ojos azules. ¿Cuál es la frecuencia relativa? (Decimal, 2 decimales)`, a: () => (n2 / n1).toFixed(2) },
+                { q: () => `Lanzas una moneda ${n1} veces, ${n2} veces sale cara. ¿Cuál es la probabilidad frecuencial de cara? (Decimal, 2 decimales)`, a: () => (n2 / n1).toFixed(2) },
+                { q: () => `Un saco tiene ${n1} bolas rojas y ${n2} azules. ¿Cuál es la probabilidad de sacar una roja? (Decimal, 2 decimales)`, a: () => (n1 / (n1+n2)).toFixed(2)}
+            ],
+            Calculo: [
+                { q: () => `Si y = x^2, ¿cuál es su derivada?`, a: () => '2x' },
+                { q: () => `La derivada de una constante C es...`, a: () => '0' },
+                { q: () => `La integral de 1 es...`, a: () => 'x + C' }
+            ],
+            // Special environmental problems
+            Environmental: [
+                { q: () => getTranslatedText('waterConsumptionProblem').replace('[CONSUMO]', n1 * 100).replace('[REDUCCION]', n2).replace('[DIAS]', n3), a: () => ((n1 * 100 * n2 / 100) * n3).toFixed(0) }, // Ahorro de agua
+                { q: () => getTranslatedText('plasticWasteProblem').replace('[FAMILIAS]', n1).replace('[PLASTICO]', n2).replace('[RECICLA]', n3), a: () => (n1 * n2 * (n3 / 100)).toFixed(0) }, // Residuos plásticos
+                { q: () => getTranslatedText('deforestationProblem').replace('[ARBOLES]', n1 * 100).replace('[TAZADACRE]', n2), a: () => (n1 * 100 / n2).toFixed(2) } // Deforestación
+            ]
+        };
+
+        let generatedProblem = null;
+        let attemptCount = 0;
+        let problemQuestion = "";
+
+        // Choose problem type based on topic and isExercise flag
+        let templateList;
+        if (!isExercise && (topicId === 'Algebra' || topicId === 'EstadisticaYProbabilidad' || topicId === 'Calculo')) { // Example: Only show environmental for these for now
+            templateList = templates.Environmental;
+        } else {
+            templateList = templates[topicId];
+        }
+
+        if (!templateList) { // Fallback if no problems defined for topic
+             return { typeKey: 'exerciseText', question: `No hay problemas específicos generados para "${getTranslatedText(mathConcepts[topicId].nameKey)}".`, answer: 'No disponible' };
+        }
+
         do {
-            attempt++;
-            n1=Math.floor(Math.random()*50)+1; n2=Math.floor(Math.random()*10)+2; n3=Math.floor(Math.random()*20)+5; n4 = Math.floor(Math.random()*10)+1;
+            const template = templateList[Math.floor(Math.random() * templateList.length)];
+            generatedProblem = template.q(); // Call the function to get unique random values
+            answer = String(template.a()).trim();
+            question = generatedProblem.trim(); // Trim spaces
 
-            const templateChoice = isExercise ? 
-                Math.floor(Math.random() * algebra1Templates.length) :
-                Math.floor(Math.random() * 1); // Only one environmental problem type for now
-            
-            if (!isExercise && templateChoice === 0) { // Specific environmental problem
-                question = getTranslatedText('waterConsumptionProblem').replace('[CONSUMO]',n1*100).replace('[REDUCCION]',n2).replace('[DIAS]',n3);
-                answer = ((n1*100*n2/100)*n3).toFixed(0); // Total saved
-            } else { // Use templates
-                 switch (topicId) {
-                    case 'Algebra': case 'EcuacionesDePrimerGrado':
-                        let tmpl = algebra1Templates[Math.floor(Math.random() * algebra1Templates.length)];
-                        if (!tmpl) tmpl = algebra1Templates[0]; // Default
-                        question = tmpl.q(baseNum, modifier, multiplier * baseNum + modifier);
-                        answer = tmpl.a(baseNum, modifier, multiplier * baseNum + modifier);
-                        break;
-                    case 'Geometria':
-                        if (isExercise) {
-                            question = getTranslatedText('areaRectText',n2,n3); answer = (n2 * n3).toFixed(0);
-                        } else { // Environmental Geometry problem
-                            question = getTranslatedText('reforestationProblem',n1*1000,n2,n3);
-                            answer = ((n1*1000)/(n2*n3)).toFixed(2); // Calculate land for each tree
-                        }
-                        break;
-                    case 'Trigonometria':
-                        const angle = [30,45,60][Math.floor(Math.random()*3)];
-                        answer = Math.sin(angle*Math.PI/180).toFixed(2);
-                        question = getTranslatedText('sineCalculationText', angle);
-                        break;
-                    default:
-                        // Fallback if no specific problem is defined
-                        question = getTranslatedText('defineTextForTopic', getTranslatedText(mathConcepts[topicId].nameKey));
-                        answer = getTranslatedText('reviewConceptsText');
-                }
+            attemptCount++;
+            if (attemptCount > 50) { // Limit attempts to prevent infinite loop for very specific problems
+                console.warn(`Could not generate unique problem for ${topicId}.`);
+                return { typeKey: 'problemText', question: getTranslatedText('noPracticeFoundText'), answer: 'No disponible' };
             }
-            problemTextId = `${topicId}-${question}-${answer}`; // Unique ID for checking used problems
-        } while (used.has(problemTextId) && attempt < 20); // Try up to 20 times to find a unique problem
+        } while (usedProblems.has(question)); // Check if the generated problem is unique
 
-        return {typeKey: isExercise ? 'exerciseText' : 'problemText', question: question, answer: String(answer)};
+        return { typeKey: isExercise ? 'exerciseText' : 'problemText', question, answer };
     }
-
+    
     // --- OTHER SECTIONS ---
-    function renderConsejos(){ui.consejos.container.innerHTML = ''; consejosData.forEach(c => {const card = document.createElement('div'); card.className = 'card'; card.innerHTML = `<h3 data-lang-key="${c.titleKey}"></h3><p data-lang-key="${c.textKey}"></p>`; ui.consejos.container.appendChild(card);}); applyTranslations(); }
+    function setupConsejos(){ui.consejos.container.innerHTML = ''; consejosData.forEach(c => {const card = document.createElement('div'); card.className = 'card'; card.setAttribute('role', 'article'); card.setAttribute('aria-labelledby', `tip-title-${c.icon}`); card.setAttribute('tabindex', '0'); card.innerHTML = `<h3><i class="fas ${c.icon}" aria-hidden="true" style="color:var(--primary-color); margin-right: 0.5rem;"></i><span id="tip-title-${c.icon}" data-lang-key="${c.titleKey}"></span></h3><p data-lang-key="${c.textKey}"></p>`; ui.consejos.container.appendChild(card);}); applyTranslations(); }
     function renderQuienesSomos(){ui.quienes.container.innerHTML = quienesSomosText; applyTranslations(); }
     
     // --- SETTINGS LOGIC ---
     function setupSettings(){
         // Language Selector
-        ui.ajustes.lang.addEventListener('change',(e)=>{applyTranslations(e.target.value); location.reload();}); // Reload to ensure full UI language change
+        ui.ajustes.lang.addEventListener('change',(e)=>{applyTranslations(e.target.value); location.reload();}); 
+        
         // Background customization
         ui.ajustes.bgUpload.addEventListener('change',e=>{const file=e.target.files[0];if(file){const reader=new FileReader();reader.onload=(ev)=>applyBackground(ev.target.result);reader.readAsDataURL(file);}});
         ui.ajustes.bgUrlForm.addEventListener('submit',e=>{e.preventDefault();const url=ui.ajustes.bgUrlInput.value.trim();if(url)applyBackground(url);});
         ui.ajustes.bgReset.addEventListener('click', resetBackground);
+        
         // Accessibility toggles
         ui.ajustes.fontSizeToggle.addEventListener('change', e => {
             document.body.classList.toggle('large-text', e.target.checked);
@@ -576,19 +616,39 @@
             document.body.classList.toggle('dark-theme', e.target.checked);
             localStorage.setItem('highContrastEnabled', e.target.checked);
         });
+        initSettingsDisplay(); // Load saved settings on app start
     }
 
+    function initSettingsDisplay(){
+        // Set language selector value
+        ui.ajustes.lang.value = localStorage.getItem('appLanguage') || 'es';
+        // Set toggle states based on localStorage
+        ui.ajustes.fontSizeToggle.checked = localStorage.getItem('fontSizeEnabled') === 'true';
+        document.body.classList.toggle('large-text', ui.ajustes.fontSizeToggle.checked);
+        ui.ajustes.contrastToggle.checked = localStorage.getItem('highContrastEnabled') === 'true';
+        document.body.classList.toggle('dark-theme', ui.ajustes.contrastToggle.checked);
+    }
+    
     function applyTranslations(lang = localStorage.getItem('appLanguage') || 'es'){
         const langPack = translations[lang] || translations.es;
         document.querySelectorAll('[data-lang-key]').forEach(el=>{
             const key = el.dataset.langKey;
-            // Handle placeholders
-            if (el.tagName === 'INPUT' && el.placeholder && langPack[`${key}Placeholder`]) {
-                el.placeholder = langPack[`${key}Placeholder`];
-            } else if (langPack[key]) {
-                el.textContent = langPack[key];
+            if (el.tagName === 'INPUT' && el.placeholder && langPack[key + 'Placeholder']) {
+                el.placeholder = langPack[key + 'Placeholder']; // For input placeholders
+            } else if (langPack[key] !== undefined) {
+                el.textContent = langPack[key]; // For text content
             }
         });
+        // Special case for prompt like descriptions of math concepts in concept cards
+        document.querySelectorAll('.content-card p[data-lang-key$="Desc"]').forEach(el => {
+            const key = el.dataset.langKey; // e.g., algebraDesc
+            el.textContent = langPack[key] || el.textContent;
+        });
+
+        // Update datalists manually as they don't respond to data-lang-key
+        ui.concepts.suggestions.innerHTML = Object.keys(mathConcepts).map(key => `<option value="${getTranslatedText(mathConcepts[key].nameKey)}"></option>`).join('');
+        ui.practice.suggestions.innerHTML = Object.keys(mathConcepts).map(key => `<option value="${getTranslatedText(mathConcepts[key].nameKey)}"></option>`).join('');
+
         document.documentElement.lang = lang;
         localStorage.setItem('appLanguage', lang);
     }
@@ -596,23 +656,24 @@
     function applyBackground(url){
         const menuView=document.getElementById('view-menu');
         let backgroundLayer = document.getElementById('menu-background-layer');
-        if (!backgroundLayer) { // Create if it doesn't exist
+        if (!backgroundLayer) {
             backgroundLayer = document.createElement('div');
             backgroundLayer.id = 'menu-background-layer';
             menuView.prepend(backgroundLayer);
         }
         backgroundLayer.style.cssText='position:absolute;top:0;left:0;width:100%;height:100%;z-index:-1;opacity:0.2;';
-        backgroundLayer.innerHTML = ''; // Clear existing content
+        backgroundLayer.innerHTML = ''; // Clear existing content (video or image)
 
-        if(url.startsWith('data:video') || url.match(/\.(mp4|webm|ogg)$/i)) {
-            const video=document.createElement('video');
-            video.style.cssText='width:100%;height:100%;object-fit:cover;';
-            video.src=url;video.autoplay=true;video.loop=true;video.muted=true;
+        if(url.startsWith('data:video') || url.match(/\.(mp4|webm|ogg)$/i)) { // Check for video type or extension
+            const video=document.createElement('video');video.style.cssText='width:100%;height:100%;object-fit:cover;';
+            video.src=url;video.autoplay=true;video.loop=true;video.muted=true;video.setAttribute('aria-hidden', 'true');
             backgroundLayer.appendChild(video);
         } else {
             backgroundLayer.style.backgroundImage=`url(${url})`;
             backgroundLayer.style.backgroundSize='cover';
             backgroundLayer.style.backgroundPosition='center';
+            backgroundLayer.style.removeProperty('background-image'); // Ensure image is used, not video
+            backgroundLayer.style.cssText += ` background-image: url(${url}); background-size: cover; background-position: center;`; // Set again for new URL
         }
         localStorage.setItem('menuBackground', url);
     }
@@ -620,40 +681,12 @@
 
     // --- INITIALIZATION ---
     function init() {
-        // Particles.js for splash screen background
-        if(document.getElementById('particles-js'))particlesJS('particles-js',{"particles":{"number":{"value":80,"density":{"enable":true,"value_area":800}},"color":{"value":"#ffffff"},"shape":{"type":"circle"},"opacity":{"value":0.5,"random":false,"anim":{"enable":true,"speed":1,"opacity_min":0.1,"sync":false}},"size":{"value":3,"random":true,"anim":{"enable":false,"size_min":0.1,"sync":false}},"line_linked":{"enable":true,"distance":150,"color":"#ffffff","opacity":0.4,"width":1},"move":{"enable":true,"speed":6,"direction":"none","random":false,"straight":false,"out_mode":"out","bounce":false}},"interactivity":{"detect_on":"canvas","events":{"onhover":{"enable":true,"mode":"grab"},"onclick":{"enable":true,"mode":"push"},"resize":true},"modes":{"grab":{"distance":200,"line_linked":{"opacity":1}},"push":{"particles_nb":4},"repulse":{"distance":200,"duration":0.4}}}});
+        if(document.getElementById('particles-js'))particlesJS('particles-js',{"particles":{"number":{"value":80,"density":{"enable":true,"value_area":800}},"color":{"value":"#ffffff"},"shape":{"type":"circle"},"opacity":{"value":0.5,"random":false,"anim":{"enable":true,"speed":1,"opacity_min":0.1,"sync":false}},"size":{"value":3,"random":true,"anim":{"enable":false,"size_min":0.1,"sync":false}},"line_linked":{"enable":true,"distance":150,"color":"#ffffff","opacity":0.4,"width":1},"move":{"enable":true,"speed":2,"direction":"none","random":false,"straight":false,"out_mode":"out","bounce":false}},"interactivity":{"detect_on":"canvas","events":{"onhover":{"enable":true,"mode":"grab"},"onclick":{"enable":true,"mode":"push"},"resize":true},"modes":{"grab":{"distance":200,"line_linked":{"opacity":1}},"push":{"particles_nb":4},"repulse":{"distance":200,"duration":0.4}}}});
         
-        // Initial setup for all modules
-        setupApp(); // Calls all setup functions
-        
-        // Load accessibility settings from localStorage
-        if (localStorage.getItem('fontSizeEnabled') === 'true') {
-            document.body.classList.add('large-text');
-            ui.ajustes.fontSizeToggle.checked = true;
-        }
-        if (localStorage.getItem('highContrastEnabled') === 'true') {
-            document.body.classList.add('dark-theme');
-            ui.ajustes.contrastToggle.checked = true;
-        }
-        
-        // Load saved language and background
-        const savedLang = localStorage.getItem('appLanguage') || 'es';
-        ui.ajustes.lang.value = savedLang;
-        applyTranslations(savedLang); 
-        const savedBg = localStorage.getItem('menuBackground');
-        if(savedBg) applyBackground(savedBg);
+        setupApp(); // Call main setup function
 
-        showInitialView(); // Determine and show the first view
-    }
-
-    function showInitialView(){
-        // Logic to correctly show initial view based on history/session
-        const initialHash = location.hash;
-        if (!sessionStorage.getItem('visitedBefore') && initialHash !== '#view-menu') {
-             showView('#view-inicio');
-        } else {
-            showView(initialHash || '#view-menu');
-        }
+        // Set initial view after all modules are set up and translated
+        showInitialView();
     }
     init(); // Start the app!
 });
