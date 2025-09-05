@@ -1,4 +1,4 @@
-// server.js - VERSIÓN FINAL CON RUTA CORREGIDA A 'public'
+// server.js - VERSIÓN FINAL CON NOMBRE DE MODELO IA CORREGIDO
 
 const express = require('express');
 const http = require('http');
@@ -21,7 +21,8 @@ const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 let model;
 if (GEMINI_API_KEY) {
     const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
-    model = genAI.getGenerativeModel({ model: "gemini-pro" });
+    // CAMBIO FINAL: Usar el nombre de modelo estable y correcto
+    model = genAI.getGenerativeModel({ model: "gemini-1.0-pro" }); 
     console.log('✅ Modelo de IA Gemini inicializado.');
 } else {
     console.warn('⚠️ ADVERTENCIA: GEMINI_API_KEY no encontrada. La funcionalidad de IA estará deshabilitada.');
@@ -41,16 +42,12 @@ const ConceptHistorySchema = new mongoose.Schema({ userCode: { type: String, req
 const ConceptHistory = mongoose.model('ConceptHistory', ConceptHistorySchema);
 
 // --- SERVIDOR WEB EXPRESS ---
-
-// CAMBIO FINAL: Usar el nombre 'public' sin acento
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 
-// CAMBIO FINAL: Servir el index.html desde la carpeta 'public'
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
-
 
 // --- RUTAS DE LA API (No cambian) ---
 app.post('/api/explain-math', async (req, res) => {
@@ -71,6 +68,7 @@ app.post('/api/explain-math', async (req, res) => {
         res.status(500).json({ error: "No se pudo generar la explicación. Intenta de nuevo." });
     }
 });
+
 app.get('/api/concept-history', async (req, res) => {
     const { userCode } = req.query;
     if (!userCode) return res.status(400).json({ error: "Código de usuario no proporcionado." });
@@ -81,6 +79,7 @@ app.get('/api/concept-history', async (req, res) => {
         res.status(500).json({ error: "Error al obtener el historial." });
     }
 });
+
 app.delete('/api/concept-history/:id', async (req, res) => {
     try {
         await ConceptHistory.findByIdAndDelete(req.params.id);

@@ -191,9 +191,15 @@
             applyTranslations();
             loadState();
             showInitialView();
+            // Escucha la reconexión del socket para volver a registrar al usuario
+            socket.on('connect', () => {
+                if (state.myUsername) {
+                    connectUser();
+                }
+            });
         }
 
-        // --- NAVEGACIÓN (CORREGIDO Y ROBUSTO) ---
+        // --- NAVEGACIÓN ---
         function setupNavigation() {
             ui.inicio.button.addEventListener('click', enterApp);
             ui.navLinks.forEach(link => link.addEventListener('click', handleNav));
@@ -203,7 +209,6 @@
                 showView(hash);
             });
         }
-
         function enterApp() {
             sessionStorage.setItem('visitedBefore', 'true');
             ui.inicio.view.style.display = 'none';
@@ -211,14 +216,12 @@
             history.pushState({ viewId: 'view-menu' }, '', '#view-menu');
             showView('view-menu');
         }
-
         function handleNav(e) {
             e.preventDefault();
             const viewId = e.currentTarget.getAttribute('href').substring(1);
             history.pushState({ viewId }, '', `#${viewId}`);
             showView(viewId);
         }
-
         function showInitialView() {
             if (sessionStorage.getItem('visitedBefore')) {
                 const hash = location.hash.substring(1) || 'view-menu';
@@ -229,7 +232,6 @@
                 ui.main.style.display = 'none';
             }
         }
-        
         function showView(viewId) {
             ui.sections.forEach(s => s.classList.remove('active'));
             const activeSection = document.getElementById(viewId);
@@ -313,10 +315,9 @@
             }
         }
         
-        // --- CHAT ---
+        // --- CHAT (LÓGICA CORREGIDA) ---
         function setupChat(){
-            if (state.myUsername && state.myCode) { ui.chat.overlay.style.display = 'none'; connectUser(); } 
-            else { ui.chat.overlay.style.display = 'flex'; }
+            // Esta función ahora solo configura los event listeners una vez
             ui.chat.form.addEventListener('submit', handleUsernameRegister);
             ui.chat.addForm.addEventListener('submit', addFriend);
             ui.chat.list.addEventListener('click', (e) => {
@@ -327,9 +328,52 @@
             ui.chat.yourCode.addEventListener('click', () => navigator.clipboard.writeText(state.myCode));
             socket.on('online users update', (users) => { state.onlineFriends = users; renderFriends(); });
             socket.on('private message', handleNewMessage);
+            
+            // Determina si mostrar el overlay o conectar al usuario existente
+            if (state.myUsername && state.myCode) { 
+                ui.chat.overlay.style.display = 'none'; 
+                connectUser(); 
+            } else { 
+                ui.chat.overlay.style.display = 'flex'; 
+            }
         }
-        function connectUser() { socket.emit('register user', state.myUsername, (res) => { if(!res.success) { localStorage.clear(); location.reload(); } else { renderFriends(); } }); }
-        function handleUsernameRegister(e) { e.preventDefault(); const name = ui.chat.input.value.trim(); if (name.length < 3) return; socket.emit('register user', name, (res) => { if (res.success) { state.myUsername = res.username; state.myCode = res.userCode; saveState(); setupChat(); } else { alert(res.message); } }); }
+
+        // CAMBIO: Esta función ahora maneja la reconexión de forma segura
+        function connectUser() { 
+            socket.emit('register user', state.myUsername, (res) => { 
+                if(!res.success) { 
+                    // Si el servidor rechaza (ej. nombre de usuario atascado), no recargamos.
+                    // Simplemente borramos los datos locales y mostramos el login.
+                    alert("Hubo un problema al reconectar. Por favor, inicia sesión de nuevo.");
+                    localStorage.clear();
+                    state.myUsername = null;
+                    state.myCode = null;
+                    ui.chat.overlay.style.display = 'flex';
+                } else { 
+                    // Conexión exitosa
+                    renderFriends(); 
+                } 
+            }); 
+        }
+        
+        // CAMBIO: Flujo de registro más limpio
+        function handleUsernameRegister(e) { 
+            e.preventDefault(); 
+            const name = ui.chat.input.value.trim(); 
+            if (name.length < 3) return; 
+            socket.emit('register user', name, (res) => { 
+                if (res.success) { 
+                    state.myUsername = res.username; 
+                    state.myCode = res.userCode; 
+                    saveState(); 
+                    ui.chat.overlay.style.display = 'none'; // Oculta el overlay
+                    renderFriends(); // Muestra la interfaz de chat
+                } else { 
+                    alert(res.message); 
+                } 
+            }); 
+        }
+
         function addFriend(e) { e.preventDefault(); const code = ui.chat.friendInput.value.trim(); if (!code || code === state.myCode) return; socket.emit('add friend', code, (res) => { if (res.success && !state.friends.find(f => f.code === res.code)) { state.friends.push(res); saveState(); renderFriends(); } else { alert('Código no válido o amigo ya añadido.'); } }); ui.chat.friendInput.value = ''; }
         function renderFriends() { ui.chat.yourUsername.textContent = state.myUsername; ui.chat.yourCode.textContent = state.myCode; ui.chat.list.innerHTML = state.friends.map(f => `<div class="card friend-item" data-code="${f.code}" style="cursor:pointer; padding: 0.8rem; margin-bottom: 0.5rem; ${f.code === state.activeChat ? 'background-color:#e0e6e8;' : ''}"><span class="friend-status ${state.onlineFriends.includes(f.username)?'online':'offline'}"></span><span>${f.username}</span></div>`).join('');}
         function setActiveChat(code) { state.activeChat = code; ui.chat.header.textContent = `Chateando con ${state.friends.find(f=>f.code===code).username}`; ui.chat.chatInput.disabled = false; ui.chat.sendBtn.disabled = false; renderFriends(); renderMessages(); }
