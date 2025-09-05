@@ -173,8 +173,8 @@
         };
         const socket = io();
         const translations = {
-            es: { iaTitle: "Tutor IA", iaMenuDesc: "Resuelve cualquier duda.", iaPageDesc: "Pregúntale cualquier concepto, ejercicio o problema matemático a la IA.", consultAIButton: "Consultar", historyTitle: "Historial de Consultas", explanationPlaceholder: "Aquí aparecerá la explicación...", tipsTitle: "Consejos", tipsMenuDesc: "Mejora tus habilidades.", chatTitle: "Aprendamos Juntos", chatMenuDesc: "Chatea con amigos.", whoTitle: "Quiénes Somos", whoMenuDesc: "Conoce al equipo.", settingsTitle: "Ajustes", settingsMenuDesc: "Personaliza tu experiencia.", menuTitle: "Menú Principal", welcomeSlogan: "Tu viaje al dominio de las matemáticas comienza ahora.", mainTitle: "Potencia Tu Mente", enterButton: "Entrar", backButton: "Regresar", friendsTitle: "Amigos", ... },
-            en: { iaTitle: "AI Tutor", iaMenuDesc: "Solve any doubt.", iaPageDesc: "Ask the AI about any mathematical concept, exercise, or problem.", consultAIButton: "Consult", historyTitle: "Query History", explanationPlaceholder: "The explanation will appear here...", tipsTitle: "Tips", tipsMenuDesc: "Improve your skills.", chatTitle: "Let's Learn Together", chatMenuDesc: "Chat with friends.", whoTitle: "Who We Are", whoMenuDesc: "Meet the team.", settingsTitle: "Settings", settingsMenuDesc: "Customize your experience.", menuTitle: "Main Menu", welcomeSlogan: "Your journey to math mastery starts now.", mainTitle: "Power Up Your Mind", enterButton: "Enter", backButton: "Back", friendsTitle: "Friends", ... }
+            es: { iaTitle: "Tutor IA", iaMenuDesc: "Resuelve cualquier duda.", iaPageDesc: "Pregúntale cualquier concepto, ejercicio o problema matemático a la IA.", consultAIButton: "Consultar", historyTitle: "Historial de Consultas", explanationPlaceholder: "Aquí aparecerá la explicación...", tipsTitle: "Consejos", tipsMenuDesc: "Mejora tus habilidades.", chatTitle: "Aprendamos Juntos", chatMenuDesc: "Chatea con amigos.", whoTitle: "Quiénes Somos", whoMenuDesc: "Conoce al equipo.", settingsTitle: "Ajustes", settingsMenuDesc: "Personaliza tu experiencia.", menuTitle: "Menú Principal", welcomeSlogan: "Tu viaje al dominio de las matemáticas comienza ahora.", mainTitle: "Potencia Tu Mente", enterButton: "Entrar", backButton: "Regresar", friendsTitle: "Amigos", /* ...otros textos... */ },
+            en: { iaTitle: "AI Tutor", iaMenuDesc: "Solve any doubt.", iaPageDesc: "Ask the AI about any mathematical concept, exercise, or problem.", consultAIButton: "Consult", historyTitle: "Query History", explanationPlaceholder: "The explanation will appear here...", tipsTitle: "Tips", tipsMenuDesc: "Improve your skills.", chatTitle: "Let's Learn Together", chatMenuDesc: "Chat with friends.", whoTitle: "Who We Are", whoMenuDesc: "Meet the team.", settingsTitle: "Settings", settingsMenuDesc: "Customize your experience.", menuTitle: "Main Menu", welcomeSlogan: "Your journey to math mastery starts now.", mainTitle: "Power Up Your Mind", enterButton: "Enter", backButton: "Back", friendsTitle: "Friends", /* ...other texts... */ }
         };
         const consejosData = [{i:"fa-brain",t:"Entiende, no memorices"},{i:"fa-pencil-alt",t:"Practica constantemente"},{i:"fa-check-circle",t:"Revisa tus errores"},{i:"fa-chalkboard-teacher",t:"Pregunta sin miedo"},{i:"fa-lightbulb",t:"Busca la lógica"},{i:"fa-users",t:"Estudia en grupo"}];
         const quienesSomosText = "<p>Somos un grupo de estudiantes de Educación para el Trabajo que hemos creado este proyecto para apoyar el aprendizaje de las matemáticas de manera sencilla, práctica e interactiva...</p><p>Creemos firmemente que nuestro esfuerzo contribuirá al desarrollo académico de los estudiantes, demostrando que con constancia, innovación y dedicación se puede transformar la manera en que aprendemos.</p>";
@@ -193,41 +193,48 @@
             showInitialView();
         }
 
-        // --- NAVEGACIÓN (CORREGIDO) ---
+        // --- NAVEGACIÓN (CORREGIDO Y ROBUSTO) ---
         function setupNavigation() {
-            ui.inicio.button.addEventListener('click', () => {
-                sessionStorage.setItem('visitedBefore', 'true');
-                history.pushState({ view: '#view-menu' }, '', '#view-menu');
-                showView('#view-menu');
-            });
+            ui.inicio.button.addEventListener('click', enterApp);
             ui.navLinks.forEach(link => link.addEventListener('click', handleNav));
             ui.backButtons.forEach(btn => btn.addEventListener('click', () => history.back()));
-            window.addEventListener('popstate', (e) => showView(location.hash));
+            window.addEventListener('popstate', () => {
+                const hash = location.hash.substring(1) || 'view-menu';
+                showView(hash);
+            });
         }
+
+        function enterApp() {
+            sessionStorage.setItem('visitedBefore', 'true');
+            ui.inicio.view.style.display = 'none';
+            ui.main.style.display = 'block';
+            history.pushState({ viewId: 'view-menu' }, '', '#view-menu');
+            showView('view-menu');
+        }
+
         function handleNav(e) {
             e.preventDefault();
-            const href = e.currentTarget.getAttribute('href');
-            history.pushState({ view: href }, '', href);
-            showView(href);
+            const viewId = e.currentTarget.getAttribute('href').substring(1);
+            history.pushState({ viewId }, '', `#${viewId}`);
+            showView(viewId);
         }
+
         function showInitialView() {
             if (sessionStorage.getItem('visitedBefore')) {
-                showView(location.hash || '#view-menu');
+                const hash = location.hash.substring(1) || 'view-menu';
+                enterApp();
+                showView(hash);
             } else {
-                showView('#view-inicio');
+                ui.inicio.view.style.display = 'flex';
+                ui.main.style.display = 'none';
             }
         }
-        function showView(hash) {
-            const viewId = hash.substring(1);
-            if (viewId === 'view-inicio') {
-                ui.main.style.display = 'none';
-                ui.inicio.view.style.display = 'flex';
-            } else {
-                ui.main.style.display = 'block';
-                ui.inicio.view.style.display = 'none';
-                ui.sections.forEach(s => s.classList.remove('active'));
-                const activeSection = document.getElementById(viewId || 'view-menu');
-                if (activeSection) activeSection.classList.add('active');
+        
+        function showView(viewId) {
+            ui.sections.forEach(s => s.classList.remove('active'));
+            const activeSection = document.getElementById(viewId);
+            if (activeSection) {
+                activeSection.classList.add('active');
                 if (viewId === 'view-ia') loadHistory();
             }
         }
@@ -349,17 +356,14 @@
             ui.ajustes.lang.addEventListener('change', (e) => { settings.lang = e.target.value; settings.save(); });
             ui.ajustes.fontSizeToggle.addEventListener('change', (e) => { settings.fontSize = e.target.checked; settings.save(); });
             ui.ajustes.contrastToggle.addEventListener('change', (e) => { settings.contrast = e.target.checked; settings.save(); });
-            // Lógica para fondo personalizado...
+            // Lógica para fondo personalizado... (se puede añadir después)
         }
         function applyTranslations() {
             const lang = ui.ajustes.lang.value || 'es';
             document.querySelectorAll('[data-lang-key]').forEach(el => {
                 const key = el.dataset.langKey;
-                if(translations[lang] && translations[lang][key]) {
-                    el.innerHTML = translations[lang][key];
-                } else if (translations['es'][key]) {
-                    el.innerHTML = translations['es'][key];
-                }
+                const translation = (translations[lang] && translations[lang][key]) || translations['es'][key];
+                if (translation) el.innerHTML = translation;
             });
         }
         
