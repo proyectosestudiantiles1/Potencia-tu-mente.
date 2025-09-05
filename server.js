@@ -1,4 +1,4 @@
-// server.js - VERSIÓN FINAL CON NOMBRE DE MODELO IA CORREGIDO
+// server.js - VERSIÓN FINAL CON EL NOMBRE DE MODELO IA MÁS RECIENTE
 
 const express = require('express');
 const http = require('http');
@@ -21,8 +21,8 @@ const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 let model;
 if (GEMINI_API_KEY) {
     const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
-    // CAMBIO FINAL: Usar el nombre de modelo estable y correcto
-    model = genAI.getGenerativeModel({ model: "gemini-1.0-pro" }); 
+    // CAMBIO FINAL: Usar el nombre de modelo más reciente y estable.
+    model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" }); 
     console.log('✅ Modelo de IA Gemini inicializado.');
 } else {
     console.warn('⚠️ ADVERTENCIA: GEMINI_API_KEY no encontrada. La funcionalidad de IA estará deshabilitada.');
@@ -48,6 +48,7 @@ app.use(express.json());
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
+
 
 // --- RUTAS DE LA API (No cambian) ---
 app.post('/api/explain-math', async (req, res) => {
@@ -89,6 +90,7 @@ app.delete('/api/concept-history/:id', async (req, res) => {
     }
 });
 
+
 // --- LÓGICA DEL CHAT (No cambia) ---
 const nanoid = customAlphabet('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890', 6);
 const onlineUsers = {}; const userSockets = {};
@@ -116,6 +118,7 @@ io.on('connection', (socket) => {
         if (socket.username) { delete onlineUsers[socket.username]; delete userSockets[socket.userCode]; io.emit('online users update', Object.keys(onlineUsers)); }
     });
 });
+
 
 // --- INICIAR SERVIDOR ---
 server.listen(PORT, () => {
