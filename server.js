@@ -1,8 +1,8 @@
-// server.js - CÓDIGO FINAL Y ROBUSTO PARA RENDER
+// server.js - VERSIÓN FINAL CON RUTA CORREGIDA A 'public'
 
 const express = require('express');
 const http = require('http');
-const path = require('path'); // Módulo clave para manejar rutas de archivos
+const path = require('path');
 const socketIo = require('socket.io');
 const mongoose = require('mongoose');
 const { customAlphabet } = require('nanoid');
@@ -42,16 +42,13 @@ const ConceptHistory = mongoose.model('ConceptHistory', ConceptHistorySchema);
 
 // --- SERVIDOR WEB EXPRESS ---
 
-// SOLUCIÓN: Usamos '..' para subir un nivel desde la carpeta 'src' incorrecta de Render
-// y luego encontrar la carpeta 'público'.
-const publicDirectoryPath = path.join(__dirname, '..', 'público');
-
-app.use(express.static(publicDirectoryPath));
+// CAMBIO FINAL: Usar el nombre 'public' sin acento
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 
-// SOLUCIÓN: Servir el archivo index.html desde la ruta corregida.
+// CAMBIO FINAL: Servir el index.html desde la carpeta 'public'
 app.get('/', (req, res) => {
-    res.sendFile(path.join(publicDirectoryPath, 'index.html'));
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 
@@ -74,7 +71,6 @@ app.post('/api/explain-math', async (req, res) => {
         res.status(500).json({ error: "No se pudo generar la explicación. Intenta de nuevo." });
     }
 });
-
 app.get('/api/concept-history', async (req, res) => {
     const { userCode } = req.query;
     if (!userCode) return res.status(400).json({ error: "Código de usuario no proporcionado." });
@@ -85,7 +81,6 @@ app.get('/api/concept-history', async (req, res) => {
         res.status(500).json({ error: "Error al obtener el historial." });
     }
 });
-
 app.delete('/api/concept-history/:id', async (req, res) => {
     try {
         await ConceptHistory.findByIdAndDelete(req.params.id);
@@ -95,13 +90,11 @@ app.delete('/api/concept-history/:id', async (req, res) => {
     }
 });
 
-
 // --- LÓGICA DEL CHAT (No cambia) ---
 const nanoid = customAlphabet('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890', 6);
 const onlineUsers = {}; const userSockets = {};
 io.on('connection', (socket) => {
     socket.emit('online users update', Object.keys(onlineUsers));
-    
     socket.on('register user', async (username, callback) => {
         try {
             if (onlineUsers[username]) { return callback({ success: false, message: 'Este nombre de usuario ya está en uso.' }); }
@@ -111,23 +104,19 @@ io.on('connection', (socket) => {
             io.emit('online users update', Object.keys(onlineUsers)); callback({ success: true, username: user.username, userCode: user.code });
         } catch (error) { console.error("Error al registrar usuario:", error); callback({ success: false, message: 'Error en el servidor.' }); }
     });
-
     socket.on('add friend', async (friendCode, callback) => {
         const friend = await User.findOne({ code: friendCode });
         callback({ success: !!friend, code: friend?.code, username: friend?.username });
     });
-
     socket.on('private message', ({ toCode, message }) => {
         if (!socket.username) return;
         const recipientSocketId = userSockets[toCode];
         if (recipientSocketId) { io.to(recipientSocketId).emit('private message', { from: socket.username, message }); }
     });
-    
     socket.on('disconnect', () => {
         if (socket.username) { delete onlineUsers[socket.username]; delete userSockets[socket.userCode]; io.emit('online users update', Object.keys(onlineUsers)); }
     });
 });
-
 
 // --- INICIAR SERVIDOR ---
 server.listen(PORT, () => {
