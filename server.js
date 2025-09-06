@@ -103,7 +103,7 @@ app.post('/api/explain-math', async (req, res) => {
     const { topic } = req.body;
     if (!topic) return res.status(400).json({ error: "El tema es requerido." });
     try {
-        const prompt = `Como tutor de matemáticas, explica el concepto "${topic}" para un estudiante de secundaria. Usa HTML (h3, p, ul, li). Cubre: 1. Definición simple. 2. Fórmula o pasos clave. 3. Ejemplo práctico. 4. Errores comunes.`;
+        const prompt = `Como tutor de matemáticas, explica el concepto "${topic}" para un estudiante de secundaria. Usa HTML (h3, p, ul, li). Cubre: 1. Definición simple. 2. Fórmula o pasos clave. 3. Ejemplo práctico. 4. Errores comunes. No uses markdown.`;
         const result = await model.generateContent(prompt);
         res.json({ explanation: result.response.text() });
     } catch (error) { console.error("Error en Tutor IA:", error); res.status(500).json({ error: "No se pudo generar la explicación." }); }
@@ -113,7 +113,7 @@ app.post('/api/generate-problems', async (req, res) => {
     const { topic } = req.body;
     if (!topic) return res.status(400).json({ error: "El tema es requerido." });
     try {
-        const prompt = `Crea 4 problemas matemáticos sobre "${topic}" para secundaria. Mezcla ejercicios y situaciones problemáticas. Devuelve la respuesta en HTML, usando esta estructura para cada uno: <div class="problem-card"><h4>Problema X: [Pregunta]</h4><p class="solution" style="display:none;">Respuesta: [Solución]</p><button class="show-solution-btn">Ver Respuesta</button></div>`;
+        const prompt = `Crea 4 problemas matemáticos sobre "${topic}" para secundaria. Mezcla ejercicios y situaciones. Devuelve en HTML usando esta estructura para cada uno: <div class="problem-card"><h4>Problema X: [Pregunta]</h4><p class="solution" style="display:none;">Respuesta: [Solución]</p><button class="show-solution-btn btn btn-secondary">Ver Respuesta</button></div>. No uses markdown.`;
         const result = await model.generateContent(prompt);
         res.json({ problems: result.response.text() });
     } catch (error) { console.error("Error en Práctica IA:", error); res.status(500).json({ error: "No se pudo generar los problemas." }); }
@@ -121,7 +121,7 @@ app.post('/api/generate-problems', async (req, res) => {
 app.get('/api/generate-tips', async (req, res) => {
     if (!model) return res.status(503).json({ error: "Servicio de IA no disponible." });
     try {
-        const prompt = `Genera 6 consejos cortos y creativos para estudiar matemáticas para secundaria. Formatea la respuesta en HTML, donde cada consejo es un div con clase "card menu-card", un div con clase "icon" y un ícono de font-awesome (ej: <i class="fas fa-lightbulb"></i>), un <h3> para el título y un <p> para la descripción.`;
+        const prompt = `Genera 6 consejos cortos para estudiar matemáticas para secundaria. Formatea en HTML, cada consejo en un <div class="card menu-card">, con un <div class="icon"> y un ícono de font-awesome (ej: <i class="fas fa-lightbulb"></i>), un <h3> para el título y un <p> para la descripción. No uses markdown.`;
         const result = await model.generateContent(prompt);
         res.json({ tips: result.response.text() });
     } catch (error) { console.error("Error en Consejos IA:", error); res.status(500).json({ error: "No se pudo generar los consejos." }); }
