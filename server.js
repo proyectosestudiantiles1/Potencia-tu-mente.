@@ -45,7 +45,6 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-
 // --- RUTAS DE IA (Optimizadas) ---
 app.post('/api/explain-math', async (req, res) => {
     if (!model) return res.status(503).json({ error: "Servicio de IA no disponible." });
@@ -57,6 +56,7 @@ app.post('/api/explain-math', async (req, res) => {
         res.json({ explanation: result.response.text() });
     } catch (error) { console.error("Error en Tutor IA:", error); res.status(500).json({ error: "No se pudo generar la explicación." }); }
 });
+
 app.post('/api/generate-problems', async (req, res) => {
     if (!model) return res.status(503).json({ error: "Servicio de IA no disponible." });
     const { topic } = req.body;
@@ -67,6 +67,7 @@ app.post('/api/generate-problems', async (req, res) => {
         res.json({ problems: result.response.text() });
     } catch (error) { console.error("Error en Práctica IA:", error); res.status(500).json({ error: "No se pudo generar los problemas." }); }
 });
+
 app.get('/api/generate-tips', async (req, res) => {
     if (!model) return res.status(503).json({ error: "Servicio de IA no disponible." });
     try {
