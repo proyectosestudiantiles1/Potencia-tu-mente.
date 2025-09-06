@@ -45,16 +45,18 @@
     <main>
         <div class="container">
             <section id="view-menu" class="page-section">
-                <div class="page-header"><h2 data-lang-key="menuTitle">Menú Principal</h2></div>
-                <div class="menu-grid">
-                    <a href="#view-ia" class="menu-card nav-link card"><div class="icon"><i class="fas fa-robot"></i></div><h3 data-lang-key="iaTitle">Tutor IA</h3><p data-lang-key="iaMenuDesc">Resuelve cualquier duda.</p></a>
-                    <a href="#view-practice" class="menu-card nav-link card"><div class="icon"><i class="fas fa-pencil-ruler"></i></div><h3 data-lang-key="practiceTitle">Práctica con IA</h3><p data-lang-key="practiceMenuDesc">Genera problemas para resolver.</p></a>
-                    <a href="#view-consejos" class="menu-card nav-link card"><div class="icon"><i class="fas fa-lightbulb"></i></div><h3 data-lang-key="tipsTitle">Consejos de IA</h3><p data-lang-key="tipsMenuDesc">Descubre nuevas estrategias.</p></a>
-                    <a href="#view-chat" class="menu-card nav-link card"><div class="icon"><i class="fas fa-comments"></i></div><h3 data-lang-key="chatTitle">Aprendamos Juntos</h3><p data-lang-key="chatMenuDesc">Chatea con amigos.</p></a>
-                    <a href="#view-quienes-somos" class="menu-card nav-link card"><div class="icon"><i class="fas fa-users"></i></div><h3 data-lang-key="whoTitle">Quiénes Somos</h3><p data-lang-key="whoMenuDesc">Conoce al equipo.</p></a>
-                    <a href="#view-ajustes" class="menu-card nav-link card"><div class="icon"><i class="fas fa-cog"></i></div><h3 data-lang-key="settingsTitle">Ajustes</h3><p data-lang-key="settingsMenuDesc">Personaliza tu experiencia.</p></a>
+                <div class="card">
+                    <div class="page-header"><h2 data-lang-key="menuTitle">Menú Principal</h2></div>
+                    <div class="menu-grid">
+                        <a href="#view-ia" class="menu-card nav-link card"><div class="icon"><i class="fas fa-robot"></i></div><h3 data-lang-key="iaTitle">Tutor IA</h3><p data-lang-key="iaMenuDesc">Resuelve cualquier duda.</p></a>
+                        <a href="#view-practice" class="menu-card nav-link card"><div class="icon"><i class="fas fa-pencil-ruler"></i></div><h3 data-lang-key="practiceTitle">Práctica con IA</h3><p data-lang-key="practiceMenuDesc">Genera problemas para resolver.</p></a>
+                        <a href="#view-consejos" class="menu-card nav-link card"><div class="icon"><i class="fas fa-lightbulb"></i></div><h3 data-lang-key="tipsTitle">Consejos de IA</h3><p data-lang-key="tipsMenuDesc">Descubre nuevas estrategias.</p></a>
+                        <a href="#view-chat" class="menu-card nav-link card"><div class="icon"><i class="fas fa-comments"></i></div><h3 data-lang-key="chatTitle">Aprendamos Juntos</h3><p data-lang-key="chatMenuDesc">Chatea con amigos.</p></a>
+                        <a href="#view-quienes-somos" class="menu-card nav-link card"><div class="icon"><i class="fas fa-users"></i></div><h3 data-lang-key="whoTitle">Quiénes Somos</h3><p data-lang-key="whoMenuDesc">Conoce al equipo.</p></a>
+                        <a href="#view-ajustes" class="menu-card nav-link card"><div class="icon"><i class="fas fa-cog"></i></div><h3 data-lang-key="settingsTitle">Ajustes</h3><p data-lang-key="settingsMenuDesc">Personaliza tu experiencia.</p></a>
+                    </div>
+                    <button class="btn btn-secondary" id="logout-button" style="display:none; margin: 2rem auto 0; background: #e74c3c; color: white;" data-lang-key="logoutButton">Cerrar Sesión</button>
                 </div>
-                <button class="btn btn-secondary" id="logout-button" style="display:none; margin: 2rem auto 0; background: #e74c3c; color: white;" data-lang-key="logoutButton">Cerrar Sesión</button>
             </section>
             
             <section id="view-ia" class="page-section">
@@ -187,8 +189,7 @@
             
             ui.sections.forEach(s => s.classList.remove('active'));
             const activeSection = document.getElementById(currentView);
-
-            // Lógica de visibilidad centralizada
+            
             if (currentView === 'view-chat') {
                 document.getElementById('view-chat').classList.add('active');
                 if (state.currentUser) {
@@ -213,6 +214,7 @@
                 state.currentUser = JSON.parse(user);
                 ui.logoutButton.style.display = 'block';
                 socket.emit('register user', state.currentUser);
+                renderFriends(); // Render friends on load
             } else {
                  ui.logoutButton.style.display = 'none';
             }
@@ -245,6 +247,7 @@
                 sessionStorage.setItem('currentUser', JSON.stringify(data.user));
                 ui.logoutButton.style.display = 'block';
                 socket.emit('register user', state.currentUser);
+                renderFriends();
                 navigateTo('view-chat');
             } else { ui.auth.feedback.textContent = data.message; }
         }
