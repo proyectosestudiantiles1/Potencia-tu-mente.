@@ -6,7 +6,7 @@
     <title>Potencia Tu Mente</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧠</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <style>
@@ -15,7 +15,25 @@
       body.dark-theme{--primary-gradient:linear-gradient(90deg, #1abc9c, #1dd2af);--primary-color:#1abc9c;--secondary-color:#ecf0f1;--bg-color:#2c3e50;--card-bg:#34495e;--text-dark:#ecf0f1;--text-light:#95a5a6;}
       *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
       body{font-family:'Poppins',sans-serif;background-color:var(--bg-color);color:var(--text-dark);line-height:1.7;font-size:var(--font-base-size);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;transition:background-color 0.3s,color 0.3s;}
-      main{display:none}.page-section{display:none}.page-section.active{display:block;animation:fadeInUp 0.6s ease-out forwards}
+      
+      /* --- FIX: Cambia la forma en que las secciones se muestran/ocultan --- */
+      main{display:block;} /* Main siempre es visible */
+      .page-section {
+        /* Se ocultan con opacidad y se sacan de la interacción */
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.5s ease;
+        /* Se usa para que no ocupen espacio vertical */
+        display: none;
+      }
+      .page-section.active {
+        display: block; /* Vuelve a ocupar su espacio */
+        opacity: 1;
+        pointer-events: auto; /* Se puede interactuar de nuevo */
+        animation: fadeInUp 0.6s ease-out forwards;
+      }
+      /* ------------------------------------------------------------------- */
+
       .container{max-width:1100px;margin:0 auto;padding:2rem}.page-header{margin-bottom:2.5rem;text-align:center}
       .page-header h2{font-family:'Poppins',sans-serif;font-weight:700;font-size:calc(var(--font-base-size)*2.2);color:var(--secondary-color)}.page-header p{font-size:calc(var(--font-base-size)*1.1);color:var(--text-light);max-width:700px;margin:.5rem auto 0;font-family:'Lato',sans-serif;}
       .btn{display:inline-block;padding:.8rem 2rem;background:var(--primary-gradient);color:white;border:none;border-radius:50px;font-weight:700;text-decoration:none;cursor:pointer;transition:all 0.3s ease;box-shadow:0 4px 15px rgba(22,160,133,.3);font-size:var(--font-base-size)}.btn:hover:not(:disabled){transform:translateY(-4px);box-shadow:0 8px 25px rgba(22,160,133,.4)}.btn:disabled{background:#bdc3c7;cursor:not-allowed;box-shadow:none;}
@@ -34,17 +52,26 @@
       #auth-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;z-index:1000;animation:fadeIn 0.3s;}.auth-card{width:100%;max-width:400px;text-align:center}.auth-toggle{margin-bottom:1.5rem;}.auth-toggle button{background:none;border:none;cursor:pointer;padding:0.5rem 1rem;font-size:1.1rem;color:var(--text-light);transition:color 0.2s;}.auth-toggle button.active{font-weight:bold;color:var(--primary-color);border-bottom:2px solid var(--primary-color)}#register-form{display:none;}#auth-feedback{margin-top:1rem;color:red;min-height:1.2em;}.forgot-password{font-size:0.9rem;color:var(--text-light);text-decoration:underline;cursor:pointer;margin-top:1rem;display:inline-block}
       #login-form, #register-form { margin-top: 1.5rem; }
       
-      /* --- FIX: Estilos simplificados para el Chat --- */
+      /* --- FIX: Estilos definitivos del Chat usando FLEXBOX --- */
       .chat-container {
-        display: grid;
-        grid-template-columns: 300px 1fr;
+        display: flex; /* USA FLEXBOX */
+        flex-direction: row; /* Dirección de fila */
         gap: 1.5rem;
         height: 75vh;
         max-height: 700px;
       }
-      .friends-panel { display: flex; flex-direction: column; }
+      .friends-panel {
+        width: 300px; /* Ancho fijo */
+        flex-shrink: 0; /* Evita que se encoja */
+        display: flex;
+        flex-direction: column;
+      }
       #friends-list { flex-grow: 1; overflow-y: auto; margin-top: 1rem; }
-      .chat-window { display: flex; flex-direction: column; }
+      .chat-window {
+        flex-grow: 1; /* Ocupa el espacio restante */
+        display: flex;
+        flex-direction: column;
+      }
       #chat-messages { border: 1px solid #dde2e6; padding: 1rem; border-radius: var(--radius); flex-grow: 1; overflow-y: auto; margin-bottom: 1rem; background-color: var(--bg-color); }
       .message-bubble{padding: .6rem 1rem; border-radius: 20px; margin-bottom: .5rem; max-width: 80%; word-wrap: break-word;}.message-bubble.sent{background: var(--primary-gradient); color: white; margin-left: auto; border-bottom-right-radius: 5px;}.message-bubble.received{background: var(--card-bg); color: var(--text-dark); margin-right: auto; border-bottom-left-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);}
       #add-friend-form button { padding: 0; min-width: 46px; max-width: 46px; height: 46px; flex-shrink: 0; line-height: 1; font-size: 1.5rem; }
@@ -187,23 +214,23 @@
             showView(viewId);
         }
         
-        // --- FIX: Lógica de showView modificada para forzar el renderizado del layout del chat ---
+        // --- FIX: Lógica de showView simplificada y robusta ---
         function showView(viewId) {
             const currentView = viewId || 'view-menu';
             
-            if (sessionStorage.getItem('visitedBefore')) {
-                ui.main.style.display = 'block';
-                ui.inicio.view.style.display = 'none';
-            } else {
-                if (currentView !== 'view-menu' && currentView !== '') history.replaceState(null, '', '#');
+            if (!sessionStorage.getItem('visitedBefore')) {
                 ui.main.style.display = 'none';
                 ui.inicio.view.style.display = 'flex';
+                if (currentView !== 'view-menu' && currentView !== '') history.replaceState(null, '', '#');
                 return;
             }
             
-            ui.sections.forEach(s => s.classList.remove('active'));
-            const activeSection = document.getElementById(currentView);
+            ui.main.style.display = 'block';
+            ui.inicio.view.style.display = 'none';
             
+            ui.sections.forEach(s => s.classList.remove('active'));
+            
+            const activeSection = document.getElementById(currentView);
             if (activeSection) {
                  activeSection.classList.add('active');
             } else {
