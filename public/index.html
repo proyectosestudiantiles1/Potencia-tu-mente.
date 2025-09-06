@@ -4,12 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Potencia Tu Mente</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧠</text></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧠</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <!-- FIX: Se actualizó el enlace de Font Awesome a una versión más reciente y robusta para asegurar que los iconos carguen correctamente. -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <style>
       :root{--primary-gradient:linear-gradient(90deg, #1abc9c, #16a085);--primary-color:#16a085;--secondary-color:#2c3e50;--bg-color:#f4f7f9;--card-bg:#ffffff;--text-dark:#34495e;--text-light:#7f8c8d;--shadow:0 8px 30px rgba(0,0,0,0.06);--radius:16px;--font-base-size:16px;}
       body.large-text{--font-base-size:18px;}
@@ -34,22 +33,51 @@
       #practice-results{margin-top:2rem;display:grid;grid-template-columns:1fr;gap:1.5rem;}.problem-card{background-color:#f9fafb;padding:1.5rem;border-radius:var(--radius);border:1px solid #e9ecef;}.solution{margin-top:1rem;padding:1rem;background-color:#eaf6f4;border-radius:8px;border-left:4px solid var(--primary-color);}
       #auth-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;z-index:1000;animation:fadeIn 0.3s;}.auth-card{width:100%;max-width:400px;text-align:center}.auth-toggle{margin-bottom:1.5rem;}.auth-toggle button{background:none;border:none;cursor:pointer;padding:0.5rem 1rem;font-size:1.1rem;color:var(--text-light);transition:color 0.2s;}.auth-toggle button.active{font-weight:bold;color:var(--primary-color);border-bottom:2px solid var(--primary-color)}#register-form{display:none;}#auth-feedback{margin-top:1rem;color:red;min-height:1.2em;}.forgot-password{font-size:0.9rem;color:var(--text-light);text-decoration:underline;cursor:pointer;margin-top:1rem;display:inline-block}
       #login-form, #register-form { margin-top: 1.5rem; }
-      .chat-layout{display:grid;grid-template-columns:300px 1fr;gap:1.5rem;height:75vh;max-height:700px}
-      #chat-messages{height: 100%;}.message-bubble{padding: .6rem 1rem; border-radius: 20px; margin-bottom: .5rem; max-width: 80%; word-wrap: break-word;}.message-bubble.sent{background: var(--primary-gradient); color: white; margin-left: auto; border-bottom-right-radius: 5px;}.message-bubble.received{background: #e9ecef; color: var(--text-dark); margin-right: auto; border-bottom-left-radius: 5px;}
-      .settings-container h3{font-family:'Poppins',sans-serif}.toggle-switch{display:flex;align-items:center;justify-content:space-between;margin-top:.5rem}.slider{position:relative;cursor:pointer;width:50px;height:26px;background-color:#ccc;border-radius:26px;transition:.4s}.slider:before{position:absolute;content:"";height:18px;width:18px;left:4px;bottom:4px;background-color:white;border-radius:50%;transition:.4s}input:checked+.slider{background-color:var(--primary-color)}input:checked+.slider:before{transform:translateX(24px)}
       
-      /* --- FIX: Nuevos estilos para corregir el diseño del chat --- */
-      .chat-view .btn-back { display: block; margin: 1.5rem auto 0; width: fit-content; }
-      #add-friend-form { align-items: center; }
+      /* --- FIX: Estilos completamente reescritos para el Chat --- */
+      .chat-container {
+        display: grid;
+        grid-template-columns: 300px 1fr;
+        gap: 1.5rem;
+        height: 75vh;
+        max-height: 700px;
+      }
+      .friends-panel {
+        display: flex;
+        flex-direction: column;
+      }
+      #friends-list {
+        flex-grow: 1;
+        overflow-y: auto;
+        margin-top: 1rem;
+      }
+      .chat-window {
+        display: flex;
+        flex-direction: column;
+      }
+      #chat-messages {
+        border: 1px solid #dde2e6;
+        padding: 1rem;
+        border-radius: var(--radius);
+        flex-grow: 1;
+        overflow-y: auto;
+        margin-bottom: 1rem;
+        background-color: var(--bg-color);
+      }
+      .message-bubble{padding: .6rem 1rem; border-radius: 20px; margin-bottom: .5rem; max-width: 80%; word-wrap: break-word;}.message-bubble.sent{background: var(--primary-gradient); color: white; margin-left: auto; border-bottom-right-radius: 5px;}.message-bubble.received{background: var(--card-bg); color: var(--text-dark); margin-right: auto; border-bottom-left-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);}
       #add-friend-form button {
-        padding: .8rem;
-        min-width: 48px;
-        max-width: 48px;
-        height: 48px;
+        padding: 0;
+        min-width: 46px;
+        max-width: 46px;
+        height: 46px;
         flex-shrink: 0;
         line-height: 1;
-        font-size: 1.2rem;
+        font-size: 1.5rem;
       }
+      .btn-back { display: block; margin: 1.5rem auto 0; width: fit-content; }
+      /* ----------------------------------------------------------- */
+
+      .settings-container h3{font-family:'Poppins',sans-serif}.toggle-switch{display:flex;align-items:center;justify-content:space-between;margin-top:.5rem}.slider{position:relative;cursor:pointer;width:50px;height:26px;background-color:#ccc;border-radius:26px;transition:.4s}.slider:before{position:absolute;content:"";height:18px;width:18px;left:4px;bottom:4px;background-color:white;border-radius:50%;transition:.4s}input:checked+.slider{background-color:var(--primary-color)}input:checked+.slider:before{transform:translateX(24px)}
     </style>
 </head>
 <body>
@@ -75,25 +103,14 @@
                 </div>
             </section>
             
-            <section id="view-ia" class="page-section">
-                <div class="page-header"><h2 data-lang-key="iaTitle">Tutor IA</h2><p data-lang-key="iaPageDesc">Pregúntale cualquier concepto, ejercicio o problema matemático a la IA.</p></div>
-                <div class="card"><div class="input-group"><input id="ia-input" type="text" class="input-field" placeholder="Ej: ¿Qué es el Teorema de Pitágoras?" /><button id="ia-button" class="btn" data-lang-key="consultButton">Consultar</button></div><div id="ia-explanation" style="min-height: 200px;"><p style="color: var(--text-light)" data-lang-key="explanationPlaceholder">Aquí aparecerá la explicación...</p></div></div>
-                <button class="btn btn-secondary btn-back" data-lang-key="backButton">Regresar</button>
-            </section>
+            <!-- Las secciones de IA, Práctica, Consejos, Quiénes Somos y Ajustes no cambian -->
+            <section id="view-ia" class="page-section"><div class="page-header"><h2 data-lang-key="iaTitle">Tutor IA</h2><p data-lang-key="iaPageDesc">Pregúntale cualquier concepto, ejercicio o problema matemático a la IA.</p></div><div class="card"><div class="input-group"><input id="ia-input" type="text" class="input-field" placeholder="Ej: ¿Qué es el Teorema de Pitágoras?" /><button id="ia-button" class="btn" data-lang-key="consultButton">Consultar</button></div><div id="ia-explanation" style="min-height: 200px;"><p style="color: var(--text-light)" data-lang-key="explanationPlaceholder">Aquí aparecerá la explicación...</p></div></div><button class="btn btn-secondary btn-back" data-lang-key="backButton">Regresar</button></section>
+            <section id="view-practice" class="page-section"><div class="page-header"><h2 data-lang-key="practiceTitle">Práctica con IA</h2><p data-lang-key="practicePageDesc">Escribe un tema y la IA creará problemas para que practiques.</p></div><div class="card"><div class="input-group"><input id="practice-input" type="text" class="input-field" placeholder="Ej: Ecuaciones de primer grado" /><button id="practice-button" class="btn" data-lang-key="generateProblemsButton">Generar Problemas</button></div></div><div id="practice-results"><p style="text-align:center; color: var(--text-light);" data-lang-key="problemsPlaceholder">Aquí aparecerán los problemas generados...</p></div><button class="btn btn-secondary btn-back" data-lang-key="backButton">Regresar</button></section>
+            <section id="view-consejos" class="page-section"><div class="page-header"><h2 data-lang-key="tipsTitle">Consejos de la IA</h2><p data-lang-key="tipsPageDesc">Cada vez que entres, la IA te dará nuevos consejos para mejorar.</p></div><div id="consejos-container" class="menu-grid"></div><button class="btn btn-secondary btn-back" data-lang-key="backButton">Regresar</button></section>
+            <section id="view-quienes-somos" class="page-section"><div class="page-header"><h2 data-lang-key="whoTitle">Quiénes Somos</h2></div><div class="card" id="quienes-somos-container" style="font-family:'Lato', sans-serif; line-height:1.8;"></div><button class="btn btn-secondary btn-back" data-lang-key="backButton">Regresar</button></section>
+            <section id="view-ajustes" class="page-section"><div class="page-header"><h2 data-lang-key="settingsTitle">Ajustes</h2></div><div class="card" style="max-width:600px; margin:auto;"><div class="settings-container" style="display:flex; flex-direction:column; gap:2.5rem;"><div><h3 data-lang-key="languageTitle">Idioma</h3><select id="language-selector" class="input-field"><option value="es">Español</option><option value="en">English</option></select></div><div><h3 data-lang-key="accessibilityTitle">Accesibilidad</h3><div class="toggle-switch"><p data-lang-key="largeText">Texto más grande</p><label><input type="checkbox" id="font-size-toggle" style="opacity:0; width:0; height:0;"><span class="slider"></span></label></div><div class="toggle-switch" style="margin-top:1rem;"><p data-lang-key="highContrast">Modo de Alto Contraste</p><label><input type="checkbox" id="contrast-toggle" style="opacity:0; width:0; height:0;"><span class="slider"></span></label></div></div></div></div><button class="btn btn-secondary btn-back" data-lang-key="backButton">Regresar</button></section>
 
-            <section id="view-practice" class="page-section">
-                <div class="page-header"><h2 data-lang-key="practiceTitle">Práctica con IA</h2><p data-lang-key="practicePageDesc">Escribe un tema y la IA creará problemas para que practiques.</p></div>
-                <div class="card"><div class="input-group"><input id="practice-input" type="text" class="input-field" placeholder="Ej: Ecuaciones de primer grado" /><button id="practice-button" class="btn" data-lang-key="generateProblemsButton">Generar Problemas</button></div></div>
-                <div id="practice-results"><p style="text-align:center; color: var(--text-light);" data-lang-key="problemsPlaceholder">Aquí aparecerán los problemas generados...</p></div>
-                <button class="btn btn-secondary btn-back" data-lang-key="backButton">Regresar</button>
-            </section>
-
-            <section id="view-consejos" class="page-section">
-                <div class="page-header"><h2 data-lang-key="tipsTitle">Consejos de la IA</h2><p data-lang-key="tipsPageDesc">Cada vez que entres, la IA te dará nuevos consejos para mejorar.</p></div>
-                <div id="consejos-container" class="menu-grid"></div>
-                <button class="btn btn-secondary btn-back" data-lang-key="backButton">Regresar</button>
-            </section>
-            
+            <!-- --- FIX: Estructura HTML del Chat completamente reescrita para mayor robustez --- -->
             <section id="view-chat" class="page-section">
                 <div id="auth-overlay">
                     <div class="card auth-card">
@@ -104,33 +121,31 @@
                         <a class="forgot-password" data-lang-key="forgotPassword">¿Olvidaste tu contraseña?</a>
                     </div>
                 </div>
+                
                 <div class="chat-view" style="display: none;">
                     <div class="page-header"><h2 data-lang-key="chatTitle">Aprendamos Juntos</h2></div>
-                    <div class="chat-layout">
-                        <!-- FIX: Se usa flexbox para que el panel de amigos y el de chat se organicen mejor -->
-                        <aside class="card" style="display: flex; flex-direction: column;"><p data-lang-key="helloText">Hola, <strong id="your-username" style="color:var(--primary-color)"></strong></p><p style="font-size:0.9em;" data-lang-key="yourCodeText">Tu código: <strong id="your-code" title="Clic para copiar" style="cursor:pointer; user-select:all;"></strong></p><h3 style="margin-top:1.5rem;" data-lang-key="friendsTitle">Amigos</h3><form id="add-friend-form" class="input-group"><input id="friend-code-input" class="input-field" placeholder="Código de amigo..." required><button type="submit" class="btn">+</button></form><div id="friends-list" style="flex-grow: 1; overflow-y: auto;"></div></aside>
-                        <div class="card chat-window" style="display: flex; flex-direction: column;"><h3 id="chat-header" data-lang-key="selectFriendText">Selecciona un amigo</h3><div id="chat-messages" style="border:1px solid var(--bg-color); padding:1rem; border-radius:var(--radius); flex-grow:1; overflow-y:auto; margin-bottom:1rem;"></div><form id="chat-form" class="input-group"><input id="chat-input" class="input-field" placeholder="Escribe un mensaje..." autocomplete="off" required disabled><button type="submit" class="btn" disabled data-lang-key="sendButton">Enviar</button></form></div>
+                    <div class="chat-container">
+                        <aside class="card friends-panel">
+                            <p data-lang-key="helloText">Hola, <strong id="your-username" style="color:var(--primary-color)"></strong></p>
+                            <p style="font-size:0.9em;" data-lang-key="yourCodeText">Tu código: <strong id="your-code" title="Clic para copiar" style="cursor:pointer; user-select:all;"></strong></p>
+                            <h3 style="margin-top:1.5rem;" data-lang-key="friendsTitle">Amigos</h3>
+                            <form id="add-friend-form" class="input-group">
+                                <input id="friend-code-input" class="input-field" placeholder="Código de amigo..." required>
+                                <button type="submit" class="btn">+</button>
+                            </form>
+                            <div id="friends-list"></div>
+                        </aside>
+                        <div class="card chat-window">
+                            <h3 id="chat-header" data-lang-key="selectFriendText">Selecciona un amigo</h3>
+                            <div id="chat-messages"></div>
+                            <form id="chat-form" class="input-group">
+                                <input id="chat-input" class="input-field" placeholder="Escribe un mensaje..." autocomplete="off" required disabled>
+                                <button type="submit" class="btn" disabled data-lang-key="sendButton">Enviar</button>
+                            </form>
+                        </div>
                     </div>
-                    <!-- FIX: Se ha movido el botón "Regresar" fuera del div del chat-layout para centrarlo correctamente -->
                     <button class="btn btn-secondary btn-back">Regresar</button>
                 </div>
-            </section>
-
-            <section id="view-quienes-somos" class="page-section">
-                <div class="page-header"><h2 data-lang-key="whoTitle">Quiénes Somos</h2></div>
-                <div class="card" id="quienes-somos-container" style="font-family:'Lato', sans-serif; line-height:1.8;"></div>
-                <button class="btn btn-secondary btn-back" data-lang-key="backButton">Regresar</button>
-            </section>
-
-            <section id="view-ajustes" class="page-section">
-                <div class="page-header"><h2 data-lang-key="settingsTitle">Ajustes</h2></div>
-                <div class="card" style="max-width:600px; margin:auto;">
-                    <div class="settings-container" style="display:flex; flex-direction:column; gap:2.5rem;">
-                        <div><h3 data-lang-key="languageTitle">Idioma</h3><select id="language-selector" class="input-field"><option value="es">Español</option><option value="en">English</option></select></div>
-                        <div><h3 data-lang-key="accessibilityTitle">Accesibilidad</h3><div class="toggle-switch"><p data-lang-key="largeText">Texto más grande</p><label><input type="checkbox" id="font-size-toggle" style="opacity:0; width:0; height:0;"><span class="slider"></span></label></div><div class="toggle-switch" style="margin-top:1rem;"><p data-lang-key="highContrast">Modo de Alto Contraste</p><label><input type="checkbox" id="contrast-toggle" style="opacity:0; width:0; height:0;"><span class="slider"></span></label></div></div>
-                    </div>
-                </div>
-                <button class="btn btn-secondary btn-back" data-lang-key="backButton">Regresar</button>
             </section>
         </div>
     </main>
@@ -139,8 +154,8 @@
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script>
     document.addEventListener('DOMContentLoaded', () => {
-        // FIX: La lógica de JS se mantiene, ya que era correcta. El problema era de carga y CSS.
-        // Este código asegura que la lista de amigos se guarde y que los datos del usuario se muestren.
+        // El código JS se mantiene igual. La lógica era correcta, pero el HTML y CSS
+        // que la soportaban eran frágiles. Con la nueva estructura, este código funcionará como se espera.
         const state = { 
             currentUser: null, 
             friends: [], 
@@ -325,160 +340,22 @@
             finally { if (button) button.disabled = false; }
         }
         
-        function setupIA() {
-            ui.ia.button.addEventListener('click', async () => {
-                const topic = ui.ia.input.value;
-                if (!topic) return;
-                ui.ia.explanation.innerHTML = `<p>Consultando a la IA...</p>`;
-                ui.ia.explanation.innerHTML = await getAIResponse('/api/explain-math', { topic });
-            });
-        }
-        function setupPractice() {
-            ui.practice.button.addEventListener('click', async () => {
-                const topic = ui.practice.input.value;
-                if (!topic) return;
-                ui.practice.results.innerHTML = `<p style="text-align:center;">Generando problemas sobre ${topic}...</p>`;
-                const response = await getAIResponse('/api/generate-problems', { topic });
-                ui.practice.results.innerHTML = response;
-                ui.practice.results.querySelectorAll('.show-solution-btn').forEach(btn => {
-                    btn.addEventListener('click', () => {
-                        const solution = btn.previousElementSibling;
-                        solution.style.display = solution.style.display === 'none' ? 'block' : 'none';
-                        btn.textContent = solution.style.display === 'none' ? 'Ver Respuesta' : 'Ocultar Respuesta';
-                    });
-                });
-            });
-        }
-        async function generateTips() {
-            ui.consejos.container.innerHTML = `<div style="grid-column: 1 / -1; text-align: center; color: var(--text-light);"><p>Generando consejos frescos...</p></div>`;
-            ui.consejos.container.innerHTML = await getAIResponse('/api/generate-tips', {}, 'GET');
-        }
-        function setupAjustes() {
-            const settings = {
-                load: function() {
-                    const lang = localStorage.getItem('appLang')||'es';
-                    const fontSize = localStorage.getItem('appFontSize')==='true';
-                    const contrast = localStorage.getItem('appContrast')==='true';
-                    ui.ajustes.lang.value = lang;
-                    ui.ajustes.fontSizeToggle.checked = fontSize;
-                    ui.ajustes.contrastToggle.checked = contrast;
-                    this.apply();
-                },
-                save: function() {
-                    localStorage.setItem('appLang', ui.ajustes.lang.value);
-                    localStorage.setItem('appFontSize', ui.ajustes.fontSizeToggle.checked);
-                    localStorage.setItem('appContrast', ui.ajustes.contrastToggle.checked);
-                    this.apply();
-                },
-                apply: function() {
-                    document.documentElement.lang = ui.ajustes.lang.value;
-                    document.body.classList.toggle('large-text', ui.ajustes.fontSizeToggle.checked);
-                    document.body.classList.toggle('dark-theme', ui.ajustes.contrastToggle.checked);
-                    applyTranslations();
-                }
-            };
-            settings.load();
-            ui.ajustes.lang.addEventListener('change', () => settings.save());
-            ui.ajustes.fontSizeToggle.addEventListener('change', () => settings.save());
-            ui.ajustes.contrastToggle.addEventListener('change', () => settings.save());
-        }
-        function applyTranslations() {
-            const lang = ui.ajustes.lang.value || 'es';
-            document.querySelectorAll('[data-lang-key]').forEach(el => {
-                const key = el.dataset.langKey;
-                const translation = (translations[lang] && translations[lang][key]) || translations['es'][key];
-                if (translation) el.innerHTML = translation;
-            });
-        }
+        function setupIA() { ui.ia.button.addEventListener('click', async () => { const topic = ui.ia.input.value; if (!topic) return; ui.ia.explanation.innerHTML = `<p>Consultando a la IA...</p>`; ui.ia.explanation.innerHTML = await getAIResponse('/api/explain-math', { topic }); }); }
+        function setupPractice() { ui.practice.button.addEventListener('click', async () => { const topic = ui.practice.input.value; if (!topic) return; ui.practice.results.innerHTML = `<p style="text-align:center;">Generando problemas sobre ${topic}...</p>`; const response = await getAIResponse('/api/generate-problems', { topic }); ui.practice.results.innerHTML = response; ui.practice.results.querySelectorAll('.show-solution-btn').forEach(btn => { btn.addEventListener('click', () => { const solution = btn.previousElementSibling; solution.style.display = solution.style.display === 'none' ? 'block' : 'none'; btn.textContent = solution.style.display === 'none' ? 'Ver Respuesta' : 'Ocultar Respuesta'; }); }); }); }
+        async function generateTips() { ui.consejos.container.innerHTML = `<div style="grid-column: 1 / -1; text-align: center; color: var(--text-light);"><p>Generando consejos frescos...</p></div>`; ui.consejos.container.innerHTML = await getAIResponse('/api/generate-tips', {}, 'GET'); }
+        function setupAjustes() { const settings = { load: function() { const lang = localStorage.getItem('appLang')||'es'; const fontSize = localStorage.getItem('appFontSize')==='true'; const contrast = localStorage.getItem('appContrast')==='true'; ui.ajustes.lang.value = lang; ui.ajustes.fontSizeToggle.checked = fontSize; ui.ajustes.contrastToggle.checked = contrast; this.apply(); }, save: function() { localStorage.setItem('appLang', ui.ajustes.lang.value); localStorage.setItem('appFontSize', ui.ajustes.fontSizeToggle.checked); localStorage.setItem('appContrast', ui.ajustes.contrastToggle.checked); this.apply(); }, apply: function() { document.documentElement.lang = ui.ajustes.lang.value; document.body.classList.toggle('large-text', ui.ajustes.fontSizeToggle.checked); document.body.classList.toggle('dark-theme', ui.ajustes.contrastToggle.checked); applyTranslations(); } }; settings.load(); ui.ajustes.lang.addEventListener('change', () => settings.save()); ui.ajustes.fontSizeToggle.addEventListener('change', () => settings.save()); ui.ajustes.contrastToggle.addEventListener('change', () => settings.save()); }
+        function applyTranslations() { const lang = ui.ajustes.lang.value || 'es'; document.querySelectorAll('[data-lang-key]').forEach(el => { const key = el.dataset.langKey; const translation = (translations[lang] && translations[lang][key]) || translations['es'][key]; if (translation) el.innerHTML = translation; }); }
 
-        function setupChat() {
-            socket.on('online users update', (users) => { state.onlineFriends = users; renderFriends(); });
-            socket.on('private message', handleNewMessage);
-            ui.chat.addForm.addEventListener('submit', addFriend);
-            ui.chat.list.addEventListener('click', (e) => {
-                const friendItem = e.target.closest('[data-code]');
-                if (friendItem) setActiveChat(friendItem.dataset.code);
-            });
-            ui.chat.chatForm.addEventListener('submit', sendChatMessage);
-        }
-
-        function updateChatUI() {
-            if (!state.currentUser) return;
-            ui.logoutButton.style.display = 'block';
-            ui.chat.yourUsername.textContent = state.currentUser.username;
-            ui.chat.yourCode.textContent = state.currentUser.code;
-            socket.emit('register user', state.currentUser);
-            renderFriends();
-        }
-        
-        function saveFriends() {
-            if (state.currentUser) {
-                localStorage.setItem(`friends_${state.currentUser.username}`, JSON.stringify(state.friends));
-            }
-        }
-        function loadFriends() {
-            if (state.currentUser) {
-                const savedFriends = localStorage.getItem(`friends_${state.currentUser.username}`);
-                state.friends = savedFriends ? JSON.parse(savedFriends) : [];
-            }
-        }
-        
-        function addFriend(e) { 
-            e.preventDefault(); 
-            const code = ui.chat.friendInput.value.trim(); 
-            if (!code || !state.currentUser || code === state.currentUser.code) return; 
-            socket.emit('add friend', code, (res) => { 
-                if (res.success && !state.friends.find(f => f.code === res.friend.code)) { 
-                    state.friends.push(res.friend); 
-                    saveFriends();
-                    renderFriends(); 
-                } else { 
-                    alert('Código no válido o amigo ya añadido.'); 
-                } 
-            }); 
-            ui.chat.friendInput.value = '';
-        }
-
-        function renderFriends() { 
-            if (!state.currentUser) return; 
-            ui.chat.list.innerHTML = state.friends.map(f => `<div class="card" data-code="${f.code}" style="cursor:pointer; padding: 0.8rem; margin-bottom: 0.5rem; ${f.code === state.activeChat ? 'background-color: var(--bg-color);' : ''}">${f.username}</div>`).join('');
-        }
-        
-        function setActiveChat(code) { 
-            state.activeChat = code; 
-            const friend = state.friends.find(f => f.code === code);
-            if(friend) {
-                ui.chat.header.textContent = `Chateando con ${friend.username}`; 
-            }
-            ui.chat.chatInput.disabled = false; 
-            ui.chat.sendButton.disabled = false;
-            renderFriends(); 
-            renderMessages(); 
-        }
-
-        function sendChatMessage(e) { 
-            e.preventDefault(); 
-            const text = ui.chat.chatInput.value.trim(); 
-            if (!text || !state.activeChat) return; 
-            const message = { id: Date.now(), text, from: state.currentUser.username }; 
-            socket.emit('private message', { toCode: state.activeChat, message }); 
-            handleNewMessage({ from: state.currentUser.username, message }); 
-            ui.chat.chatInput.value = '';
-        }
-
-        function handleNewMessage({ from, message }) { 
-            const partnerCode = from === state.currentUser.username ? state.activeChat : state.friends.find(f => f.username === from)?.code; 
-            if (!partnerCode) return; 
-            state.messages[partnerCode] = state.messages[partnerCode] || []; 
-            state.messages[partnerCode].push({ from, ...message }); 
-            if (partnerCode === state.activeChat) renderMessages();
-        }
-
-        function renderMessages() { 
-            const chatMessagesDiv = ui.chat.messages; 
-            chatMessagesDiv.innerHTML = (state.messages[state.activeChat] || []).map(({from, text}) => `<div class="message-bubble ${from === state.currentUser.username ? 'sent' : 'received'}">${text}</div>`).join(''); 
-            chatMessagesDiv.scrollTop = chatMessagesDiv.scrollHeight;
-        }
+        function setupChat() { socket.on('online users update', (users) => { state.onlineFriends = users; renderFriends(); }); socket.on('private message', handleNewMessage); ui.chat.addForm.addEventListener('submit', addFriend); ui.chat.list.addEventListener('click', (e) => { const friendItem = e.target.closest('[data-code]'); if (friendItem) setActiveChat(friendItem.dataset.code); }); ui.chat.chatForm.addEventListener('submit', sendChatMessage); }
+        function updateChatUI() { if (!state.currentUser) return; ui.logoutButton.style.display = 'block'; ui.chat.yourUsername.textContent = state.currentUser.username; ui.chat.yourCode.textContent = state.currentUser.code; socket.emit('register user', state.currentUser); renderFriends(); }
+        function saveFriends() { if (state.currentUser) { localStorage.setItem(`friends_${state.currentUser.username}`, JSON.stringify(state.friends)); } }
+        function loadFriends() { if (state.currentUser) { const savedFriends = localStorage.getItem(`friends_${state.currentUser.username}`); state.friends = savedFriends ? JSON.parse(savedFriends) : []; } }
+        function addFriend(e) { e.preventDefault(); const code = ui.chat.friendInput.value.trim(); if (!code || !state.currentUser || code === state.currentUser.code) return; socket.emit('add friend', code, (res) => { if (res.success && !state.friends.find(f => f.code === res.friend.code)) { state.friends.push(res.friend); saveFriends(); renderFriends(); } else { alert('Código no válido o amigo ya añadido.'); } }); ui.chat.friendInput.value = ''; }
+        function renderFriends() { if (!state.currentUser) return; ui.chat.list.innerHTML = state.friends.map(f => `<div class="card" data-code="${f.code}" style="cursor:pointer; padding: 0.8rem; margin-bottom: 0.5rem; ${f.code === state.activeChat ? 'background-color: var(--bg-color);' : ''}">${f.username}</div>`).join(''); }
+        function setActiveChat(code) { state.activeChat = code; const friend = state.friends.find(f => f.code === code); if(friend) { ui.chat.header.textContent = `Chateando con ${friend.username}`; } ui.chat.chatInput.disabled = false; ui.chat.sendButton.disabled = false; renderFriends(); renderMessages(); }
+        function sendChatMessage(e) { e.preventDefault(); const text = ui.chat.chatInput.value.trim(); if (!text || !state.activeChat) return; const message = { id: Date.now(), text, from: state.currentUser.username }; socket.emit('private message', { toCode: state.activeChat, message }); handleNewMessage({ from: state.currentUser.username, message }); ui.chat.chatInput.value = ''; }
+        function handleNewMessage({ from, message }) { const partnerCode = from === state.currentUser.username ? state.activeChat : state.friends.find(f => f.username === from)?.code; if (!partnerCode) return; state.messages[partnerCode] = state.messages[partnerCode] || []; state.messages[partnerCode].push({ from, ...message }); if (partnerCode === state.activeChat) renderMessages(); }
+        function renderMessages() { const chatMessagesDiv = ui.chat.messages; chatMessagesDiv.innerHTML = (state.messages[state.activeChat] || []).map(({from, text}) => `<div class="message-bubble ${from === state.currentUser.username ? 'sent' : 'received'}">${text}</div>`).join(''); chatMessagesDiv.scrollTop = chatMessagesDiv.scrollHeight; }
 
         init();
     });
