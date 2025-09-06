@@ -1,4 +1,4 @@
-// server.js - VERSIÓN FINAL Y COMPLETA
+// server.js - VERSIÓN FINAL Y COMPLETA (Revisada y Correcta)
 
 const express = require('express');
 const http = require('http');
@@ -32,7 +32,8 @@ mongoose.connect(DATABASE_URL)
     .then(() => console.log('✅✅✅ CONEXIÓN CON LA BASE DE DATOS EXITOSA! ✅✅✅'))
     .catch(err => console.error('❌❌❌ ERROR AL CONECTAR A LA DB:', err));
 
-// Esquema de usuario completo
+// Esquema de usuario completo. Es correcto y no necesita un array de amigos
+// ya que la lista se gestiona en el lado del cliente (localStorage).
 const UserSchema = new mongoose.Schema({
     code: { type: String, required: true, unique: true },
     username: { type: String, required: true, unique: true, index: true },
@@ -47,7 +48,7 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// --- RUTAS DE AUTENTICACIÓN ---
+// --- RUTAS DE AUTENTICACIÓN (Correctas) ---
 app.post('/api/register', async (req, res) => {
     try {
         const { username, password } = req.body;
@@ -73,6 +74,7 @@ app.post('/api/login', async (req, res) => {
         if (!user || !(await bcrypt.compare(password, user.password))) {
             return res.status(401).json({ success: false, message: 'Usuario o contraseña incorrectos.' });
         }
+        // Devuelve el usuario con su código, que es lo que el frontend necesita para operar.
         res.json({ success: true, user: { username: user.username, code: user.code } });
     } catch (error) { res.status(500).json({ success: false, message: 'Error en el servidor.' }); }
 });
@@ -89,13 +91,13 @@ app.post('/api/delete-account', async (req, res) => {
     } catch (error) { res.status(500).json({ success: false, message: 'Error en el servidor.' }); }
 });
 
-// --- RUTAS DE IA ---
+// --- RUTAS DE IA (Correctas) ---
 app.post('/api/explain-math', async (req, res) => {
     if (!model) return res.status(503).json({ error: "Servicio de IA no disponible." });
     const { topic } = req.body;
     if (!topic) return res.status(400).json({ error: "El tema es requerido." });
     try {
-        const prompt = `Como tutor experto en matemáticas, explica detalladamente el concepto "${topic}" para un estudiante de secundaria. Usa únicamente etiquetas HTML (h3, p, ul, li) para estructurar la respuesta. No incluyas markdown como \`\`\`. La explicación debe cubrir: 1. Definición clara. 2. Fórmula o pasos clave para resolverlo. 3. Un ejemplo práctico y sencillo. 4. Errores comunes que se deben evitar.`;
+        const prompt = `Como tutor experto en matemáticas, explica detalladamente el concepto "${topic}" para un estudiante de secundaria. Usa únicamente etiquetas HTML (h3, p, ul, li, strong) para estructurar la respuesta. No incluyas markdown como \`\`\`. La explicación debe cubrir: 1. Definición clara. 2. Fórmula o pasos clave para resolverlo. 3. Un ejemplo práctico y sencillo. 4. Errores comunes que se deben evitar.`;
         const result = await model.generateContent(prompt);
         res.json({ explanation: result.response.text() });
     } catch (error) { console.error("Error en Tutor IA:", error); res.status(500).json({ error: "No se pudo generar la explicación." }); }
@@ -119,25 +121,40 @@ app.get('/api/generate-tips', async (req, res) => {
     } catch (error) { console.error("Error en Consejos IA:", error); res.status(500).json({ error: "No se pudo generar los consejos." }); }
 });
 
-// --- LÓGICA DEL CHAT ---
+// --- LÓGICA DEL CHAT (Correcta) ---
 const onlineUsers = {}; const userSockets = {};
 io.on('connection', (socket) => {
+    // Registra al usuario cuando se conecta, asociando su socket.id con su código.
     socket.on('register user', ({ username, code }) => {
         socket.username = username; socket.userCode = code;
         onlineUsers[username] = code; userSockets[code] = socket.id;
         io.emit('online users update', Object.keys(onlineUsers));
     });
+
+    // Busca un amigo en la base de datos por su código y devuelve el resultado.
+    // Esta es la única interacción necesaria con el backend para la lista de amigos.
     socket.on('add friend', async (friendCode, callback) => {
         const friend = await User.findOne({ code: friendCode }, 'username code').lean();
         callback({ success: !!friend, friend });
     });
+
+    // Envía un mensaje privado al socket específico del destinatario.
     socket.on('private message', ({ toCode, message }) => {
         if (!socket.username) return;
         const recipientSocketId = userSockets[toCode];
-        if (recipientSocketId) { io.to(recipientSocketId).emit('private message', { from: socket.username, message }); }
+        if (recipientSocketId) { 
+            // Reenvía el mensaje al destinatario, incluyendo quién lo envió.
+            io.to(recipientSocketId).emit('private message', { from: socket.username, message }); 
+        }
     });
+    
+    // Limpia los datos del usuario cuando se desconecta.
     socket.on('disconnect', () => {
-        if (socket.username) { delete onlineUsers[socket.username]; delete userSockets[socket.userCode]; io.emit('online users update', Object.keys(onlineUsers)); }
+        if (socket.username) { 
+            delete onlineUsers[socket.username]; 
+            delete userSockets[socket.userCode]; 
+            io.emit('online users update', Object.keys(onlineUsers)); 
+        }
     });
 });
 

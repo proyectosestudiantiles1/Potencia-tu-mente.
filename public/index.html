@@ -32,7 +32,10 @@
       .menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem}.menu-card{text-align:center;text-decoration:none;color:var(--text-dark)}.menu-card .icon{font-size:2.5rem;color:var(--primary-color);margin-bottom:1rem;transition:transform 0.3s ease;}.menu-card h3{font-family:'Poppins';font-weight:600;font-size:1.3rem;margin-bottom:0.5rem;}.menu-card p{font-family:'Lato',sans-serif;color:var(--text-light);}.menu-card.card:hover{transform:translateY(-10px);box-shadow:0 12px 40px rgba(0,0,0,0.08);}.menu-card.card:hover .icon{transform:scale(1.1);}
       #practice-results{margin-top:2rem;display:grid;grid-template-columns:1fr;gap:1.5rem;}.problem-card{background-color:#f9fafb;padding:1.5rem;border-radius:var(--radius);border:1px solid #e9ecef;}.solution{margin-top:1rem;padding:1rem;background-color:#eaf6f4;border-radius:8px;border-left:4px solid var(--primary-color);}
       #auth-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;z-index:1000;animation:fadeIn 0.3s;}.auth-card{width:100%;max-width:400px;text-align:center}.auth-toggle{margin-bottom:1.5rem;}.auth-toggle button{background:none;border:none;cursor:pointer;padding:0.5rem 1rem;font-size:1.1rem;color:var(--text-light);transition:color 0.2s;}.auth-toggle button.active{font-weight:bold;color:var(--primary-color);border-bottom:2px solid var(--primary-color)}#register-form{display:none;}#auth-feedback{margin-top:1rem;color:red;min-height:1.2em;}.forgot-password{font-size:0.9rem;color:var(--text-light);text-decoration:underline;cursor:pointer;margin-top:1rem;display:inline-block}
+      /* FIX: Añade margen superior a los formularios de login/registro para mejorar la estética */
+      #login-form, #register-form { margin-top: 1.5rem; }
       .chat-layout{display:grid;grid-template-columns:300px 1fr;gap:1.5rem;height:75vh;max-height:700px}
+      #chat-messages{height: 100%;}.message-bubble{padding: .6rem 1rem; border-radius: 20px; margin-bottom: .5rem; max-width: 80%; word-wrap: break-word;}.message-bubble.sent{background: var(--primary-gradient); color: white; margin-left: auto; border-bottom-right-radius: 5px;}.message-bubble.received{background: #e9ecef; color: var(--text-dark); margin-right: auto; border-bottom-left-radius: 5px;}
       .settings-container h3{font-family:'Poppins',sans-serif}.toggle-switch{display:flex;align-items:center;justify-content:space-between;margin-top:.5rem}.slider{position:relative;cursor:pointer;width:50px;height:26px;background-color:#ccc;border-radius:26px;transition:.4s}.slider:before{position:absolute;content:"";height:18px;width:18px;left:4px;bottom:4px;background-color:white;border-radius:50%;transition:.4s}input:checked+.slider{background-color:var(--primary-color)}input:checked+.slider:before{transform:translateX(24px)}
     </style>
 </head>
@@ -82,8 +85,8 @@
                 <div id="auth-overlay">
                     <div class="card auth-card">
                         <div class="auth-toggle"><button id="show-login" class="active" data-lang-key="loginTitle">Iniciar Sesión</button><button id="show-register" data-lang-key="registerTitle">Crear Cuenta</button></div>
-                        <form id="login-form"><div class="input-group" style="flex-direction:column; gap: 0.5rem;"><input type="text" id="login-username" class="input-field" placeholder="Nombre de usuario" required><input type="password" id="login-password" class="input-field" placeholder="Contraseña" required></div><button type="submit" class="btn" data-lang-key="loginButton">Entrar</button></form>
-                        <form id="register-form" style="display:none;"><div class="input-group" style="flex-direction:column; gap: 0.5rem;"><input type="text" id="register-username" class="input-field" placeholder="Nuevo nombre de usuario" required><input type="password" id="register-password" class="input-field" placeholder="Nueva contraseña (mín. 4 caracteres)" required minlength="4"></div><button type="submit" class="btn" data-lang-key="registerButton">Registrarme</button></form>
+                        <form id="login-form"><div class="input-group" style="flex-direction:column; gap: 0.5rem;"><input type="text" id="login-username" class="input-field" placeholder="Nombre de usuario" required autocomplete="username"><input type="password" id="login-password" class="input-field" placeholder="Contraseña" required autocomplete="current-password"></div><button type="submit" class="btn" data-lang-key="loginButton">Entrar</button></form>
+                        <form id="register-form" style="display:none;"><div class="input-group" style="flex-direction:column; gap: 0.5rem;"><input type="text" id="register-username" class="input-field" placeholder="Nuevo nombre de usuario" required autocomplete="username"><input type="password" id="register-password" class="input-field" placeholder="Nueva contraseña (mín. 4 caracteres)" required minlength="4" autocomplete="new-password"></div><button type="submit" class="btn" data-lang-key="registerButton">Registrarme</button></form>
                         <p id="auth-feedback"></p>
                         <a class="forgot-password" data-lang-key="forgotPassword">¿Olvidaste tu contraseña?</a>
                     </div>
@@ -91,8 +94,8 @@
                 <div class="chat-view" style="display: none;">
                     <div class="page-header"><h2 data-lang-key="chatTitle">Aprendamos Juntos</h2></div>
                     <div class="chat-layout">
-                        <aside class="card"><p data-lang-key="helloText">Hola, <strong id="your-username" style="color:var(--primary-color)"></strong></p><p style="font-size:0.9em;" data-lang-key="yourCodeText">Tu código: <strong id="your-code" title="Clic para copiar" style="cursor:pointer; user-select:all;"></strong></p><h3 style="margin-top:1.5rem;" data-lang-key="friendsTitle">Amigos</h3><form id="add-friend-form" class="input-group"><input id="friend-code-input" class="input-field" placeholder="Código de amigo..." required><button type="submit" class="btn">+</button></form><div id="friends-list"></div></aside>
-                        <div class="card chat-window"><h3 id="chat-header" data-lang-key="selectFriendText">Selecciona un amigo</h3><div id="chat-messages" style="border:1px solid #ddd; padding:1rem; border-radius:var(--radius); flex-grow:1; overflow-y:auto; margin-bottom:1rem;"></div><form id="chat-form" class="input-group"><input id="chat-input" class="input-field" placeholder="Escribe un mensaje..." autocomplete="off" required disabled><button type="submit" class="btn" disabled data-lang-key="sendButton">Enviar</button></form></div>
+                        <aside class="card" style="display: flex; flex-direction: column;"><p data-lang-key="helloText">Hola, <strong id="your-username" style="color:var(--primary-color)"></strong></p><p style="font-size:0.9em;" data-lang-key="yourCodeText">Tu código: <strong id="your-code" title="Clic para copiar" style="cursor:pointer; user-select:all;"></strong></p><h3 style="margin-top:1.5rem;" data-lang-key="friendsTitle">Amigos</h3><form id="add-friend-form" class="input-group"><input id="friend-code-input" class="input-field" placeholder="Código de amigo..." required><button type="submit" class="btn">+</button></form><div id="friends-list" style="flex-grow: 1; overflow-y: auto;"></div></aside>
+                        <div class="card chat-window" style="display: flex; flex-direction: column;"><h3 id="chat-header" data-lang-key="selectFriendText">Selecciona un amigo</h3><div id="chat-messages" style="border:1px solid #ddd; padding:1rem; border-radius:var(--radius); flex-grow:1; overflow-y:auto; margin-bottom:1rem;"></div><form id="chat-form" class="input-group"><input id="chat-input" class="input-field" placeholder="Escribe un mensaje..." autocomplete="off" required disabled><button type="submit" class="btn" disabled data-lang-key="sendButton">Enviar</button></form></div>
                     </div>
                     <button class="btn btn-secondary btn-back">Regresar</button>
                 </div>
@@ -121,7 +124,15 @@
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script>
     document.addEventListener('DOMContentLoaded', () => {
-        const state = { currentUser: null, friends: [], activeChat: null, messages: {}, onlineFriends: [] };
+        // FIX: El estado ahora cargará los amigos desde localStorage
+        const state = { 
+            currentUser: null, 
+            friends: [], 
+            activeChat: null, 
+            messages: {}, 
+            onlineFriends: [] 
+        };
+
         const ui = {
             main: document.querySelector('main'),
             inicio: { view: document.getElementById('view-inicio'), button: document.getElementById('enter-button') },
@@ -133,7 +144,7 @@
             practice: { input: document.getElementById('practice-input'), button: document.getElementById('practice-button'), results: document.getElementById('practice-results') },
             consejos: { container: document.getElementById('consejos-container') },
             auth: { overlay: document.getElementById('auth-overlay'), showLogin: document.getElementById('show-login'), showRegister: document.getElementById('show-register'), loginForm: document.getElementById('login-form'), registerForm: document.getElementById('register-form'), feedback: document.getElementById('auth-feedback'), forgotPassword: document.querySelector('.forgot-password') },
-            chat: { view: document.querySelector('.chat-view'), yourUsername: document.getElementById('your-username'), yourCode: document.getElementById('your-code'), addForm: document.getElementById('add-friend-form'), friendInput: document.getElementById('friend-code-input'), list: document.getElementById('friends-list'), header: document.getElementById('chat-header'), messages: document.getElementById('chat-messages'), chatForm: document.getElementById('chat-form'), chatInput: document.getElementById('chat-input') },
+            chat: { view: document.querySelector('.chat-view'), yourUsername: document.getElementById('your-username'), yourCode: document.getElementById('your-code'), addForm: document.getElementById('add-friend-form'), friendInput: document.getElementById('friend-code-input'), list: document.getElementById('friends-list'), header: document.getElementById('chat-header'), messages: document.getElementById('chat-messages'), chatForm: document.getElementById('chat-form'), chatInput: document.getElementById('chat-input'), sendButton: document.querySelector('#chat-form button') },
             quienes: { container: document.getElementById('quienes-somos-container') },
             ajustes: { lang: document.getElementById('language-selector'), fontSizeToggle: document.getElementById('font-size-toggle'), contrastToggle: document.getElementById('contrast-toggle') }
         };
@@ -212,9 +223,9 @@
             const user = sessionStorage.getItem('currentUser');
             if (user) {
                 state.currentUser = JSON.parse(user);
-                ui.logoutButton.style.display = 'block';
-                socket.emit('register user', state.currentUser);
-                renderFriends(); // Render friends on load
+                // FIX: Cargar amigos desde localStorage y actualizar la UI
+                loadFriends(); 
+                updateChatUI();
             } else {
                  ui.logoutButton.style.display = 'none';
             }
@@ -245,9 +256,11 @@
             if (data.success) {
                 state.currentUser = data.user;
                 sessionStorage.setItem('currentUser', JSON.stringify(data.user));
-                ui.logoutButton.style.display = 'block';
-                socket.emit('register user', state.currentUser);
-                renderFriends();
+                
+                // FIX: Cargar amigos y actualizar la UI del chat de forma centralizada
+                loadFriends();
+                updateChatUI();
+                
                 navigateTo('view-chat');
             } else { ui.auth.feedback.textContent = data.message; }
         }
@@ -275,7 +288,12 @@
             }
         }
         function handleLogout() {
+            // FIX: Limpiar la lista de amigos del usuario actual al cerrar sesión
+            if (state.currentUser) {
+                localStorage.removeItem(`friends_${state.currentUser.username}`);
+            }
             state.currentUser = null;
+            state.friends = [];
             sessionStorage.removeItem('currentUser');
             navigateTo('view-menu');
             location.reload(); 
@@ -321,7 +339,8 @@
             });
         }
         async function generateTips() {
-            ui.consejos.container.innerHTML = `<p style="text-align:center;">Generando consejos frescos...</p>`;
+            // FIX: El mensaje de carga ahora es un elemento de grid para no deformar el layout.
+            ui.consejos.container.innerHTML = `<div style="grid-column: 1 / -1; text-align: center; color: var(--text-light);"><p>Generando consejos frescos...</p></div>`;
             ui.consejos.container.innerHTML = await getAIResponse('/api/generate-tips', {}, 'GET');
         }
         function setupAjustes() {
@@ -362,6 +381,8 @@
             });
         }
 
+        // --- Lógica del Chat Mejorada ---
+
         function setupChat() {
             socket.on('online users update', (users) => { state.onlineFriends = users; renderFriends(); });
             socket.on('private message', handleNewMessage);
@@ -372,12 +393,87 @@
             });
             ui.chat.chatForm.addEventListener('submit', sendChatMessage);
         }
-        function addFriend(e) { e.preventDefault(); const code = ui.chat.friendInput.value.trim(); if (!code || !state.currentUser || code === state.currentUser.code) return; socket.emit('add friend', code, (res) => { if (res.success && !state.friends.find(f => f.code === res.friend.code)) { state.friends.push(res.friend); renderFriends(); } else { alert('Código no válido o amigo ya añadido.'); } }); ui.chat.friendInput.value = '';}
-        function renderFriends() { if (!state.currentUser) return; ui.chat.yourUsername.textContent = state.currentUser.username; ui.chat.yourCode.textContent = state.currentUser.code; ui.chat.list.innerHTML = state.friends.map(f => `<div class="card" data-code="${f.code}" style="cursor:pointer; padding: 0.8rem; margin-bottom: 0.5rem; ${f.code === state.activeChat ? 'background-color:#e0e6e8;' : ''}">${f.username}</div>`).join('');}
-        function setActiveChat(code) { state.activeChat = code; ui.chat.header.textContent = `Chateando con ${state.friends.find(f=>f.code===code).username}`; ui.chat.chatInput.disabled = false; renderFriends(); renderMessages(); }
-        function sendChatMessage(e) { e.preventDefault(); const text = ui.chat.chatInput.value.trim(); if (!text || !state.activeChat) return; const message = { id: Date.now(), text }; socket.emit('private message', { toCode: state.activeChat, message }); handleNewMessage({ from: state.currentUser.username, message }); ui.chat.chatInput.value = '';}
-        function handleNewMessage({ from, message }) { const partnerCode = from === state.currentUser.username ? state.activeChat : state.friends.find(f => f.username === from)?.code; if (!partnerCode) return; state.messages[partnerCode] = state.messages[partnerCode] || []; state.messages[partnerCode].push({ from, ...message }); if (partnerCode === state.activeChat) renderMessages();}
-        function renderMessages() { const chatMessagesDiv = ui.chat.messages; chatMessagesDiv.innerHTML = (state.messages[state.activeChat] || []).map(({from, text}) => `<div class="message-bubble ${from === state.currentUser.username ? 'sent' : 'received'}">${text}</div>`).join(''); chatMessagesDiv.scrollTop = chatMessagesDiv.scrollHeight;}
+
+        // FIX: Nueva función para actualizar la UI del chat de forma consistente
+        function updateChatUI() {
+            if (!state.currentUser) return;
+            ui.logoutButton.style.display = 'block';
+            ui.chat.yourUsername.textContent = state.currentUser.username;
+            ui.chat.yourCode.textContent = state.currentUser.code;
+            socket.emit('register user', state.currentUser);
+            renderFriends();
+        }
+        
+        // FIX: Funciones para guardar y cargar amigos en localStorage
+        function saveFriends() {
+            if (state.currentUser) {
+                localStorage.setItem(`friends_${state.currentUser.username}`, JSON.stringify(state.friends));
+            }
+        }
+        function loadFriends() {
+            if (state.currentUser) {
+                const savedFriends = localStorage.getItem(`friends_${state.currentUser.username}`);
+                state.friends = savedFriends ? JSON.parse(savedFriends) : [];
+            }
+        }
+        
+        function addFriend(e) { 
+            e.preventDefault(); 
+            const code = ui.chat.friendInput.value.trim(); 
+            if (!code || !state.currentUser || code === state.currentUser.code) return; 
+            socket.emit('add friend', code, (res) => { 
+                if (res.success && !state.friends.find(f => f.code === res.friend.code)) { 
+                    state.friends.push(res.friend); 
+                    saveFriends(); // Guardar amigos después de añadir uno nuevo
+                    renderFriends(); 
+                } else { 
+                    alert('Código no válido o amigo ya añadido.'); 
+                } 
+            }); 
+            ui.chat.friendInput.value = '';
+        }
+
+        function renderFriends() { 
+            if (!state.currentUser) return; 
+            ui.chat.list.innerHTML = state.friends.map(f => `<div class="card" data-code="${f.code}" style="cursor:pointer; padding: 0.8rem; margin-bottom: 0.5rem; ${f.code === state.activeChat ? 'background-color: var(--bg-color);' : ''}">${f.username}</div>`).join('');
+        }
+        
+        function setActiveChat(code) { 
+            state.activeChat = code; 
+            const friend = state.friends.find(f => f.code === code);
+            if(friend) {
+                ui.chat.header.textContent = `Chateando con ${friend.username}`; 
+            }
+            ui.chat.chatInput.disabled = false; 
+            ui.chat.sendButton.disabled = false;
+            renderFriends(); 
+            renderMessages(); 
+        }
+
+        function sendChatMessage(e) { 
+            e.preventDefault(); 
+            const text = ui.chat.chatInput.value.trim(); 
+            if (!text || !state.activeChat) return; 
+            // FIX: Incluir el remitente ('from') en el objeto del mensaje
+            const message = { id: Date.now(), text, from: state.currentUser.username }; 
+            socket.emit('private message', { toCode: state.activeChat, message }); 
+            handleNewMessage({ from: state.currentUser.username, message }); 
+            ui.chat.chatInput.value = '';
+        }
+
+        function handleNewMessage({ from, message }) { 
+            const partnerCode = from === state.currentUser.username ? state.activeChat : state.friends.find(f => f.username === from)?.code; 
+            if (!partnerCode) return; 
+            state.messages[partnerCode] = state.messages[partnerCode] || []; 
+            state.messages[partnerCode].push({ from, ...message }); 
+            if (partnerCode === state.activeChat) renderMessages();
+        }
+
+        function renderMessages() { 
+            const chatMessagesDiv = ui.chat.messages; 
+            chatMessagesDiv.innerHTML = (state.messages[state.activeChat] || []).map(({from, text}) => `<div class="message-bubble ${from === state.currentUser.username ? 'sent' : 'received'}">${text}</div>`).join(''); 
+            chatMessagesDiv.scrollTop = chatMessagesDiv.scrollHeight;
+        }
 
         init();
     });
