@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Potencia Tu Mente</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧠</text></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧠</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
@@ -34,7 +34,7 @@
       #auth-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;z-index:1000;animation:fadeIn 0.3s;}.auth-card{width:100%;max-width:400px;text-align:center}.auth-toggle{margin-bottom:1.5rem;}.auth-toggle button{background:none;border:none;cursor:pointer;padding:0.5rem 1rem;font-size:1.1rem;color:var(--text-light);transition:color 0.2s;}.auth-toggle button.active{font-weight:bold;color:var(--primary-color);border-bottom:2px solid var(--primary-color)}#register-form{display:none;}#auth-feedback{margin-top:1rem;color:red;min-height:1.2em;}.forgot-password{font-size:0.9rem;color:var(--text-light);text-decoration:underline;cursor:pointer;margin-top:1rem;display:inline-block}
       #login-form, #register-form { margin-top: 1.5rem; }
       
-      /* --- FIX: Estilos completamente reescritos para el Chat --- */
+      /* --- FIX: Estilos simplificados para el Chat --- */
       .chat-container {
         display: grid;
         grid-template-columns: 300px 1fr;
@@ -42,38 +42,12 @@
         height: 75vh;
         max-height: 700px;
       }
-      .friends-panel {
-        display: flex;
-        flex-direction: column;
-      }
-      #friends-list {
-        flex-grow: 1;
-        overflow-y: auto;
-        margin-top: 1rem;
-      }
-      .chat-window {
-        display: flex;
-        flex-direction: column;
-      }
-      #chat-messages {
-        border: 1px solid #dde2e6;
-        padding: 1rem;
-        border-radius: var(--radius);
-        flex-grow: 1;
-        overflow-y: auto;
-        margin-bottom: 1rem;
-        background-color: var(--bg-color);
-      }
+      .friends-panel { display: flex; flex-direction: column; }
+      #friends-list { flex-grow: 1; overflow-y: auto; margin-top: 1rem; }
+      .chat-window { display: flex; flex-direction: column; }
+      #chat-messages { border: 1px solid #dde2e6; padding: 1rem; border-radius: var(--radius); flex-grow: 1; overflow-y: auto; margin-bottom: 1rem; background-color: var(--bg-color); }
       .message-bubble{padding: .6rem 1rem; border-radius: 20px; margin-bottom: .5rem; max-width: 80%; word-wrap: break-word;}.message-bubble.sent{background: var(--primary-gradient); color: white; margin-left: auto; border-bottom-right-radius: 5px;}.message-bubble.received{background: var(--card-bg); color: var(--text-dark); margin-right: auto; border-bottom-left-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);}
-      #add-friend-form button {
-        padding: 0;
-        min-width: 46px;
-        max-width: 46px;
-        height: 46px;
-        flex-shrink: 0;
-        line-height: 1;
-        font-size: 1.5rem;
-      }
+      #add-friend-form button { padding: 0; min-width: 46px; max-width: 46px; height: 46px; flex-shrink: 0; line-height: 1; font-size: 1.5rem; }
       .btn-back { display: block; margin: 1.5rem auto 0; width: fit-content; }
       /* ----------------------------------------------------------- */
 
@@ -103,14 +77,12 @@
                 </div>
             </section>
             
-            <!-- Las secciones de IA, Práctica, Consejos, Quiénes Somos y Ajustes no cambian -->
             <section id="view-ia" class="page-section"><div class="page-header"><h2 data-lang-key="iaTitle">Tutor IA</h2><p data-lang-key="iaPageDesc">Pregúntale cualquier concepto, ejercicio o problema matemático a la IA.</p></div><div class="card"><div class="input-group"><input id="ia-input" type="text" class="input-field" placeholder="Ej: ¿Qué es el Teorema de Pitágoras?" /><button id="ia-button" class="btn" data-lang-key="consultButton">Consultar</button></div><div id="ia-explanation" style="min-height: 200px;"><p style="color: var(--text-light)" data-lang-key="explanationPlaceholder">Aquí aparecerá la explicación...</p></div></div><button class="btn btn-secondary btn-back" data-lang-key="backButton">Regresar</button></section>
             <section id="view-practice" class="page-section"><div class="page-header"><h2 data-lang-key="practiceTitle">Práctica con IA</h2><p data-lang-key="practicePageDesc">Escribe un tema y la IA creará problemas para que practiques.</p></div><div class="card"><div class="input-group"><input id="practice-input" type="text" class="input-field" placeholder="Ej: Ecuaciones de primer grado" /><button id="practice-button" class="btn" data-lang-key="generateProblemsButton">Generar Problemas</button></div></div><div id="practice-results"><p style="text-align:center; color: var(--text-light);" data-lang-key="problemsPlaceholder">Aquí aparecerán los problemas generados...</p></div><button class="btn btn-secondary btn-back" data-lang-key="backButton">Regresar</button></section>
             <section id="view-consejos" class="page-section"><div class="page-header"><h2 data-lang-key="tipsTitle">Consejos de la IA</h2><p data-lang-key="tipsPageDesc">Cada vez que entres, la IA te dará nuevos consejos para mejorar.</p></div><div id="consejos-container" class="menu-grid"></div><button class="btn btn-secondary btn-back" data-lang-key="backButton">Regresar</button></section>
             <section id="view-quienes-somos" class="page-section"><div class="page-header"><h2 data-lang-key="whoTitle">Quiénes Somos</h2></div><div class="card" id="quienes-somos-container" style="font-family:'Lato', sans-serif; line-height:1.8;"></div><button class="btn btn-secondary btn-back" data-lang-key="backButton">Regresar</button></section>
             <section id="view-ajustes" class="page-section"><div class="page-header"><h2 data-lang-key="settingsTitle">Ajustes</h2></div><div class="card" style="max-width:600px; margin:auto;"><div class="settings-container" style="display:flex; flex-direction:column; gap:2.5rem;"><div><h3 data-lang-key="languageTitle">Idioma</h3><select id="language-selector" class="input-field"><option value="es">Español</option><option value="en">English</option></select></div><div><h3 data-lang-key="accessibilityTitle">Accesibilidad</h3><div class="toggle-switch"><p data-lang-key="largeText">Texto más grande</p><label><input type="checkbox" id="font-size-toggle" style="opacity:0; width:0; height:0;"><span class="slider"></span></label></div><div class="toggle-switch" style="margin-top:1rem;"><p data-lang-key="highContrast">Modo de Alto Contraste</p><label><input type="checkbox" id="contrast-toggle" style="opacity:0; width:0; height:0;"><span class="slider"></span></label></div></div></div></div><button class="btn btn-secondary btn-back" data-lang-key="backButton">Regresar</button></section>
 
-            <!-- --- FIX: Estructura HTML del Chat completamente reescrita para mayor robustez --- -->
             <section id="view-chat" class="page-section">
                 <div id="auth-overlay">
                     <div class="card auth-card">
@@ -154,8 +126,6 @@
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script>
     document.addEventListener('DOMContentLoaded', () => {
-        // El código JS se mantiene igual. La lógica era correcta, pero el HTML y CSS
-        // que la soportaban eran frágiles. Con la nueva estructura, este código funcionará como se espera.
         const state = { 
             currentUser: null, 
             friends: [], 
@@ -216,6 +186,8 @@
             history.pushState({viewId}, '', `#${viewId}`);
             showView(viewId);
         }
+        
+        // --- FIX: Lógica de showView modificada para forzar el renderizado del layout del chat ---
         function showView(viewId) {
             const currentView = viewId || 'view-menu';
             
@@ -232,8 +204,13 @@
             ui.sections.forEach(s => s.classList.remove('active'));
             const activeSection = document.getElementById(currentView);
             
+            if (activeSection) {
+                 activeSection.classList.add('active');
+            } else {
+                document.getElementById('view-menu').classList.add('active');
+            }
+
             if (currentView === 'view-chat') {
-                document.getElementById('view-chat').classList.add('active');
                 if (state.currentUser) {
                     ui.auth.overlay.style.display = 'none';
                     ui.chat.view.style.display = 'block';
@@ -241,10 +218,6 @@
                     ui.auth.overlay.style.display = 'flex';
                     ui.chat.view.style.display = 'none';
                 }
-            } else if (activeSection) {
-                activeSection.classList.add('active');
-            } else {
-                document.getElementById('view-menu').classList.add('active');
             }
 
             if (currentView === 'view-consejos') generateTips();
