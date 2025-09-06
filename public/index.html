@@ -3,149 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-lang-key="mainTitle">Potencia Tu Mente</title>
+    <title>Potencia Tu Mente</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧠</text></svg>">
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <style>
-      :root{--primary-gradient:linear-gradient(90deg, #1abc9c, #16a085);--primary-color:#16a085;--secondary-color:#2c3e50;--bg-color:#ecf0f1;--card-bg:#ffffff;--text-dark:#34495e;--text-light:#7f8c8d;--shadow:0 10px 30px rgba(0,0,0,0.07);--radius:16px;--online-color:#2ecc71;--offline-color:#bdc3c7;--font-base-size:16px;}
+      :root{--primary-gradient:linear-gradient(90deg, #1abc9c, #16a085);--primary-color:#16a085;--secondary-color:#2c3e50;--bg-color:#f4f7f9;--card-bg:#ffffff;--text-dark:#34495e;--text-light:#7f8c8d;--shadow:0 8px 30px rgba(0,0,0,0.06);--radius:16px;--font-base-size:16px;}
       body.large-text{--font-base-size:18px;}
       body.dark-theme{--primary-gradient:linear-gradient(90deg, #1abc9c, #1dd2af);--primary-color:#1abc9c;--secondary-color:#ecf0f1;--bg-color:#2c3e50;--card-bg:#34495e;--text-dark:#ecf0f1;--text-light:#95a5a6;}
       *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
-      body{font-family:'Lato',sans-serif;background-color:var(--bg-color);color:var(--text-dark);line-height:1.7;transition:background-color .3s,color .3s;font-size:var(--font-base-size)}
-      main{display:none}.page-section{display:none}.page-section.active{display:block;animation:fadeIn 0.5s ease-in-out forwards}@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-      .container{max-width:1200px;margin:0 auto;padding:2rem}.page-header{margin-bottom:2.5rem;text-align:center}
-      .page-header h2{font-family:'Poppins',sans-serif;font-size:calc(var(--font-base-size)*2.2);color:var(--secondary-color)}.page-header p{font-size:calc(var(--font-base-size)*1.1);color:var(--text-light);max-width:700px;margin:.5rem auto 0}
-      .btn{display:inline-block;padding:.8rem 1.8rem;background:var(--primary-gradient);color:white;border:none;border-radius:50px;font-weight:700;text-decoration:none;cursor:pointer;transition:transform .2s ease,box-shadow .3s ease;box-shadow:0 4px 15px rgba(22,160,133,.3);font-size:var(--font-base-size)}.btn:hover:not(:disabled){transform:translateY(-3px);box-shadow:0 8px 20px rgba(22,160,133,.4)}.btn:disabled{background:#bdc3c7;cursor:not-allowed;box-shadow:none;}
-      .btn-secondary{background:#95a5a6;box-shadow:0 4px 15px rgba(0,0,0,.1)}.btn-secondary:hover:not(:disabled){background:#7f8c8d}.btn-back{display:block;width:fit-content;margin-top:2.5rem}
-      .card{background-color:var(--card-bg);border-radius:var(--radius);padding:2rem;box-shadow:var(--shadow);transition: all .3s ease;}.card:hover{transform:translateY(-8px);box-shadow:0 15px 40px rgba(0,0,0,.1)}
-      .input-group{display:flex;gap:.5rem;margin-bottom:1rem}.input-field{width:100%;padding:.8rem 1rem;border:1px solid #dee2e6;background:var(--bg-color);color:var(--text-dark);border-radius:8px;font-size:var(--font-base-size);transition:border-color .2s,box-shadow .2s}
-      .input-field:focus-visible{outline:2px solid var(--primary-color);box-shadow:0 0 0 3px rgba(22,160,133,.2)}
-      /* Pantalla de Inicio */
-      #view-inicio{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;z-index:1000;color:white;padding:1rem;background-color:#1c2541}.inicio-content{animation:fadeIn 2s}.inicio-content h1{font-family:'Poppins',sans-serif;font-size:clamp(3rem, 10vw, 5.5rem);letter-spacing:2px}.inicio-content p{font-size:1.5rem;color:rgba(255,255,255,.8);margin-bottom:2rem}.inicio-content .btn{padding:1rem 3rem;font-size:1.2rem}
-      /* Menu */
-      .menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem}.menu-card{text-align:center;text-decoration:none;color:var(--text-dark);font-size:var(--font-base-size)}.menu-card .icon{font-size:3rem;color:var(--primary-color);margin-bottom:1rem;display:block}.menu-card h3{font-family:'Poppins',sans-serif;font-size:calc(var(--font-base-size)*1.3)}#view-menu{position:relative;overflow:hidden;border-radius:var(--radius);padding:2rem;background-color:var(--bg-color);transition:none}
-      #menu-background-layer{position:absolute;top:0;left:0;width:100%;height:100%;z-index:-1;opacity:0.2;background-image:linear-gradient(-45deg, #2ecc71, #1abc9c, #3498db, #2c3e50); background-size: 200% 200%; animation:gradientBG 15s ease infinite;}@keyframes gradientBG {0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%}}
-      /* Sección IA y Historial */
-      .container-ai { display: flex; gap: 20px; flex-wrap: wrap; }
-      #ai-main-panel { flex-grow: 1; min-width: 300px; }
-      #history-section {width: 100%; max-width: 320px; min-width: 280px; border-left: 1px solid #dee2e6; padding-left: 20px; height: 450px; display: flex; flex-direction: column;}
-      #history-section h3 {font-family: 'Poppins', sans-serif; color: var(--secondary-color); margin-top: 0; margin-bottom: 1rem; font-size: calc(var(--font-base-size) * 1.1); flex-shrink: 0;}
-      #history-container { flex-grow: 1; overflow-y: auto; }
-      #explanation {margin-top: 1rem; border: 1px solid #dee2e6; padding: 1rem; height: 350px; overflow-y: auto; background-color: var(--bg-color); border-radius: var(--radius); line-height: 1.8;}
-      @media (max-width: 768px) {.container-ai { flex-direction: column; } #history-section { max-width: 100%; border-left: none; padding-left: 0; margin-top: 2rem; border-top: 1px solid #dee2e6; padding-top: 1rem; height: 300px; }}
-      /* Chat */
-      .chat-layout{display:grid;grid-template-columns:320px 1fr;gap:1.5rem;height:75vh;max-height:700px}.friend-item{display:flex;align-items:center;gap:.75rem}.friend-status{width:10px;height:10px;border-radius:50%}.friend-status.online{background-color:var(--online-color)}.friend-status.offline{background-color:var(--offline-color)}.chat-window{display:flex;flex-direction:column}.chat-messages{flex-grow:1;overflow-y:auto;margin-bottom:1rem}.message-bubble{max-width:80%;width:fit-content;padding:.7rem 1.2rem;border-radius:20px;margin-bottom:.75rem}.message-bubble.sent{background:var(--primary-gradient);color:white;margin-left:auto;border-bottom-right-radius:5px}.message-bubble.received{background-color:#e9ecef;color:var(--text-dark);margin-right:auto;border-bottom-left-radius:5px}
-      /* Overlay de Login y Ajustes */
-      #username-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;z-index:1000;animation:fadeIn .5s}
+      body{font-family:'Poppins',sans-serif;background-color:var(--bg-color);color:var(--text-dark);line-height:1.7;font-size:var(--font-base-size);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;transition:background-color 0.3s,color 0.3s;}
+      main{display:none}.page-section{display:none}.page-section.active{display:block;animation:fadeInUp 0.6s ease-out forwards}
+      .container{max-width:1100px;margin:0 auto;padding:2rem}.page-header{margin-bottom:2.5rem;text-align:center}
+      .page-header h2{font-family:'Poppins',sans-serif;font-weight:700;font-size:calc(var(--font-base-size)*2.2);color:var(--secondary-color)}.page-header p{font-size:calc(var(--font-base-size)*1.1);color:var(--text-light);max-width:700px;margin:.5rem auto 0;font-family:'Lato',sans-serif;}
+      .btn{display:inline-block;padding:.8rem 2rem;background:var(--primary-gradient);color:white;border:none;border-radius:50px;font-weight:700;text-decoration:none;cursor:pointer;transition:all 0.3s ease;box-shadow:0 4px 15px rgba(22,160,133,.3);font-size:var(--font-base-size)}.btn:hover:not(:disabled){transform:translateY(-4px);box-shadow:0 8px 25px rgba(22,160,133,.4)}.btn:disabled{background:#bdc3c7;cursor:not-allowed;box-shadow:none;}
+      .btn-secondary{background:#dbe0e2;color:var(--text-dark);box-shadow:none}.btn-secondary:hover:not(:disabled){background:#c8cfd2;transform:translateY(-2px);}
+      .card{background-color:var(--card-bg);border-radius:var(--radius);padding:2.5rem;box-shadow:var(--shadow);transition:all 0.3s ease;border:1px solid #e9ecef;}
+      .input-group{display:flex;gap:.5rem;margin-bottom:1rem}.input-field{width:100%;padding:.8rem 1rem;border:1px solid #dde2e6;background-color:#f9fafb;color:var(--text-dark);border-radius:10px;font-size:var(--font-base-size);transition:border-color .2s,box-shadow .2s}.input-field:focus{outline:none;border-color:var(--primary-color);box-shadow:0 0 0 3px rgba(22,160,133,.2)}
+      @keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+      #view-inicio{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;z-index:1000;color:white;padding:1rem;background-color:#1c2541;overflow:hidden;}
+      #particles-js{position:absolute;width:100%;height:100%;z-index:-1;}
+      .inicio-content h1,.inicio-content p,.inicio-content .btn{opacity:0;animation:fadeInUp 0.8s ease-out forwards;}
+      .inicio-content h1{font-size:clamp(3rem,10vw,5.5rem);letter-spacing:1px;animation-delay:0.2s;}
+      .inicio-content p{font-size:1.5rem;color:rgba(255,255,255,.8);margin-bottom:2.5rem;animation-delay:0.4s;font-family:'Lato',sans-serif;}
+      .inicio-content .btn{padding:1rem 3rem;font-size:1.2rem;animation-delay:0.6s;}
+      .menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem}.menu-card{text-align:center;text-decoration:none;color:var(--text-dark)}.menu-card .icon{font-size:2.5rem;color:var(--primary-color);margin-bottom:1rem;transition:transform 0.3s ease;}.menu-card h3{font-family:'Poppins';font-weight:600;font-size:1.3rem;margin-bottom:0.5rem;}.menu-card p{font-family:'Lato',sans-serif;color:var(--text-light);}.menu-card.card:hover{transform:translateY(-10px);box-shadow:0 12px 40px rgba(0,0,0,0.08);}.menu-card.card:hover .icon{transform:scale(1.1);}
+      #practice-results{margin-top:2rem;display:grid;grid-template-columns:1fr;gap:1.5rem;}.problem-card{background-color:#f9fafb;padding:1.5rem;border-radius:var(--radius);border:1px solid #e9ecef;}.solution{margin-top:1rem;padding:1rem;background-color:#eaf6f4;border-radius:8px;border-left:4px solid var(--primary-color);}
+      #auth-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;z-index:1000;animation:fadeIn 0.3s;}.auth-card{width:100%;max-width:400px;text-align:center}.auth-toggle{margin-bottom:1.5rem;}.auth-toggle button{background:none;border:none;cursor:pointer;padding:0.5rem 1rem;font-size:1.1rem;color:var(--text-light);transition:color 0.2s;}.auth-toggle button.active{font-weight:bold;color:var(--primary-color);border-bottom:2px solid var(--primary-color)}#register-form{display:none;}#auth-feedback{margin-top:1rem;color:red;min-height:1.2em;}.forgot-password{font-size:0.9rem;color:var(--text-light);text-decoration:underline;cursor:pointer;margin-top:1rem;display:inline-block}
+      .chat-layout{display:grid;grid-template-columns:300px 1fr;gap:1.5rem;height:75vh;max-height:700px}
       .settings-container h3{font-family:'Poppins',sans-serif}.toggle-switch{display:flex;align-items:center;justify-content:space-between;margin-top:.5rem}.slider{position:relative;cursor:pointer;width:50px;height:26px;background-color:#ccc;border-radius:26px;transition:.4s}.slider:before{position:absolute;content:"";height:18px;width:18px;left:4px;bottom:4px;background-color:white;border-radius:50%;transition:.4s}input:checked+.slider{background-color:var(--primary-color)}input:checked+.slider:before{transform:translateX(24px)}
     </style>
 </head>
 <body>
     <section id="view-inicio">
-        <div id="particles-js" aria-hidden="true"></div>
-        <div class="inicio-content">
-            <h1 data-lang-key="mainTitle">Potencia tu Mente</h1>
-            <p data-lang-key="welcomeSlogan">Tu viaje al dominio de las matemáticas comienza ahora.</p>
-            <button id="enter-button" class="btn" data-lang-key="enterButton">Entrar</button>
-        </div>
+        <div id="particles-js"></div>
+        <div class="inicio-content"><h1>Potencia tu Mente</h1><p>Tu viaje al dominio de las matemáticas comienza ahora.</p><button id="enter-button" class="btn">Entrar</button></div>
     </section>
     
     <main>
         <div class="container">
-            <section id="view-menu" class="page-section card">
-                <div id="menu-background-layer"></div>
-                <div class="page-header"><h2 data-lang-key="menuTitle">Menú Principal</h2></div>
-                <div class="menu-grid">
-                    <a href="#view-ia" class="menu-card nav-link card">
-                        <div class="icon" aria-hidden="true"><i class="fas fa-robot"></i></div>
-                        <h3 data-lang-key="iaTitle">Tutor IA</h3>
-                        <p data-lang-key="iaMenuDesc">Resuelve cualquier duda.</p>
-                    </a>
-                    <a href="#view-consejos" class="menu-card nav-link card">
-                        <div class="icon" aria-hidden="true"><i class="fas fa-lightbulb"></i></div>
-                        <h3 data-lang-key="tipsTitle">Consejos</h3>
-                        <p data-lang-key="tipsMenuDesc">Mejora tus habilidades.</p>
-                    </a>
-                    <a href="#view-chat" class="menu-card nav-link card">
-                        <div class="icon" aria-hidden="true"><i class="fas fa-comments"></i></div>
-                        <h3 data-lang-key="chatTitle">Aprendamos Juntos</h3>
-                        <p data-lang-key="chatMenuDesc">Chatea con amigos.</p>
-                    </a>
-                    <a href="#view-quienes-somos" class="menu-card nav-link card">
-                        <div class="icon" aria-hidden="true"><i class="fas fa-users"></i></div>
-                        <h3 data-lang-key="whoTitle">Quiénes Somos</h3>
-                        <p data-lang-key="whoMenuDesc">Conoce al equipo.</p>
-                    </a>
-                    <a href="#view-ajustes" class="menu-card nav-link card">
-                        <div class="icon" aria-hidden="true"><i class="fas fa-cog"></i></div>
-                        <h3 data-lang-key="settingsTitle">Ajustes</h3>
-                        <p data-lang-key="settingsMenuDesc">Personaliza tu experiencia.</p>
-                    </a>
+            <section id="view-menu" class="page-section">
+                <div class="card">
+                    <div class="page-header"><h2 data-lang-key="menuTitle">Menú Principal</h2></div>
+                    <div class="menu-grid">
+                        <a href="#view-ia" class="menu-card nav-link card"><div class="icon"><i class="fas fa-robot"></i></div><h3 data-lang-key="iaTitle">Tutor IA</h3><p data-lang-key="iaMenuDesc">Resuelve cualquier duda.</p></a>
+                        <a href="#view-practice" class="menu-card nav-link card"><div class="icon"><i class="fas fa-pencil-ruler"></i></div><h3 data-lang-key="practiceTitle">Práctica con IA</h3><p data-lang-key="practiceMenuDesc">Genera problemas para resolver.</p></a>
+                        <a href="#view-consejos" class="menu-card nav-link card"><div class="icon"><i class="fas fa-lightbulb"></i></div><h3 data-lang-key="tipsTitle">Consejos de IA</h3><p data-lang-key="tipsMenuDesc">Descubre nuevas estrategias.</p></a>
+                        <a href="#view-chat" class="menu-card nav-link card"><div class="icon"><i class="fas fa-comments"></i></div><h3 data-lang-key="chatTitle">Aprendamos Juntos</h3><p data-lang-key="chatMenuDesc">Chatea con amigos.</p></a>
+                        <a href="#view-quienes-somos" class="menu-card nav-link card"><div class="icon"><i class="fas fa-users"></i></div><h3 data-lang-key="whoTitle">Quiénes Somos</h3><p data-lang-key="whoMenuDesc">Conoce al equipo.</p></a>
+                        <a href="#view-ajustes" class="menu-card nav-link card"><div class="icon"><i class="fas fa-cog"></i></div><h3 data-lang-key="settingsTitle">Ajustes</h3><p data-lang-key="settingsMenuDesc">Personaliza tu experiencia.</p></a>
+                    </div>
+                    <button class="btn btn-secondary" id="logout-button" style="display:none; margin: 2rem auto 0; background: #e74c3c; color: white;" data-lang-key="logoutButton">Cerrar Sesión</button>
                 </div>
             </section>
             
             <section id="view-ia" class="page-section">
                 <div class="page-header"><h2 data-lang-key="iaTitle">Tutor IA</h2><p data-lang-key="iaPageDesc">Pregúntale cualquier concepto, ejercicio o problema matemático a la IA.</p></div>
-                <div class="container-ai card">
-                    <div id="ai-main-panel">
-                        <div class="input-group" style="margin-bottom: 0;">
-                            <input id="concept-input" type="text" class="input-field" placeholder="Ej: ¿Qué es el Teorema de Pitágoras?" />
-                            <button id="btn-consultar" class="btn" data-lang-key="consultAIButton">Consultar</button>
-                        </div>
-                        <div id="explanation"><p data-lang-key="explanationPlaceholder">Aquí aparecerá la explicación...</p></div>
-                    </div>
-                    <div id="history-section">
-                        <h3 data-lang-key="historyTitle">Historial de Consultas</h3>
-                        <div id="history-container"><p>Cargando...</p></div>
-                    </div>
-                </div>
+                <div class="card"><div class="input-group"><input id="ia-input" type="text" class="input-field" placeholder="Ej: ¿Qué es el Teorema de Pitágoras?" /><button id="ia-button" class="btn" data-lang-key="consultButton">Consultar</button></div><div id="ia-explanation" style="min-height: 200px;"><p style="color: var(--text-light)" data-lang-key="explanationPlaceholder">Aquí aparecerá la explicación...</p></div></div>
                 <button class="btn btn-secondary btn-back" data-lang-key="backButton">Regresar</button>
             </section>
-            
+
+            <section id="view-practice" class="page-section">
+                <div class="page-header"><h2 data-lang-key="practiceTitle">Práctica con IA</h2><p data-lang-key="practicePageDesc">Escribe un tema y la IA creará problemas para que practiques.</p></div>
+                <div class="card"><div class="input-group"><input id="practice-input" type="text" class="input-field" placeholder="Ej: Ecuaciones de primer grado" /><button id="practice-button" class="btn" data-lang-key="generateProblemsButton">Generar Problemas</button></div></div>
+                <div id="practice-results"><p style="text-align:center; color: var(--text-light);" data-lang-key="problemsPlaceholder">Aquí aparecerán los problemas generados...</p></div>
+                <button class="btn btn-secondary btn-back" data-lang-key="backButton">Regresar</button>
+            </section>
+
             <section id="view-consejos" class="page-section">
-                <div class="page-header"><h2 data-lang-key="tipsTitle">Consejos para Estudiantes</h2></div>
+                <div class="page-header"><h2 data-lang-key="tipsTitle">Consejos de la IA</h2><p data-lang-key="tipsPageDesc">Cada vez que entres, la IA te dará nuevos consejos para mejorar.</p></div>
                 <div id="consejos-container" class="menu-grid"></div>
                 <button class="btn btn-secondary btn-back" data-lang-key="backButton">Regresar</button>
             </section>
             
             <section id="view-chat" class="page-section">
-                <div id="username-overlay"><div class="card" style="width:100%;max-width:400px;text-align:center;"><h3>Crea tu Perfil</h3><p style="margin:1rem 0;">Elige un nombre para el chat. Se te asignará un código único para agregar amigos.</p><form id="username-form" class="input-group"><input type="text" id="username-input" class="input-field" placeholder="TuUsuario123" required minlength="3"><button type="submit" class="btn">Guardar</button></form></div></div>
-                <div class="page-header"><h2 data-lang-key="chatTitle">Aprendamos Juntos</h2></div>
-                <div class="chat-layout">
-                    <aside class="card">
-                        <p>Hola, <strong id="your-username" style="color:var(--primary-color);"></strong></p>
-                        <p style="font-size:0.9em;color:var(--text-light);margin-top:-5px;">Tu código: <strong id="your-code" title="Clic para copiar" style="cursor:pointer;user-select:all;"></strong></p>
-                        <h3 style="margin-top:1.5rem;" data-lang-key="friendsTitle">Amigos</h3>
-                        <form id="add-friend-form" class="input-group"><input id="friend-code-input" class="input-field" placeholder="Código de amigo..." required><button type="submit" class="btn">+</button></form>
-                        <div id="friends-list" style="flex-grow:1;overflow-y:auto;"></div>
-                    </aside>
-                    <div class="card chat-window">
-                        <h3 id="chat-header">Selecciona un amigo</h3>
-                        <div class="chat-messages" id="chat-messages"></div>
-                        <form id="chat-form" class="input-group"><input id="chat-input" class="input-field" placeholder="Escribe un mensaje..." autocomplete="off" required disabled><button type="submit" class="btn" disabled>Enviar</button></form>
+                <div id="auth-overlay">
+                    <div class="card auth-card">
+                        <div class="auth-toggle"><button id="show-login" class="active" data-lang-key="loginTitle">Iniciar Sesión</button><button id="show-register" data-lang-key="registerTitle">Crear Cuenta</button></div>
+                        <form id="login-form"><div class="input-group" style="flex-direction:column; gap: 0.5rem;"><input type="text" id="login-username" class="input-field" placeholder="Nombre de usuario" required><input type="password" id="login-password" class="input-field" placeholder="Contraseña" required></div><button type="submit" class="btn" data-lang-key="loginButton">Entrar</button></form>
+                        <form id="register-form" style="display:none;"><div class="input-group" style="flex-direction:column; gap: 0.5rem;"><input type="text" id="register-username" class="input-field" placeholder="Nuevo nombre de usuario" required><input type="password" id="register-password" class="input-field" placeholder="Nueva contraseña (mín. 4 caracteres)" required minlength="4"></div><button type="submit" class="btn" data-lang-key="registerButton">Registrarme</button></form>
+                        <p id="auth-feedback"></p>
+                        <a class="forgot-password" data-lang-key="forgotPassword">¿Olvidaste tu contraseña?</a>
                     </div>
                 </div>
-                <button class="btn btn-secondary btn-back" data-lang-key="backButton">Regresar</button>
+                <div class="chat-view" style="display: none;">
+                    <div class="page-header"><h2 data-lang-key="chatTitle">Aprendamos Juntos</h2></div>
+                    <div class="chat-layout">
+                        <aside class="card"><p data-lang-key="helloText">Hola, <strong id="your-username" style="color:var(--primary-color)"></strong></p><p style="font-size:0.9em;" data-lang-key="yourCodeText">Tu código: <strong id="your-code" title="Clic para copiar" style="cursor:pointer; user-select:all;"></strong></p><h3 style="margin-top:1.5rem;" data-lang-key="friendsTitle">Amigos</h3><form id="add-friend-form" class="input-group"><input id="friend-code-input" class="input-field" placeholder="Código de amigo..." required><button type="submit" class="btn">+</button></form><div id="friends-list"></div></aside>
+                        <div class="card chat-window"><h3 id="chat-header" data-lang-key="selectFriendText">Selecciona un amigo</h3><div id="chat-messages" style="border:1px solid #ddd; padding:1rem; border-radius:var(--radius); flex-grow:1; overflow-y:auto; margin-bottom:1rem;"></div><form id="chat-form" class="input-group"><input id="chat-input" class="input-field" placeholder="Escribe un mensaje..." autocomplete="off" required disabled><button type="submit" class="btn" disabled data-lang-key="sendButton">Enviar</button></form></div>
+                    </div>
+                    <button class="btn btn-secondary btn-back">Regresar</button>
+                </div>
             </section>
-            
+
             <section id="view-quienes-somos" class="page-section">
-                <div class="page-header"><h2 data-lang-key="whoTitle">¿Quiénes Somos?</h2></div>
-                <div class="card" id="quienes-somos-container" style="line-height:1.8;"></div>
+                <div class="page-header"><h2 data-lang-key="whoTitle">Quiénes Somos</h2></div>
+                <div class="card" id="quienes-somos-container" style="font-family:'Lato', sans-serif; line-height:1.8;"></div>
                 <button class="btn btn-secondary btn-back" data-lang-key="backButton">Regresar</button>
             </section>
 
             <section id="view-ajustes" class="page-section">
                 <div class="page-header"><h2 data-lang-key="settingsTitle">Ajustes</h2></div>
-                <div class="card">
-                    <div class="settings-container" style="display:flex;flex-direction:column;gap:2.5rem;">
-                        <div><h3>Idioma</h3><select id="language-selector" class="input-field"><option value="es">Español</option><option value="en">English</option></select></div>
-                        <div><h3>Accesibilidad</h3><div class="toggle-switch"><p>Texto más grande</p><label><input type="checkbox" id="font-size-toggle"><span class="slider"></span></label></div><div class="toggle-switch"><p>Modo de Alto Contraste</p><label><input type="checkbox" id="contrast-toggle"><span class="slider"></span></label></div></div>
-                        <div><h3>Fondo del Menú</h3><input type="file" id="background-upload" accept="image/,video/" class="input-field"><p style="text-align:center; margin: 1rem 0;">o pega una URL</p><form id="background-url-form" class="input-group"><input type="url" id="background-url-input" class="input-field" placeholder="https://ejemplo.com/imagen.jpg"><button type="submit" class="btn">Aplicar</button></form><button id="background-reset" class="btn btn-secondary">Quitar fondo</button></div>
+                <div class="card" style="max-width:600px; margin:auto;">
+                    <div class="settings-container" style="display:flex; flex-direction:column; gap:2.5rem;">
+                        <div><h3 data-lang-key="languageTitle">Idioma</h3><select id="language-selector" class="input-field"><option value="es">Español</option><option value="en">English</option></select></div>
+                        <div><h3 data-lang-key="accessibilityTitle">Accesibilidad</h3><div class="toggle-switch"><p data-lang-key="largeText">Texto más grande</p><label><input type="checkbox" id="font-size-toggle" style="opacity:0; width:0; height:0;"><span class="slider"></span></label></div><div class="toggle-switch" style="margin-top:1rem;"><p data-lang-key="highContrast">Modo de Alto Contraste</p><label><input type="checkbox" id="contrast-toggle" style="opacity:0; width:0; height:0;"><span class="slider"></span></label></div></div>
                     </div>
                 </div>
                 <button class="btn btn-secondary btn-back" data-lang-key="backButton">Regresar</button>
@@ -157,250 +121,235 @@
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script>
     document.addEventListener('DOMContentLoaded', () => {
-        // --- VARIABLES GLOBALES Y DATOS ---
-        const state = { myUsername: null, myCode: null, friends: [], activeChat: null, messages: {}, onlineFriends: [] };
+        const state = { currentUser: null, friends: [], activeChat: null, messages: {}, onlineFriends: [] };
         const ui = {
             main: document.querySelector('main'),
             inicio: { view: document.getElementById('view-inicio'), button: document.getElementById('enter-button') },
+            logoutButton: document.getElementById('logout-button'),
             sections: document.querySelectorAll('.page-section'),
             navLinks: document.querySelectorAll('.nav-link'),
             backButtons: document.querySelectorAll('.btn-back'),
-            ia: { view: document.getElementById('view-ia'), input: document.getElementById('concept-input'), button: document.getElementById('btn-consultar'), explanation: document.getElementById('explanation'), history: document.getElementById('history-container') },
+            ia: { input: document.getElementById('ia-input'), button: document.getElementById('ia-button'), explanation: document.getElementById('ia-explanation') },
+            practice: { input: document.getElementById('practice-input'), button: document.getElementById('practice-button'), results: document.getElementById('practice-results') },
             consejos: { container: document.getElementById('consejos-container') },
-            chat: { overlay: document.getElementById('username-overlay'), form: document.getElementById('username-form'), input: document.getElementById('username-input'), yourUsername: document.getElementById('your-username'), yourCode: document.getElementById('your-code'), addForm: document.getElementById('add-friend-form'), friendInput: document.getElementById('friend-code-input'), list: document.getElementById('friends-list'), header: document.getElementById('chat-header'), messages: document.getElementById('chat-messages'), chatForm: document.getElementById('chat-form'), chatInput: document.getElementById('chat-input'), sendBtn: document.getElementById('chat-form').querySelector('button') },
+            auth: { overlay: document.getElementById('auth-overlay'), showLogin: document.getElementById('show-login'), showRegister: document.getElementById('show-register'), loginForm: document.getElementById('login-form'), registerForm: document.getElementById('register-form'), feedback: document.getElementById('auth-feedback'), forgotPassword: document.querySelector('.forgot-password') },
+            chat: { view: document.querySelector('.chat-view'), yourUsername: document.getElementById('your-username'), yourCode: document.getElementById('your-code'), addForm: document.getElementById('add-friend-form'), friendInput: document.getElementById('friend-code-input'), list: document.getElementById('friends-list'), header: document.getElementById('chat-header'), messages: document.getElementById('chat-messages'), chatForm: document.getElementById('chat-form'), chatInput: document.getElementById('chat-input') },
             quienes: { container: document.getElementById('quienes-somos-container') },
-            ajustes: { lang: document.getElementById('language-selector'), bgUpload: document.getElementById('background-upload'), bgUrlForm: document.getElementById('background-url-form'), bgUrlInput: document.getElementById('background-url-input'), bgReset: document.getElementById('background-reset'), fontSizeToggle: document.getElementById('font-size-toggle'), contrastToggle: document.getElementById('contrast-toggle') }
+            ajustes: { lang: document.getElementById('language-selector'), fontSizeToggle: document.getElementById('font-size-toggle'), contrastToggle: document.getElementById('contrast-toggle') }
         };
         const socket = io();
+        const quienesSomosText = `<p>Somos un grupo de estudiantes de Educación para el Trabajo que hemos creado el proyecto “Potencia tu mente con matemáticas”, una plataforma web diseñada para apoyar el aprendizaje de las matemáticas de manera sencilla, práctica e interactiva. Nuestro objetivo es brindar a los estudiantes una herramienta accesible y motivadora que les permita reforzar sus conocimientos y superar las dificultades más comunes en esta área.</p><p style="margin-top:1rem;">Nos caracterizamos por ser un equipo responsable, creativo y comprometido con la innovación educativa. Cada integrante aporta sus ideas, habilidades y talentos, lo que nos permite trabajar de manera colaborativa y complementaria. Nos guía la convicción de que la educación es la clave para el desarrollo personal y social, y que el uso de la tecnología puede convertirse en un aliado poderoso para mejorar los procesos de enseñanza y aprendizaje.</p><p style="margin-top:1rem;">A través de este proyecto, buscamos ofrecer un servicio que no solo enseñe matemáticas, sino que también despierte en los estudiantes la confianza y el gusto por aprender. Queremos que “Potencia tu mente con matemáticas” sea un espacio digital donde cada usuario se sienta acompañado en su proceso educativo, encontrando materiales claros, niveles de práctica graduados y actividades interactivas que hagan del aprendizaje una experiencia dinámica.</p><p style="margin-top:1rem;">Creemos firmemente que nuestro esfuerzo contribuirá al desarrollo académico de los estudiantes y al fortalecimiento de sus competencias matemáticas, demostrando que con constancia, innovación y dedicación se puede transformar la manera en que aprendemos.</p>`;
         const translations = {
-            es: { iaTitle: "Tutor IA", iaMenuDesc: "Resuelve cualquier duda.", iaPageDesc: "Pregúntale cualquier concepto, ejercicio o problema matemático a la IA.", consultAIButton: "Consultar", historyTitle: "Historial de Consultas", explanationPlaceholder: "Aquí aparecerá la explicación...", tipsTitle: "Consejos", tipsMenuDesc: "Mejora tus habilidades.", chatTitle: "Aprendamos Juntos", chatMenuDesc: "Chatea con amigos.", whoTitle: "Quiénes Somos", whoMenuDesc: "Conoce al equipo.", settingsTitle: "Ajustes", settingsMenuDesc: "Personaliza tu experiencia.", menuTitle: "Menú Principal", welcomeSlogan: "Tu viaje al dominio de las matemáticas comienza ahora.", mainTitle: "Potencia Tu Mente", enterButton: "Entrar", backButton: "Regresar", friendsTitle: "Amigos", /* ...otros textos... */ },
-            en: { iaTitle: "AI Tutor", iaMenuDesc: "Solve any doubt.", iaPageDesc: "Ask the AI about any mathematical concept, exercise, or problem.", consultAIButton: "Consult", historyTitle: "Query History", explanationPlaceholder: "The explanation will appear here...", tipsTitle: "Tips", tipsMenuDesc: "Improve your skills.", chatTitle: "Let's Learn Together", chatMenuDesc: "Chat with friends.", whoTitle: "Who We Are", whoMenuDesc: "Meet the team.", settingsTitle: "Settings", settingsMenuDesc: "Customize your experience.", menuTitle: "Main Menu", welcomeSlogan: "Your journey to math mastery starts now.", mainTitle: "Power Up Your Mind", enterButton: "Enter", backButton: "Back", friendsTitle: "Friends", /* ...other texts... */ }
+            es: { menuTitle: "Menú Principal", iaTitle: "Tutor IA", iaMenuDesc: "Resuelve cualquier duda.", practiceTitle: "Práctica con IA", practiceMenuDesc: "Genera problemas para resolver.", tipsTitle: "Consejos de IA", tipsMenuDesc: "Descubre nuevas estrategias.", chatTitle: "Aprendamos Juntos", chatMenuDesc: "Chatea con amigos.", whoTitle: "Quiénes Somos", whoMenuDesc: "Conoce al equipo.", settingsTitle: "Ajustes", settingsMenuDesc: "Personaliza tu experiencia.", logoutButton: "Cerrar Sesión", iaPageDesc: "Pregúntale cualquier concepto, ejercicio o problema matemático a la IA.", consultButton: "Consultar", explanationPlaceholder: "Aquí aparecerá la explicación...", backButton: "Regresar", practicePageDesc: "Escribe un tema y la IA creará problemas para que practiques.", generateProblemsButton: "Generar Problemas", problemsPlaceholder: "Aquí aparecerán los problemas generados...", tipsPageDesc: "Cada vez que entres, la IA te dará nuevos consejos para mejorar.", loginTitle: "Iniciar Sesión", registerTitle: "Crear Cuenta", loginButton: "Entrar", registerButton: "Registrarme", forgotPassword: "¿Olvidaste tu contraseña?", helloText: "Hola,", yourCodeText: "Tu código:", friendsTitle: "Amigos", selectFriendText: "Selecciona un amigo", sendButton: "Enviar", languageTitle: "Idioma", accessibilityTitle: "Accesibilidad", largeText: "Texto más grande", highContrast: "Modo de Alto Contraste" },
+            en: { menuTitle: "Main Menu", iaTitle: "AI Tutor", iaMenuDesc: "Solve any doubt.", practiceTitle: "Practice with AI", practiceMenuDesc: "Generate problems to solve.", tipsTitle: "AI Tips", tipsMenuDesc: "Discover new strategies.", chatTitle: "Let's Learn Together", chatMenuDesc: "Chat with friends.", whoTitle: "Who We Are", whoMenuDesc: "Meet the team.", settingsTitle: "Settings", settingsMenuDesc: "Customize your experience.", logoutButton: "Log Out", iaPageDesc: "Ask the AI about any mathematical concept, exercise, or problem.", consultButton: "Consult", explanationPlaceholder: "The explanation will appear here...", backButton: "Back", practicePageDesc: "Enter a topic and the AI will create problems for you to practice.", generateProblemsButton: "Generate Problems", problemsPlaceholder: "Generated problems will appear here...", tipsPageDesc: "Every time you enter, the AI will give you new tips to improve.", loginTitle: "Log In", registerTitle: "Sign Up", loginButton: "Enter", registerButton: "Register", forgotPassword: "Forgot your password?", helloText: "Hello,", yourCodeText: "Your code:", friendsTitle: "Friends", selectFriendText: "Select a friend", sendButton: "Send", languageTitle: "Language", accessibilityTitle: "Accessibility", largeText: "Larger Text", highContrast: "High Contrast Mode" }
         };
-        const consejosData = [{i:"fa-brain",t:"Entiende, no memorices"},{i:"fa-pencil-alt",t:"Practica constantemente"},{i:"fa-check-circle",t:"Revisa tus errores"},{i:"fa-chalkboard-teacher",t:"Pregunta sin miedo"},{i:"fa-lightbulb",t:"Busca la lógica"},{i:"fa-users",t:"Estudia en grupo"}];
-        const quienesSomosText = "<p>Somos un grupo de estudiantes de Educación para el Trabajo que hemos creado este proyecto para apoyar el aprendizaje de las matemáticas de manera sencilla, práctica e interactiva...</p><p>Creemos firmemente que nuestro esfuerzo contribuirá al desarrollo académico de los estudiantes, demostrando que con constancia, innovación y dedicación se puede transformar la manera en que aprendemos.</p>";
 
-        // --- INICIALIZACIÓN ---
         function init() {
-            if(document.getElementById('particles-js')) particlesJS('particles-js',{"particles":{"number":{"value":80,"density":{"enable":true,"value_area":800}},"color":{"value":"#ffffff"},"shape":{"type":"circle"},"opacity":{"value":0.5,"random":false},"size":{"value":3,"random":true},"line_linked":{"enable":true,"distance":150,"color":"#ffffff","opacity":0.4,"width":1},"move":{"enable":true,"speed":6,"direction":"none","random":false,"straight":false,"out_mode":"out"}},"interactivity":{"detect_on":"canvas","events":{"onhover":{"enable":true,"mode":"grab"},"onclick":{"enable":true,"mode":"push"}}}});
+            if (document.getElementById('particles-js')) particlesJS('particles-js',{"particles":{"number":{"value":80,"density":{"enable":true,"value_area":800}},"color":{"value":"#ffffff"},"move":{"enable":true,"speed":6}}});
             setupNavigation();
             setupIA();
+            setupPractice();
+            setupAuth();
             setupChat();
-            setupConsejos();
-            setupQuienesSomos();
-            setupSettings();
-            applyTranslations();
-            loadState();
-            showInitialView();
-            // Escucha la reconexión del socket para volver a registrar al usuario
-            socket.on('connect', () => {
-                if (state.myUsername) {
-                    connectUser();
-                }
-            });
+            setupAjustes();
+            ui.quienes.container.innerHTML = quienesSomosText;
+            loadStateAndShowView();
         }
 
-        // --- NAVEGACIÓN ---
         function setupNavigation() {
             ui.inicio.button.addEventListener('click', enterApp);
             ui.navLinks.forEach(link => link.addEventListener('click', handleNav));
-            ui.backButtons.forEach(btn => btn.addEventListener('click', () => history.back()));
-            window.addEventListener('popstate', () => {
-                const hash = location.hash.substring(1) || 'view-menu';
-                showView(hash);
-            });
+            ui.backButtons.forEach(btn => btn.addEventListener('click', () => { window.history.back(); }));
+            window.addEventListener('popstate', () => showView(location.hash.substring(1) || 'view-menu'));
         }
         function enterApp() {
             sessionStorage.setItem('visitedBefore', 'true');
-            ui.inicio.view.style.display = 'none';
-            ui.main.style.display = 'block';
-            history.pushState({ viewId: 'view-menu' }, '', '#view-menu');
-            showView('view-menu');
+            navigateTo('view-menu');
         }
         function handleNav(e) {
             e.preventDefault();
-            const viewId = e.currentTarget.getAttribute('href').substring(1);
-            history.pushState({ viewId }, '', #${viewId});
+            navigateTo(e.currentTarget.getAttribute('href').substring(1));
+        }
+        function navigateTo(viewId) {
+            history.pushState({viewId}, '', `#${viewId}`);
             showView(viewId);
         }
-        function showInitialView() {
-            if (sessionStorage.getItem('visitedBefore')) {
-                const hash = location.hash.substring(1) || 'view-menu';
-                enterApp();
-                showView(hash);
-            } else {
-                ui.inicio.view.style.display = 'flex';
-                ui.main.style.display = 'none';
-            }
-        }
         function showView(viewId) {
-            ui.sections.forEach(s => s.classList.remove('active'));
-            const activeSection = document.getElementById(viewId);
-            if (activeSection) {
-                activeSection.classList.add('active');
-                if (viewId === 'view-ia') loadHistory();
-            }
-        }
-        
-        // --- ESTADO LOCAL ---
-        function loadState() {
-            state.myUsername = localStorage.getItem('myUsername');
-            state.myCode = localStorage.getItem('myCode');
-            state.friends = JSON.parse(localStorage.getItem('myFriends')) || [];
-            state.messages = JSON.parse(localStorage.getItem('myMessages')) || {};
-        }
-        function saveState() {
-            localStorage.setItem('myUsername', state.myUsername);
-            localStorage.setItem('myCode', state.myCode);
-            localStorage.setItem('myFriends', JSON.stringify(state.friends));
-            localStorage.setItem('myMessages', JSON.stringify(state.messages));
-        }
-
-        // --- TUTOR IA ---
-        function setupIA() {
-            ui.ia.button.addEventListener('click', handleAIConsultation);
-            ui.ia.input.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleAIConsultation(); });
-        }
-        async function handleAIConsultation() {
-            const topic = ui.ia.input.value.trim();
-            if (!topic) return;
-            ui.ia.button.disabled = true;
-            ui.ia.explanation.innerHTML = <p>Consultando a la IA sobre "${topic}"...</p>;
-            try {
-                const res = await fetch('/api/explain-math', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ topic, lang: ui.ajustes.lang.value, userCode: state.myCode }),
-                });
-                const data = await res.json();
-                ui.ia.explanation.innerHTML = data.error ? <p style="color: red;">${data.error}</p> : data.explanation;
-                if (!data.error) { ui.ia.input.value = ''; if (state.myCode) loadHistory(); }
-            } catch (error) {
-                ui.ia.explanation.innerHTML = <p style="color: red;">Error de conexión.</p>;
-            } finally {
-                ui.ia.button.disabled = false;
-            }
-        }
-        async function loadHistory() {
-            if (!state.myCode) {
-                ui.ia.history.innerHTML = <p style="color:var(--text-light);text-align:center;">Inicia sesión en el chat para ver tu historial.</p>;
+            const currentView = viewId || 'view-menu';
+            
+            if (sessionStorage.getItem('visitedBefore')) {
+                ui.main.style.display = 'block';
+                ui.inicio.view.style.display = 'none';
+            } else {
+                if (currentView !== 'view-menu' && currentView !== '') history.replaceState(null, '', '#');
+                ui.main.style.display = 'none';
+                ui.inicio.view.style.display = 'flex';
                 return;
             }
-            try {
-                const res = await fetch(/api/concept-history?userCode=${state.myCode});
-                const { history } = await res.json();
-                ui.ia.history.innerHTML = '';
-                if (!history || history.length === 0) {
-                    ui.ia.history.innerHTML = <p style="color:var(--text-light);text-align:center;">No hay consultas.</p>;
-                    return;
-                }
-                history.forEach(item => {
-                    const div = document.createElement('div');
-                    div.style.cssText = 'display:flex; justify-content:space-between; align-items:center; padding: 8px 5px; border-bottom: 1px solid #eee; gap: 10px;';
-                    const topicSpan = document.createElement('span');
-                    topicSpan.textContent = item.topic;
-                    topicSpan.title = Clic para consultar de nuevo;
-                    topicSpan.style.cssText = 'cursor:pointer; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;';
-                    topicSpan.onclick = () => { ui.ia.input.value = item.topic; handleAIConsultation(); };
-                    const btnDelete = document.createElement('button');
-                    btnDelete.textContent = '×';
-                    btnDelete.style.cssText = 'background:none; border:none; color:red; cursor:pointer; font-size: 1.4rem;';
-                    btnDelete.onclick = async () => {
-                        await fetch(/api/concept-history/${item._id}, { method: 'DELETE' });
-                        loadHistory();
-                    };
-                    div.appendChild(topicSpan); div.appendChild(btnDelete); ui.ia.history.appendChild(div);
-                });
-            } catch (error) {
-                ui.ia.history.innerHTML = <p style="color: red;">Error al cargar historial.</p>;
-            }
-        }
-        
-        // --- CHAT (LÓGICA CORREGIDA) ---
-        function setupChat(){
-            // Esta función ahora solo configura los event listeners una vez
-            ui.chat.form.addEventListener('submit', handleUsernameRegister);
-            ui.chat.addForm.addEventListener('submit', addFriend);
-            ui.chat.list.addEventListener('click', (e) => {
-                const friendItem = e.target.closest('[data-code]');
-                if(friendItem) setActiveChat(friendItem.dataset.code);
-            });
-            ui.chat.chatForm.addEventListener('submit', sendChatMessage);
-            ui.chat.yourCode.addEventListener('click', () => navigator.clipboard.writeText(state.myCode));
-            socket.on('online users update', (users) => { state.onlineFriends = users; renderFriends(); });
-            socket.on('private message', handleNewMessage);
             
-            // Determina si mostrar el overlay o conectar al usuario existente
-            if (state.myUsername && state.myCode) { 
-                ui.chat.overlay.style.display = 'none'; 
-                connectUser(); 
-            } else { 
-                ui.chat.overlay.style.display = 'flex'; 
+            ui.sections.forEach(s => s.classList.remove('active'));
+            const activeSection = document.getElementById(currentView);
+            
+            if (currentView === 'view-chat') {
+                document.getElementById('view-chat').classList.add('active');
+                if (state.currentUser) {
+                    ui.auth.overlay.style.display = 'none';
+                    ui.chat.view.style.display = 'block';
+                } else {
+                    ui.auth.overlay.style.display = 'flex';
+                    ui.chat.view.style.display = 'none';
+                }
+            } else if (activeSection) {
+                activeSection.classList.add('active');
+            } else {
+                document.getElementById('view-menu').classList.add('active');
+            }
+
+            if (currentView === 'view-consejos') generateTips();
+        }
+
+        function loadStateAndShowView() {
+            const user = sessionStorage.getItem('currentUser');
+            if (user) {
+                state.currentUser = JSON.parse(user);
+                ui.logoutButton.style.display = 'block';
+                socket.emit('register user', state.currentUser);
+            } else {
+                 ui.logoutButton.style.display = 'none';
+            }
+            showView(location.hash.substring(1));
+        }
+
+        function setupAuth() {
+            ui.auth.showLogin.addEventListener('click', () => toggleAuthForms(true));
+            ui.auth.showRegister.addEventListener('click', () => toggleAuthForms(false));
+            ui.auth.loginForm.addEventListener('submit', handleLogin);
+            ui.auth.registerForm.addEventListener('submit', handleRegister);
+            ui.auth.forgotPassword.addEventListener('click', handleForgotPassword);
+            ui.logoutButton.addEventListener('click', handleLogout);
+        }
+        function toggleAuthForms(showLogin) {
+            ui.auth.loginForm.style.display = showLogin ? 'block' : 'none';
+            ui.auth.registerForm.style.display = showLogin ? 'none' : 'block';
+            ui.auth.showLogin.classList.toggle('active', showLogin);
+            ui.auth.showRegister.classList.toggle('active', !showLogin);
+            ui.auth.feedback.textContent = '';
+        }
+        async function handleLogin(e) {
+            e.preventDefault();
+            const username = ui.auth.loginForm.querySelector('#login-username').value;
+            const password = ui.auth.loginForm.querySelector('#login-password').value;
+            const res = await fetch('/api/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username, password }) });
+            const data = await res.json();
+            if (data.success) {
+                state.currentUser = data.user;
+                sessionStorage.setItem('currentUser', JSON.stringify(data.user));
+                ui.logoutButton.style.display = 'block';
+                socket.emit('register user', state.currentUser);
+                navigateTo('view-chat');
+            } else { ui.auth.feedback.textContent = data.message; }
+        }
+        async function handleRegister(e) {
+            e.preventDefault();
+            const username = ui.auth.registerForm.querySelector('#register-username').value;
+            const password = ui.auth.registerForm.querySelector('#register-password').value;
+            const res = await fetch('/api/register', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username, password }) });
+            const data = await res.json();
+            if (data.success) {
+                alert('¡Cuenta creada! Ahora puedes iniciar sesión.');
+                toggleAuthForms(true);
+            } else { ui.auth.feedback.textContent = data.message; }
+        }
+        async function handleForgotPassword() {
+            const username = prompt('Ingresa tu nombre de usuario para eliminar tu cuenta y poder registrarte de nuevo.');
+            if (!username) return;
+            if (confirm(`¿Estás seguro? Se eliminará tu cuenta y tu lista de amigos permanentemente. Esta acción no se puede deshacer.`)) {
+                const res = await fetch('/api/delete-account', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username }) });
+                const data = await res.json();
+                alert(data.message);
+                if (data.success && state.currentUser && state.currentUser.username === username) {
+                    handleLogout();
+                }
             }
         }
+        function handleLogout() {
+            state.currentUser = null;
+            sessionStorage.removeItem('currentUser');
+            navigateTo('view-menu');
+            location.reload(); 
+        }
 
-        // CAMBIO: Esta función ahora maneja la reconexión de forma segura
-        function connectUser() { 
-            socket.emit('register user', state.myUsername, (res) => { 
-                if(!res.success) { 
-                    // Si el servidor rechaza (ej. nombre de usuario atascado), no recargamos.
-                    // Simplemente borramos los datos locales y mostramos el login.
-                    alert("Hubo un problema al reconectar. Por favor, inicia sesión de nuevo.");
-                    localStorage.clear();
-                    state.myUsername = null;
-                    state.myCode = null;
-                    ui.chat.overlay.style.display = 'flex';
-                } else { 
-                    // Conexión exitosa
-                    renderFriends(); 
-                } 
-            }); 
+        function cleanAIResponse(text) { return text.replace(/```html|```/g, '').trim(); }
+        async function getAIResponse(endpoint, body = {}, method = 'POST') {
+            const options = { method, headers: { 'Content-Type': 'application/json' } };
+            if (method === 'POST') options.body = JSON.stringify(body);
+            const button = body.topic ? (endpoint.includes('problems') ? ui.practice.button : ui.ia.button) : null;
+            if (button) button.disabled = true;
+            try {
+                const res = await fetch(endpoint, options);
+                const data = await res.json();
+                if (res.ok) return cleanAIResponse(data.explanation || data.problems || data.tips);
+                return `<p style="color:red;">${data.error || 'Error de la IA.'}</p>`;
+            } catch (error) { return `<p style="color:red;">Error de conexión.</p>`; }
+            finally { if (button) button.disabled = false; }
         }
         
-        // CAMBIO: Flujo de registro más limpio
-        function handleUsernameRegister(e) { 
-            e.preventDefault(); 
-            const name = ui.chat.input.value.trim(); 
-            if (name.length < 3) return; 
-            socket.emit('register user', name, (res) => { 
-                if (res.success) { 
-                    state.myUsername = res.username; 
-                    state.myCode = res.userCode; 
-                    saveState(); 
-                    ui.chat.overlay.style.display = 'none'; // Oculta el overlay
-                    renderFriends(); // Muestra la interfaz de chat
-                } else { 
-                    alert(res.message); 
-                } 
-            }); 
+        function setupIA() {
+            ui.ia.button.addEventListener('click', async () => {
+                const topic = ui.ia.input.value;
+                if (!topic) return;
+                ui.ia.explanation.innerHTML = `<p>Consultando a la IA...</p>`;
+                ui.ia.explanation.innerHTML = await getAIResponse('/api/explain-math', { topic });
+            });
         }
-
-        function addFriend(e) { e.preventDefault(); const code = ui.chat.friendInput.value.trim(); if (!code || code === state.myCode) return; socket.emit('add friend', code, (res) => { if (res.success && !state.friends.find(f => f.code === res.code)) { state.friends.push(res); saveState(); renderFriends(); } else { alert('Código no válido o amigo ya añadido.'); } }); ui.chat.friendInput.value = ''; }
-        function renderFriends() { ui.chat.yourUsername.textContent = state.myUsername; ui.chat.yourCode.textContent = state.myCode; ui.chat.list.innerHTML = state.friends.map(f => <div class="card friend-item" data-code="${f.code}" style="cursor:pointer; padding: 0.8rem; margin-bottom: 0.5rem; ${f.code === state.activeChat ? 'background-color:#e0e6e8;' : ''}"><span class="friend-status ${state.onlineFriends.includes(f.username)?'online':'offline'}"></span><span>${f.username}</span></div>).join('');}
-        function setActiveChat(code) { state.activeChat = code; ui.chat.header.textContent = Chateando con ${state.friends.find(f=>f.code===code).username}; ui.chat.chatInput.disabled = false; ui.chat.sendBtn.disabled = false; renderFriends(); renderMessages(); }
-        function sendChatMessage(e) { e.preventDefault(); const text = ui.chat.chatInput.value.trim(); if (!text || !state.activeChat) return; const message = {id:Date.now(), text}; socket.emit('private message', { toCode: state.activeChat, message }); handleNewMessage({from:state.myUsername, message}); ui.chat.chatInput.value = ''; }
-        function handleNewMessage({from, message}) { const chatPartnerCode = from === state.myUsername ? state.activeChat : state.friends.find(f => f.username === from)?.code; if (!chatPartnerCode) return; state.messages[chatPartnerCode] = state.messages[chatPartnerCode] || []; state.messages[chatPartnerCode].push({ from, ...message }); saveState(); if (chatPartnerCode === state.activeChat) renderMessages(); }
-        function renderMessages() { ui.chat.messages.innerHTML = (state.messages[state.activeChat] || []).map(({from, text}) => <div class="message-bubble ${from === state.myUsername ? 'sent' : 'received'}">${text}</div>).join(''); ui.chat.messages.scrollTop = ui.chat.messages.scrollHeight; }
-
-        // --- SECCIONES ESTÁTICAS Y AJUSTES ---
-        function setupConsejos(){ ui.consejos.container.innerHTML = consejosData.map(c => <div class="menu-card card"><div class="icon"><i class="fas ${c.i}"></i></div><h3>${c.t}</h3></div>).join(''); }
-        function setupQuienesSomos(){ ui.quienes.container.innerHTML = quienesSomosText; }
-        function setupSettings() {
+        function setupPractice() {
+            ui.practice.button.addEventListener('click', async () => {
+                const topic = ui.practice.input.value;
+                if (!topic) return;
+                ui.practice.results.innerHTML = `<p style="text-align:center;">Generando problemas sobre ${topic}...</p>`;
+                const response = await getAIResponse('/api/generate-problems', { topic });
+                ui.practice.results.innerHTML = response;
+                ui.practice.results.querySelectorAll('.show-solution-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const solution = btn.previousElementSibling;
+                        solution.style.display = solution.style.display === 'none' ? 'block' : 'none';
+                        btn.textContent = solution.style.display === 'none' ? 'Ver Respuesta' : 'Ocultar Respuesta';
+                    });
+                });
+            });
+        }
+        async function generateTips() {
+            ui.consejos.container.innerHTML = `<p style="text-align:center;">Generando consejos frescos...</p>`;
+            ui.consejos.container.innerHTML = await getAIResponse('/api/generate-tips', {}, 'GET');
+        }
+        function setupAjustes() {
             const settings = {
-                lang: 'es', fontSize: false, contrast: false,
-                load: function() { this.lang = localStorage.getItem('appLang')||'es'; this.fontSize = localStorage.getItem('appFontSize')==='true'; this.contrast = localStorage.getItem('appContrast')==='true'; this.apply(); },
-                save: function() { localStorage.setItem('appLang', this.lang); localStorage.setItem('appFontSize', this.fontSize); localStorage.setItem('appContrast', this.contrast); this.apply(); },
+                load: function() {
+                    const lang = localStorage.getItem('appLang')||'es';
+                    const fontSize = localStorage.getItem('appFontSize')==='true';
+                    const contrast = localStorage.getItem('appContrast')==='true';
+                    ui.ajustes.lang.value = lang;
+                    ui.ajustes.fontSizeToggle.checked = fontSize;
+                    ui.ajustes.contrastToggle.checked = contrast;
+                    this.apply();
+                },
+                save: function() {
+                    localStorage.setItem('appLang', ui.ajustes.lang.value);
+                    localStorage.setItem('appFontSize', ui.ajustes.fontSizeToggle.checked);
+                    localStorage.setItem('appContrast', ui.ajustes.contrastToggle.checked);
+                    this.apply();
+                },
                 apply: function() {
-                    ui.ajustes.lang.value = this.lang; document.documentElement.lang = this.lang;
-                    ui.ajustes.fontSizeToggle.checked = this.fontSize; document.body.classList.toggle('large-text', this.fontSize);
-                    ui.ajustes.contrastToggle.checked = this.contrast; document.body.classList.toggle('dark-theme', this.contrast);
+                    document.documentElement.lang = ui.ajustes.lang.value;
+                    document.body.classList.toggle('large-text', ui.ajustes.fontSizeToggle.checked);
+                    document.body.classList.toggle('dark-theme', ui.ajustes.contrastToggle.checked);
                     applyTranslations();
                 }
             };
             settings.load();
-            ui.ajustes.lang.addEventListener('change', (e) => { settings.lang = e.target.value; settings.save(); });
-            ui.ajustes.fontSizeToggle.addEventListener('change', (e) => { settings.fontSize = e.target.checked; settings.save(); });
-            ui.ajustes.contrastToggle.addEventListener('change', (e) => { settings.contrast = e.target.checked; settings.save(); });
-            // Lógica para fondo personalizado... (se puede añadir después)
+            ui.ajustes.lang.addEventListener('change', () => settings.save());
+            ui.ajustes.fontSizeToggle.addEventListener('change', () => settings.save());
+            ui.ajustes.contrastToggle.addEventListener('change', () => settings.save());
         }
         function applyTranslations() {
             const lang = ui.ajustes.lang.value || 'es';
@@ -410,7 +359,24 @@
                 if (translation) el.innerHTML = translation;
             });
         }
-        
+
+        function setupChat() {
+            socket.on('online users update', (users) => { state.onlineFriends = users; renderFriends(); });
+            socket.on('private message', handleNewMessage);
+            ui.chat.addForm.addEventListener('submit', addFriend);
+            ui.chat.list.addEventListener('click', (e) => {
+                const friendItem = e.target.closest('[data-code]');
+                if (friendItem) setActiveChat(friendItem.dataset.code);
+            });
+            ui.chat.chatForm.addEventListener('submit', sendChatMessage);
+        }
+        function addFriend(e) { e.preventDefault(); const code = ui.chat.friendInput.value.trim(); if (!code || !state.currentUser || code === state.currentUser.code) return; socket.emit('add friend', code, (res) => { if (res.success && !state.friends.find(f => f.code === res.friend.code)) { state.friends.push(res.friend); renderFriends(); } else { alert('Código no válido o amigo ya añadido.'); } }); ui.chat.friendInput.value = '';}
+        function renderFriends() { if (!state.currentUser) return; ui.chat.yourUsername.textContent = state.currentUser.username; ui.chat.yourCode.textContent = state.currentUser.code; ui.chat.list.innerHTML = state.friends.map(f => `<div class="card" data-code="${f.code}" style="cursor:pointer; padding: 0.8rem; margin-bottom: 0.5rem; ${f.code === state.activeChat ? 'background-color:#e0e6e8;' : ''}">${f.username}</div>`).join('');}
+        function setActiveChat(code) { state.activeChat = code; ui.chat.header.textContent = `Chateando con ${state.friends.find(f=>f.code===code).username}`; ui.chat.chatInput.disabled = false; renderFriends(); renderMessages(); }
+        function sendChatMessage(e) { e.preventDefault(); const text = ui.chat.chatInput.value.trim(); if (!text || !state.activeChat) return; const message = { id: Date.now(), text }; socket.emit('private message', { toCode: state.activeChat, message }); handleNewMessage({ from: state.currentUser.username, message }); ui.chat.chatInput.value = '';}
+        function handleNewMessage({ from, message }) { const partnerCode = from === state.currentUser.username ? state.activeChat : state.friends.find(f => f.username === from)?.code; if (!partnerCode) return; state.messages[partnerCode] = state.messages[partnerCode] || []; state.messages[partnerCode].push({ from, ...message }); if (partnerCode === state.activeChat) renderMessages();}
+        function renderMessages() { const chatMessagesDiv = ui.chat.messages; chatMessagesDiv.innerHTML = (state.messages[state.activeChat] || []).map(({from, text}) => `<div class="message-bubble ${from === state.currentUser.username ? 'sent' : 'received'}">${text}</div>`).join(''); chatMessagesDiv.scrollTop = chatMessagesDiv.scrollHeight;}
+
         init();
     });
     </script>
