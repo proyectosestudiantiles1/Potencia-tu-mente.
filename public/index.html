@@ -187,17 +187,19 @@
                 return;
             }
             
+            ui.auth.overlay.style.display = 'none';
+            ui.chat.view.style.display = 'none';
+            
             ui.sections.forEach(s => s.classList.remove('active'));
+            
             const activeSection = document.getElementById(currentView);
 
             if (currentView === 'view-chat') {
                 document.getElementById('view-chat').classList.add('active');
                 if (state.currentUser) {
-                    ui.auth.overlay.style.display = 'none';
                     ui.chat.view.style.display = 'block';
                 } else {
                     ui.auth.overlay.style.display = 'flex';
-                    ui.chat.view.style.display = 'none';
                 }
             } else if (activeSection) {
                 activeSection.classList.add('active');
