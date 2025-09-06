@@ -6,7 +6,7 @@
     <title>Potencia Tu Mente</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧠</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <style>
@@ -15,25 +15,7 @@
       body.dark-theme{--primary-gradient:linear-gradient(90deg, #1abc9c, #1dd2af);--primary-color:#1abc9c;--secondary-color:#ecf0f1;--bg-color:#2c3e50;--card-bg:#34495e;--text-dark:#ecf0f1;--text-light:#95a5a6;}
       *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
       body{font-family:'Poppins',sans-serif;background-color:var(--bg-color);color:var(--text-dark);line-height:1.7;font-size:var(--font-base-size);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;transition:background-color 0.3s,color 0.3s;}
-      
-      /* --- FIX: Cambia la forma en que las secciones se muestran/ocultan --- */
-      main{display:block;} /* Main siempre es visible */
-      .page-section {
-        /* Se ocultan con opacidad y se sacan de la interacción */
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.5s ease;
-        /* Se usa para que no ocupen espacio vertical */
-        display: none;
-      }
-      .page-section.active {
-        display: block; /* Vuelve a ocupar su espacio */
-        opacity: 1;
-        pointer-events: auto; /* Se puede interactuar de nuevo */
-        animation: fadeInUp 0.6s ease-out forwards;
-      }
-      /* ------------------------------------------------------------------- */
-
+      main{display:none}.page-section{display:none}.page-section.active{display:block;animation:fadeInUp 0.6s ease-out forwards}
       .container{max-width:1100px;margin:0 auto;padding:2rem}.page-header{margin-bottom:2.5rem;text-align:center}
       .page-header h2{font-family:'Poppins',sans-serif;font-weight:700;font-size:calc(var(--font-base-size)*2.2);color:var(--secondary-color)}.page-header p{font-size:calc(var(--font-base-size)*1.1);color:var(--text-light);max-width:700px;margin:.5rem auto 0;font-family:'Lato',sans-serif;}
       .btn{display:inline-block;padding:.8rem 2rem;background:var(--primary-gradient);color:white;border:none;border-radius:50px;font-weight:700;text-decoration:none;cursor:pointer;transition:all 0.3s ease;box-shadow:0 4px 15px rgba(22,160,133,.3);font-size:var(--font-base-size)}.btn:hover:not(:disabled){transform:translateY(-4px);box-shadow:0 8px 25px rgba(22,160,133,.4)}.btn:disabled{background:#bdc3c7;cursor:not-allowed;box-shadow:none;}
@@ -52,23 +34,28 @@
       #auth-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;z-index:1000;animation:fadeIn 0.3s;}.auth-card{width:100%;max-width:400px;text-align:center}.auth-toggle{margin-bottom:1.5rem;}.auth-toggle button{background:none;border:none;cursor:pointer;padding:0.5rem 1rem;font-size:1.1rem;color:var(--text-light);transition:color 0.2s;}.auth-toggle button.active{font-weight:bold;color:var(--primary-color);border-bottom:2px solid var(--primary-color)}#register-form{display:none;}#auth-feedback{margin-top:1rem;color:red;min-height:1.2em;}.forgot-password{font-size:0.9rem;color:var(--text-light);text-decoration:underline;cursor:pointer;margin-top:1rem;display:inline-block}
       #login-form, #register-form { margin-top: 1.5rem; }
       
-      /* --- FIX: Estilos definitivos del Chat usando FLEXBOX --- */
+      /* --- FIX DEFINITIVO: Estilos del Chat --- */
       .chat-container {
-        display: flex; /* USA FLEXBOX */
-        flex-direction: row; /* Dirección de fila */
+        /* Por defecto, no tiene layout complejo */
+        opacity: 0; /* Empieza invisible para evitar parpadeos */
+      }
+      .chat-container.layout-active {
+        display: flex; /* El layout se activa con JS */
         gap: 1.5rem;
         height: 75vh;
         max-height: 700px;
+        opacity: 1;
+        transition: opacity 0.3s;
       }
       .friends-panel {
-        width: 300px; /* Ancho fijo */
-        flex-shrink: 0; /* Evita que se encoja */
+        width: 300px;
+        flex-shrink: 0;
         display: flex;
         flex-direction: column;
       }
       #friends-list { flex-grow: 1; overflow-y: auto; margin-top: 1rem; }
       .chat-window {
-        flex-grow: 1; /* Ocupa el espacio restante */
+        flex-grow: 1;
         display: flex;
         flex-direction: column;
       }
@@ -76,7 +63,7 @@
       .message-bubble{padding: .6rem 1rem; border-radius: 20px; margin-bottom: .5rem; max-width: 80%; word-wrap: break-word;}.message-bubble.sent{background: var(--primary-gradient); color: white; margin-left: auto; border-bottom-right-radius: 5px;}.message-bubble.received{background: var(--card-bg); color: var(--text-dark); margin-right: auto; border-bottom-left-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);}
       #add-friend-form button { padding: 0; min-width: 46px; max-width: 46px; height: 46px; flex-shrink: 0; line-height: 1; font-size: 1.5rem; }
       .btn-back { display: block; margin: 1.5rem auto 0; width: fit-content; }
-      /* ----------------------------------------------------------- */
+      /* -------------------------------------- */
 
       .settings-container h3{font-family:'Poppins',sans-serif}.toggle-switch{display:flex;align-items:center;justify-content:space-between;margin-top:.5rem}.slider{position:relative;cursor:pointer;width:50px;height:26px;background-color:#ccc;border-radius:26px;transition:.4s}.slider:before{position:absolute;content:"";height:18px;width:18px;left:4px;bottom:4px;background-color:white;border-radius:50%;transition:.4s}input:checked+.slider{background-color:var(--primary-color)}input:checked+.slider:before{transform:translateX(24px)}
     </style>
@@ -123,7 +110,7 @@
                 
                 <div class="chat-view" style="display: none;">
                     <div class="page-header"><h2 data-lang-key="chatTitle">Aprendamos Juntos</h2></div>
-                    <div class="chat-container">
+                    <div id="chat-container" class="chat-container">
                         <aside class="card friends-panel">
                             <p data-lang-key="helloText">Hola, <strong id="your-username" style="color:var(--primary-color)"></strong></p>
                             <p style="font-size:0.9em;" data-lang-key="yourCodeText">Tu código: <strong id="your-code" title="Clic para copiar" style="cursor:pointer; user-select:all;"></strong></p>
@@ -172,7 +159,20 @@
             practice: { input: document.getElementById('practice-input'), button: document.getElementById('practice-button'), results: document.getElementById('practice-results') },
             consejos: { container: document.getElementById('consejos-container') },
             auth: { overlay: document.getElementById('auth-overlay'), showLogin: document.getElementById('show-login'), showRegister: document.getElementById('show-register'), loginForm: document.getElementById('login-form'), registerForm: document.getElementById('register-form'), feedback: document.getElementById('auth-feedback'), forgotPassword: document.querySelector('.forgot-password') },
-            chat: { view: document.querySelector('.chat-view'), yourUsername: document.getElementById('your-username'), yourCode: document.getElementById('your-code'), addForm: document.getElementById('add-friend-form'), friendInput: document.getElementById('friend-code-input'), list: document.getElementById('friends-list'), header: document.getElementById('chat-header'), messages: document.getElementById('chat-messages'), chatForm: document.getElementById('chat-form'), chatInput: document.getElementById('chat-input'), sendButton: document.querySelector('#chat-form button') },
+            chat: { 
+                view: document.querySelector('.chat-view'), 
+                container: document.getElementById('chat-container'),
+                yourUsername: document.getElementById('your-username'), 
+                yourCode: document.getElementById('your-code'), 
+                addForm: document.getElementById('add-friend-form'), 
+                friendInput: document.getElementById('friend-code-input'), 
+                list: document.getElementById('friends-list'), 
+                header: document.getElementById('chat-header'), 
+                messages: document.getElementById('chat-messages'), 
+                chatForm: document.getElementById('chat-form'), 
+                chatInput: document.getElementById('chat-input'), 
+                sendButton: document.querySelector('#chat-form button') 
+            },
             quienes: { container: document.getElementById('quienes-somos-container') },
             ajustes: { lang: document.getElementById('language-selector'), fontSizeToggle: document.getElementById('font-size-toggle'), contrastToggle: document.getElementById('contrast-toggle') }
         };
@@ -214,7 +214,7 @@
             showView(viewId);
         }
         
-        // --- FIX: Lógica de showView simplificada y robusta ---
+        // --- FIX DEFINITIVO: Lógica de showView que FUERZA el renderizado ---
         function showView(viewId) {
             const currentView = viewId || 'view-menu';
             
@@ -228,8 +228,10 @@
             ui.main.style.display = 'block';
             ui.inicio.view.style.display = 'none';
             
+            // Oculta todas las secciones y quita el layout activo del chat
             ui.sections.forEach(s => s.classList.remove('active'));
-            
+            ui.chat.container.classList.remove('layout-active');
+
             const activeSection = document.getElementById(currentView);
             if (activeSection) {
                  activeSection.classList.add('active');
@@ -238,9 +240,18 @@
             }
 
             if (currentView === 'view-chat') {
+                // Actualiza los datos del usuario CADA VEZ que se muestra el chat
+                updateChatUI();
+
                 if (state.currentUser) {
                     ui.auth.overlay.style.display = 'none';
                     ui.chat.view.style.display = 'block';
+                    // FUERZA BRUTA: Espera un instante (0ms) para que el DOM se actualice a "block"
+                    // y LUEGO añade la clase que activa el layout flexbox.
+                    // Esto obliga al navegador a recalcular el layout correctamente.
+                    setTimeout(() => {
+                        ui.chat.container.classList.add('layout-active');
+                    }, 0);
                 } else {
                     ui.auth.overlay.style.display = 'flex';
                     ui.chat.view.style.display = 'none';
@@ -287,59 +298,15 @@
                 state.currentUser = data.user;
                 sessionStorage.setItem('currentUser', JSON.stringify(data.user));
                 loadFriends();
-                updateChatUI();
                 navigateTo('view-chat');
             } else { ui.auth.feedback.textContent = data.message; }
         }
-        async function handleRegister(e) {
-            e.preventDefault();
-            const username = ui.auth.registerForm.querySelector('#register-username').value;
-            const password = ui.auth.registerForm.querySelector('#register-password').value;
-            const res = await fetch('/api/register', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username, password }) });
-            const data = await res.json();
-            if (data.success) {
-                alert('¡Cuenta creada! Ahora puedes iniciar sesión.');
-                toggleAuthForms(true);
-            } else { ui.auth.feedback.textContent = data.message; }
-        }
-        async function handleForgotPassword() {
-            const username = prompt('Ingresa tu nombre de usuario para eliminar tu cuenta y poder registrarte de nuevo.');
-            if (!username) return;
-            if (confirm(`¿Estás seguro? Se eliminará tu cuenta y tu lista de amigos permanentemente. Esta acción no se puede deshacer.`)) {
-                const res = await fetch('/api/delete-account', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username }) });
-                const data = await res.json();
-                alert(data.message);
-                if (data.success && state.currentUser && state.currentUser.username === username) {
-                    handleLogout();
-                }
-            }
-        }
-        function handleLogout() {
-            if (state.currentUser) {
-                localStorage.removeItem(`friends_${state.currentUser.username}`);
-            }
-            state.currentUser = null;
-            state.friends = [];
-            sessionStorage.removeItem('currentUser');
-            navigateTo('view-menu');
-            location.reload(); 
-        }
+        async function handleRegister(e) { e.preventDefault(); const username = ui.auth.registerForm.querySelector('#register-username').value; const password = ui.auth.registerForm.querySelector('#register-password').value; const res = await fetch('/api/register', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username, password }) }); const data = await res.json(); if (data.success) { alert('¡Cuenta creada! Ahora puedes iniciar sesión.'); toggleAuthForms(true); } else { ui.auth.feedback.textContent = data.message; } }
+        async function handleForgotPassword() { const username = prompt('Ingresa tu nombre de usuario para eliminar tu cuenta y poder registrarte de nuevo.'); if (!username) return; if (confirm(`¿Estás seguro? Se eliminará tu cuenta y tu lista de amigos permanentemente. Esta acción no se puede deshacer.`)) { const res = await fetch('/api/delete-account', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username }) }); const data = await res.json(); alert(data.message); if (data.success && state.currentUser && state.currentUser.username === username) { handleLogout(); } } }
+        function handleLogout() { if (state.currentUser) { localStorage.removeItem(`friends_${state.currentUser.username}`); } state.currentUser = null; state.friends = []; sessionStorage.removeItem('currentUser'); navigateTo('view-menu'); location.reload(); }
 
         function cleanAIResponse(text) { return text.replace(/```html|```/g, '').trim(); }
-        async function getAIResponse(endpoint, body = {}, method = 'POST') {
-            const options = { method, headers: { 'Content-Type': 'application/json' } };
-            if (method === 'POST') options.body = JSON.stringify(body);
-            const button = body.topic ? (endpoint.includes('problems') ? ui.practice.button : ui.ia.button) : null;
-            if (button) button.disabled = true;
-            try {
-                const res = await fetch(endpoint, options);
-                const data = await res.json();
-                if (res.ok) return cleanAIResponse(data.explanation || data.problems || data.tips);
-                return `<p style="color:red;">${data.error || 'Error de la IA.'}</p>`;
-            } catch (error) { return `<p style="color:red;">Error de conexión.</p>`; }
-            finally { if (button) button.disabled = false; }
-        }
-        
+        async function getAIResponse(endpoint, body = {}, method = 'POST') { const options = { method, headers: { 'Content-Type': 'application/json' } }; if (method === 'POST') options.body = JSON.stringify(body); const button = body.topic ? (endpoint.includes('problems') ? ui.practice.button : ui.ia.button) : null; if (button) button.disabled = true; try { const res = await fetch(endpoint, options); const data = await res.json(); if (res.ok) return cleanAIResponse(data.explanation || data.problems || data.tips); return `<p style="color:red;">${data.error || 'Error de la IA.'}</p>`; } catch (error) { return `<p style="color:red;">Error de conexión.</p>`; } finally { if (button) button.disabled = false; } }
         function setupIA() { ui.ia.button.addEventListener('click', async () => { const topic = ui.ia.input.value; if (!topic) return; ui.ia.explanation.innerHTML = `<p>Consultando a la IA...</p>`; ui.ia.explanation.innerHTML = await getAIResponse('/api/explain-math', { topic }); }); }
         function setupPractice() { ui.practice.button.addEventListener('click', async () => { const topic = ui.practice.input.value; if (!topic) return; ui.practice.results.innerHTML = `<p style="text-align:center;">Generando problemas sobre ${topic}...</p>`; const response = await getAIResponse('/api/generate-problems', { topic }); ui.practice.results.innerHTML = response; ui.practice.results.querySelectorAll('.show-solution-btn').forEach(btn => { btn.addEventListener('click', () => { const solution = btn.previousElementSibling; solution.style.display = solution.style.display === 'none' ? 'block' : 'none'; btn.textContent = solution.style.display === 'none' ? 'Ver Respuesta' : 'Ocultar Respuesta'; }); }); }); }
         async function generateTips() { ui.consejos.container.innerHTML = `<div style="grid-column: 1 / -1; text-align: center; color: var(--text-light);"><p>Generando consejos frescos...</p></div>`; ui.consejos.container.innerHTML = await getAIResponse('/api/generate-tips', {}, 'GET'); }
