@@ -63,25 +63,17 @@ app.post('/api/register', async (req, res) => {
         const newUser = new User({ username, password: hashedPassword, code: userCode });
         await newUser.save();
         res.status(201).json({ success: true, message: 'Usuario creado exitosamente.' });
-    } catch (error) {
-        res.status(500).json({ success: false, message: 'Error en el servidor.' });
-    }
+    } catch (error) { res.status(500).json({ success: false, message: 'Error en el servidor.' }); }
 });
 app.post('/api/login', async (req, res) => {
     try {
         const { username, password } = req.body;
         const user = await User.findOne({ username });
-        if (!user) {
-            return res.status(401).json({ success: false, message: 'Usuario o contraseña incorrectos.' });
-        }
+        if (!user) return res.status(401).json({ success: false, message: 'Usuario o contraseña incorrectos.' });
         const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) {
-            return res.status(401).json({ success: false, message: 'Usuario o contraseña incorrectos.' });
-        }
-        res.json({ success: true, message: 'Inicio de sesión exitoso.', user: { username: user.username, code: user.code } });
-    } catch (error) {
-        res.status(500).json({ success: false, message: 'Error en el servidor.' });
-    }
+        if (!isMatch) return res.status(401).json({ success: false, message: 'Usuario o contraseña incorrectos.' });
+        res.json({ success: true, user: { username: user.username, code: user.code } });
+    } catch (error) { res.status(500).json({ success: false, message: 'Error en el servidor.' }); }
 });
 app.post('/api/delete-account', async (req, res) => {
     try {
@@ -92,9 +84,7 @@ app.post('/api/delete-account', async (req, res) => {
         } else {
             res.status(404).json({ success: false, message: 'No se encontró un usuario con ese nombre.' });
         }
-    } catch (error) {
-        res.status(500).json({ success: false, message: 'Error en el servidor.' });
-    }
+    } catch (error) { res.status(500).json({ success: false, message: 'Error en el servidor.' }); }
 });
 
 // --- RUTAS DE IA ---
@@ -103,7 +93,7 @@ app.post('/api/explain-math', async (req, res) => {
     const { topic } = req.body;
     if (!topic) return res.status(400).json({ error: "El tema es requerido." });
     try {
-        const prompt = `Como tutor de matemáticas, explica el concepto "${topic}" para un estudiante de secundaria. Usa HTML (h3, p, ul, li). Cubre: 1. Definición simple. 2. Fórmula o pasos clave. 3. Ejemplo práctico. 4. Errores comunes. No uses markdown.`;
+        const prompt = `Como tutor experto en matemáticas, explica detalladamente el concepto "${topic}" para un estudiante de secundaria. Usa únicamente etiquetas HTML (h3, p, ul, li) para estructurar la respuesta. No incluyas markdown como \`\`\`. La explicación debe cubrir: 1. Definición clara. 2. Fórmula o pasos clave para resolverlo. 3. Un ejemplo práctico y sencillo. 4. Errores comunes que se deben evitar.`;
         const result = await model.generateContent(prompt);
         res.json({ explanation: result.response.text() });
     } catch (error) { console.error("Error en Tutor IA:", error); res.status(500).json({ error: "No se pudo generar la explicación." }); }
@@ -113,7 +103,7 @@ app.post('/api/generate-problems', async (req, res) => {
     const { topic } = req.body;
     if (!topic) return res.status(400).json({ error: "El tema es requerido." });
     try {
-        const prompt = `Crea 4 problemas matemáticos sobre "${topic}" para secundaria. Mezcla ejercicios y situaciones. Devuelve en HTML usando esta estructura para cada uno: <div class="problem-card"><h4>Problema X: [Pregunta]</h4><p class="solution" style="display:none;">Respuesta: [Solución]</p><button class="show-solution-btn btn btn-secondary">Ver Respuesta</button></div>. No uses markdown.`;
+        const prompt = `Crea 4 problemas matemáticos sobre "${topic}" para un estudiante de secundaria. Varía la dificultad e incluye una mezcla de ejercicios directos y situaciones problemáticas. Devuelve la respuesta usando únicamente HTML, con esta estructura exacta para cada problema: <div class="problem-card"><h4>Problema X: [Aquí la pregunta]</h4><p class="solution" style="display:none;">Respuesta: [Aquí la solución concisa]</p><button class="show-solution-btn btn btn-secondary">Ver Respuesta</button></div> No incluyas markdown como \`\`\`.`;
         const result = await model.generateContent(prompt);
         res.json({ problems: result.response.text() });
     } catch (error) { console.error("Error en Práctica IA:", error); res.status(500).json({ error: "No se pudo generar los problemas." }); }
@@ -121,7 +111,7 @@ app.post('/api/generate-problems', async (req, res) => {
 app.get('/api/generate-tips', async (req, res) => {
     if (!model) return res.status(503).json({ error: "Servicio de IA no disponible." });
     try {
-        const prompt = `Genera 6 consejos cortos para estudiar matemáticas para secundaria. Formatea en HTML, cada consejo en un <div class="card menu-card">, con un <div class="icon"> y un ícono de font-awesome (ej: <i class="fas fa-lightbulb"></i>), un <h3> para el título y un <p> para la descripción. No uses markdown.`;
+        const prompt = `Genera 6 consejos creativos y útiles para estudiar matemáticas, dirigidos a estudiantes de secundaria. Formatea la respuesta usando únicamente HTML, donde cada consejo es un <div class="card menu-card">, que contiene un <div class="icon"> con un ícono de font-awesome (ej: <i class="fas fa-lightbulb"></i>), un <h3> para el título del consejo y un <p> para la descripción. No incluyas markdown como \`\`\`.`;
         const result = await model.generateContent(prompt);
         res.json({ tips: result.response.text() });
     } catch (error) { console.error("Error en Consejos IA:", error); res.status(500).json({ error: "No se pudo generar los consejos." }); }

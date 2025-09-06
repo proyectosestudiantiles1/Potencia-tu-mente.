@@ -11,8 +11,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
       :root{--primary-gradient:linear-gradient(90deg, #1abc9c, #16a085);--primary-color:#16a085;--secondary-color:#2c3e50;--bg-color:#f4f7f9;--card-bg:#ffffff;--text-dark:#34495e;--text-light:#7f8c8d;--shadow:0 8px 30px rgba(0,0,0,0.06);--radius:16px;--font-base-size:16px;}
+      body.large-text{--font-base-size:18px;}
+      body.dark-theme{--primary-gradient:linear-gradient(90deg, #1abc9c, #1dd2af);--primary-color:#1abc9c;--secondary-color:#ecf0f1;--bg-color:#2c3e50;--card-bg:#34495e;--text-dark:#ecf0f1;--text-light:#95a5a6;}
       *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
-      body{font-family:'Poppins',sans-serif;background-color:var(--bg-color);color:var(--text-dark);line-height:1.7;font-size:var(--font-base-size);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
+      body{font-family:'Poppins',sans-serif;background-color:var(--bg-color);color:var(--text-dark);line-height:1.7;font-size:var(--font-base-size);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;transition:background-color 0.3s,color 0.3s;}
       main{display:none}.page-section{display:none}.page-section.active{display:block;animation:fadeInUp 0.6s ease-out forwards}
       .container{max-width:1100px;margin:0 auto;padding:2rem}.page-header{margin-bottom:2.5rem;text-align:center}
       .page-header h2{font-family:'Poppins',sans-serif;font-weight:700;font-size:calc(var(--font-base-size)*2.2);color:var(--secondary-color)}.page-header p{font-size:calc(var(--font-base-size)*1.1);color:var(--text-light);max-width:700px;margin:.5rem auto 0;font-family:'Lato',sans-serif;}
@@ -42,71 +44,73 @@
     
     <main>
         <div class="container">
-            <section id="view-menu" class="page-section card">
-                <div class="page-header"><h2>Menú Principal</h2></div>
-                <div class="menu-grid">
-                    <a href="#view-ia" class="menu-card nav-link card"><div class="icon"><i class="fas fa-robot"></i></div><h3>Tutor IA</h3><p>Resuelve cualquier duda.</p></a>
-                    <a href="#view-practice" class="menu-card nav-link card"><div class="icon"><i class="fas fa-pencil-ruler"></i></div><h3>Práctica con IA</h3><p>Genera problemas para resolver.</p></a>
-                    <a href="#view-consejos" class="menu-card nav-link card"><div class="icon"><i class="fas fa-lightbulb"></i></div><h3>Consejos de IA</h3><p>Descubre nuevas estrategias.</p></a>
-                    <a href="#view-chat" class="menu-card nav-link card"><div class="icon"><i class="fas fa-comments"></i></div><h3>Aprendamos Juntos</h3><p>Chatea con amigos.</p></a>
-                    <a href="#view-quienes-somos" class="menu-card nav-link card"><div class="icon"><i class="fas fa-users"></i></div><h3>Quiénes Somos</h3><p>Conoce al equipo.</p></a>
-                    <a href="#view-ajustes" class="menu-card nav-link card"><div class="icon"><i class="fas fa-cog"></i></div><h3>Ajustes</h3><p>Personaliza tu experiencia.</p></a>
+            <section id="view-menu" class="page-section">
+                <div class="card">
+                    <div class="page-header"><h2 data-lang-key="menuTitle">Menú Principal</h2></div>
+                    <div class="menu-grid">
+                        <a href="#view-ia" class="menu-card nav-link card"><div class="icon"><i class="fas fa-robot"></i></div><h3 data-lang-key="iaTitle">Tutor IA</h3><p data-lang-key="iaMenuDesc">Resuelve cualquier duda.</p></a>
+                        <a href="#view-practice" class="menu-card nav-link card"><div class="icon"><i class="fas fa-pencil-ruler"></i></div><h3 data-lang-key="practiceTitle">Práctica con IA</h3><p data-lang-key="practiceMenuDesc">Genera problemas para resolver.</p></a>
+                        <a href="#view-consejos" class="menu-card nav-link card"><div class="icon"><i class="fas fa-lightbulb"></i></div><h3 data-lang-key="tipsTitle">Consejos de IA</h3><p data-lang-key="tipsMenuDesc">Descubre nuevas estrategias.</p></a>
+                        <a href="#view-chat" class="menu-card nav-link card"><div class="icon"><i class="fas fa-comments"></i></div><h3 data-lang-key="chatTitle">Aprendamos Juntos</h3><p data-lang-key="chatMenuDesc">Chatea con amigos.</p></a>
+                        <a href="#view-quienes-somos" class="menu-card nav-link card"><div class="icon"><i class="fas fa-users"></i></div><h3 data-lang-key="whoTitle">Quiénes Somos</h3><p data-lang-key="whoMenuDesc">Conoce al equipo.</p></a>
+                        <a href="#view-ajustes" class="menu-card nav-link card"><div class="icon"><i class="fas fa-cog"></i></div><h3 data-lang-key="settingsTitle">Ajustes</h3><p data-lang-key="settingsMenuDesc">Personaliza tu experiencia.</p></a>
+                    </div>
+                    <button class="btn btn-secondary" id="logout-button" style="display:none; margin: 2rem auto 0; background: #e74c3c; color: white;" data-lang-key="logoutButton">Cerrar Sesión</button>
                 </div>
-                <button class="btn btn-secondary" id="logout-button" style="display:none; margin: 2rem auto 0; background: #e74c3c; color: white;">Cerrar Sesión</button>
             </section>
             
             <section id="view-ia" class="page-section">
-                <div class="page-header"><h2>Tutor IA</h2><p>Pregúntale cualquier concepto, ejercicio o problema matemático a la IA.</p></div>
-                <div class="card"><div class="input-group"><input id="ia-input" type="text" class="input-field" placeholder="Ej: ¿Qué es el Teorema de Pitágoras?" /><button id="ia-button" class="btn">Consultar</button></div><div id="ia-explanation" style="min-height: 200px;"><p style="color: var(--text-light)">Aquí aparecerá la explicación...</p></div></div>
-                <button class="btn btn-secondary btn-back">Regresar</button>
+                <div class="page-header"><h2 data-lang-key="iaTitle">Tutor IA</h2><p data-lang-key="iaPageDesc">Pregúntale cualquier concepto, ejercicio o problema matemático a la IA.</p></div>
+                <div class="card"><div class="input-group"><input id="ia-input" type="text" class="input-field" placeholder="Ej: ¿Qué es el Teorema de Pitágoras?" /><button id="ia-button" class="btn" data-lang-key="consultButton">Consultar</button></div><div id="ia-explanation" style="min-height: 200px;"><p style="color: var(--text-light)" data-lang-key="explanationPlaceholder">Aquí aparecerá la explicación...</p></div></div>
+                <button class="btn btn-secondary btn-back" data-lang-key="backButton">Regresar</button>
             </section>
 
             <section id="view-practice" class="page-section">
-                <div class="page-header"><h2>Práctica con IA</h2><p>Escribe un tema y la IA creará problemas para que practiques.</p></div>
-                <div class="card"><div class="input-group"><input id="practice-input" type="text" class="input-field" placeholder="Ej: Ecuaciones de primer grado" /><button id="practice-button" class="btn">Generar Problemas</button></div></div>
-                <div id="practice-results"><p style="text-align:center; color: var(--text-light);">Aquí aparecerán los problemas generados...</p></div>
-                <button class="btn btn-secondary btn-back">Regresar</button>
+                <div class="page-header"><h2 data-lang-key="practiceTitle">Práctica con IA</h2><p data-lang-key="practicePageDesc">Escribe un tema y la IA creará problemas para que practiques.</p></div>
+                <div class="card"><div class="input-group"><input id="practice-input" type="text" class="input-field" placeholder="Ej: Ecuaciones de primer grado" /><button id="practice-button" class="btn" data-lang-key="generateProblemsButton">Generar Problemas</button></div></div>
+                <div id="practice-results"><p style="text-align:center; color: var(--text-light);" data-lang-key="problemsPlaceholder">Aquí aparecerán los problemas generados...</p></div>
+                <button class="btn btn-secondary btn-back" data-lang-key="backButton">Regresar</button>
             </section>
 
             <section id="view-consejos" class="page-section">
-                <div class="page-header"><h2>Consejos de la IA</h2><p>Cada vez que entres, la IA te dará nuevos consejos para mejorar.</p></div>
+                <div class="page-header"><h2 data-lang-key="tipsTitle">Consejos de la IA</h2><p data-lang-key="tipsPageDesc">Cada vez que entres, la IA te dará nuevos consejos para mejorar.</p></div>
                 <div id="consejos-container" class="menu-grid"></div>
-                <button class="btn btn-secondary btn-back">Regresar</button>
+                <button class="btn btn-secondary btn-back" data-lang-key="backButton">Regresar</button>
             </section>
             
             <section id="view-chat" class="page-section">
                 <div id="auth-overlay">
                     <div class="card auth-card">
-                        <div class="auth-toggle"><button id="show-login" class="active">Iniciar Sesión</button><button id="show-register">Crear Cuenta</button></div>
-                        <form id="login-form"><div class="input-group" style="flex-direction:column; gap: 0.5rem;"><input type="text" id="login-username" class="input-field" placeholder="Nombre de usuario" required><input type="password" id="login-password" class="input-field" placeholder="Contraseña" required></div><button type="submit" class="btn">Entrar</button></form>
-                        <form id="register-form"><div class="input-group" style="flex-direction:column; gap: 0.5rem;"><input type="text" id="register-username" class="input-field" placeholder="Nuevo nombre de usuario" required><input type="password" id="register-password" class="input-field" placeholder="Nueva contraseña (mín. 4 caracteres)" required minlength="4"></div><button type="submit" class="btn">Registrarme</button></form>
+                        <div class="auth-toggle"><button id="show-login" class="active" data-lang-key="loginTitle">Iniciar Sesión</button><button id="show-register" data-lang-key="registerTitle">Crear Cuenta</button></div>
+                        <form id="login-form"><div class="input-group" style="flex-direction:column; gap: 0.5rem;"><input type="text" id="login-username" class="input-field" placeholder="Nombre de usuario" required><input type="password" id="login-password" class="input-field" placeholder="Contraseña" required></div><button type="submit" class="btn" data-lang-key="loginButton">Entrar</button></form>
+                        <form id="register-form"><div class="input-group" style="flex-direction:column; gap: 0.5rem;"><input type="text" id="register-username" class="input-field" placeholder="Nuevo nombre de usuario" required><input type="password" id="register-password" class="input-field" placeholder="Nueva contraseña (mín. 4 caracteres)" required minlength="4"></div><button type="submit" class="btn" data-lang-key="registerButton">Registrarme</button></form>
                         <p id="auth-feedback"></p>
-                        <a class="forgot-password">¿Olvidaste tu contraseña?</a>
+                        <a class="forgot-password" data-lang-key="forgotPassword">¿Olvidaste tu contraseña?</a>
                     </div>
                 </div>
-                <div class="page-header"><h2>Aprendamos Juntos</h2></div>
+                <div class="page-header"><h2 data-lang-key="chatTitle">Aprendamos Juntos</h2></div>
                 <div class="chat-layout">
-                    <aside class="card"><p>Hola, <strong id="your-username" style="color:var(--primary-color)"></strong></p><p style="font-size:0.9em;">Tu código: <strong id="your-code" title="Clic para copiar" style="cursor:pointer; user-select:all;"></strong></p><h3 style="margin-top:1.5rem;">Amigos</h3><form id="add-friend-form" class="input-group"><input id="friend-code-input" class="input-field" placeholder="Código de amigo..." required><button type="submit" class="btn">+</button></form><div id="friends-list"></div></aside>
-                    <div class="card chat-window"><h3 id="chat-header">Selecciona un amigo</h3><div id="chat-messages" style="border:1px solid #ddd; padding:1rem; border-radius:var(--radius); flex-grow:1; overflow-y:auto; margin-bottom:1rem;"></div><form id="chat-form" class="input-group"><input id="chat-input" class="input-field" placeholder="Escribe un mensaje..." autocomplete="off" required disabled><button type="submit" class="btn" disabled>Enviar</button></form></div>
+                    <aside class="card"><p data-lang-key="helloText">Hola, <strong id="your-username" style="color:var(--primary-color)"></strong></p><p style="font-size:0.9em;" data-lang-key="yourCodeText">Tu código: <strong id="your-code" title="Clic para copiar" style="cursor:pointer; user-select:all;"></strong></p><h3 style="margin-top:1.5rem;" data-lang-key="friendsTitle">Amigos</h3><form id="add-friend-form" class="input-group"><input id="friend-code-input" class="input-field" placeholder="Código de amigo..." required><button type="submit" class="btn">+</button></form><div id="friends-list"></div></aside>
+                    <div class="card chat-window"><h3 id="chat-header" data-lang-key="selectFriendText">Selecciona un amigo</h3><div id="chat-messages" style="border:1px solid #ddd; padding:1rem; border-radius:var(--radius); flex-grow:1; overflow-y:auto; margin-bottom:1rem;"></div><form id="chat-form" class="input-group"><input id="chat-input" class="input-field" placeholder="Escribe un mensaje..." autocomplete="off" required disabled><button type="submit" class="btn" disabled data-lang-key="sendButton">Enviar</button></form></div>
                 </div>
-                <button class="btn btn-secondary btn-back">Regresar</button>
+                <button class="btn btn-secondary btn-back" data-lang-key="backButton">Regresar</button>
             </section>
 
             <section id="view-quienes-somos" class="page-section">
-                <div class="page-header"><h2>Quiénes Somos</h2></div>
+                <div class="page-header"><h2 data-lang-key="whoTitle">Quiénes Somos</h2></div>
                 <div class="card" id="quienes-somos-container" style="font-family: 'Lato', sans-serif; line-height: 1.8;"></div>
-                <button class="btn btn-secondary btn-back">Regresar</button>
+                <button class="btn btn-secondary btn-back" data-lang-key="backButton">Regresar</button>
             </section>
 
             <section id="view-ajustes" class="page-section">
-                <div class="page-header"><h2>Ajustes</h2></div>
+                <div class="page-header"><h2 data-lang-key="settingsTitle">Ajustes</h2></div>
                 <div class="card" style="max-width: 600px; margin: auto;">
                     <div class="settings-container" style="display:flex;flex-direction:column;gap:2.5rem;">
-                        <div><h3>Idioma</h3><select id="language-selector" class="input-field"><option value="es">Español</option><option value="en">English</option></select></div>
-                        <div><h3>Accesibilidad</h3><div class="toggle-switch"><p>Texto más grande</p><label><input type="checkbox" id="font-size-toggle" style="opacity:0; width:0; height:0;"><span class="slider"></span></label></div><div class="toggle-switch" style="margin-top:1rem;"><p>Modo de Alto Contraste</p><label><input type="checkbox" id="contrast-toggle" style="opacity:0; width:0; height:0;"><span class="slider"></span></label></div></div>
+                        <div><h3 data-lang-key="languageTitle">Idioma</h3><select id="language-selector" class="input-field"><option value="es">Español</option><option value="en">English</option></select></div>
+                        <div><h3 data-lang-key="accessibilityTitle">Accesibilidad</h3><div class="toggle-switch"><p data-lang-key="largeText">Texto más grande</p><label><input type="checkbox" id="font-size-toggle" style="opacity:0; width:0; height:0;"><span class="slider"></span></label></div><div class="toggle-switch" style="margin-top:1rem;"><p data-lang-key="highContrast">Modo de Alto Contraste</p><label><input type="checkbox" id="contrast-toggle" style="opacity:0; width:0; height:0;"><span class="slider"></span></label></div></div>
                     </div>
                 </div>
-                <button class="btn btn-secondary btn-back">Regresar</button>
+                <button class="btn btn-secondary btn-back" data-lang-key="backButton">Regresar</button>
             </section>
         </div>
     </main>
@@ -133,6 +137,10 @@
         };
         const socket = io();
         const quienesSomosText = `<p>Somos un grupo de estudiantes de Educación para el Trabajo que hemos creado el proyecto “Potencia tu mente con matemáticas”, una plataforma web diseñada para apoyar el aprendizaje de las matemáticas de manera sencilla, práctica e interactiva. Nuestro objetivo es brindar a los estudiantes una herramienta accesible y motivadora que les permita reforzar sus conocimientos y superar las dificultades más comunes en esta área.</p><p style="margin-top:1rem;">Nos caracterizamos por ser un equipo responsable, creativo y comprometido con la innovación educativa. Cada integrante aporta sus ideas, habilidades y talentos, lo que nos permite trabajar de manera colaborativa y complementaria. Nos guía la convicción de que la educación es la clave para el desarrollo personal y social, y que el uso de la tecnología puede convertirse en un aliado poderoso para mejorar los procesos de enseñanza y aprendizaje.</p><p style="margin-top:1rem;">A través de este proyecto, buscamos ofrecer un servicio que no solo enseñe matemáticas, sino que también despierte en los estudiantes la confianza y el gusto por aprender. Queremos que “Potencia tu mente con matemáticas” sea un espacio digital donde cada usuario se sienta acompañado en su proceso educativo, encontrando materiales claros, niveles de práctica graduados y actividades interactivas que hagan del aprendizaje una experiencia dinámica.</p><p style="margin-top:1rem;">Creemos firmemente que nuestro esfuerzo contribuirá al desarrollo académico de los estudiantes y al fortalecimiento de sus competencias matemáticas, demostrando que con constancia, innovación y dedicación se puede transformar la manera en que aprendemos.</p>`;
+        const translations = {
+            es: { menuTitle: "Menú Principal", iaTitle: "Tutor IA", iaMenuDesc: "Resuelve cualquier duda.", practiceTitle: "Práctica con IA", practiceMenuDesc: "Genera problemas para resolver.", tipsTitle: "Consejos de IA", tipsMenuDesc: "Descubre nuevas estrategias.", chatTitle: "Aprendamos Juntos", chatMenuDesc: "Chatea con amigos.", whoTitle: "Quiénes Somos", whoMenuDesc: "Conoce al equipo.", settingsTitle: "Ajustes", settingsMenuDesc: "Personaliza tu experiencia.", logoutButton: "Cerrar Sesión", iaPageDesc: "Pregúntale cualquier concepto, ejercicio o problema matemático a la IA.", consultButton: "Consultar", explanationPlaceholder: "Aquí aparecerá la explicación...", backButton: "Regresar", practicePageDesc: "Escribe un tema y la IA creará problemas para que practiques.", generateProblemsButton: "Generar Problemas", problemsPlaceholder: "Aquí aparecerán los problemas generados...", tipsPageDesc: "Cada vez que entres, la IA te dará nuevos consejos para mejorar.", loginTitle: "Iniciar Sesión", registerTitle: "Crear Cuenta", loginButton: "Entrar", registerButton: "Registrarme", forgotPassword: "¿Olvidaste tu contraseña?", helloText: "Hola,", yourCodeText: "Tu código:", friendsTitle: "Amigos", selectFriendText: "Selecciona un amigo", sendButton: "Enviar", languageTitle: "Idioma", accessibilityTitle: "Accesibilidad", largeText: "Texto más grande", highContrast: "Modo de Alto Contraste" },
+            en: { menuTitle: "Main Menu", iaTitle: "AI Tutor", iaMenuDesc: "Solve any doubt.", practiceTitle: "Practice with AI", practiceMenuDesc: "Generate problems to solve.", tipsTitle: "AI Tips", tipsMenuDesc: "Discover new strategies.", chatTitle: "Let's Learn Together", chatMenuDesc: "Chat with friends.", whoTitle: "Who We Are", whoMenuDesc: "Meet the team.", settingsTitle: "Settings", settingsMenuDesc: "Customize your experience.", logoutButton: "Log Out", iaPageDesc: "Ask the AI about any mathematical concept, exercise, or problem.", consultButton: "Consult", explanationPlaceholder: "The explanation will appear here...", backButton: "Back", practicePageDesc: "Enter a topic and the AI will create problems for you to practice.", generateProblemsButton: "Generate Problems", problemsPlaceholder: "Generated problems will appear here...", tipsPageDesc: "Every time you enter, the AI will give you new tips to improve.", loginTitle: "Log In", registerTitle: "Sign Up", loginButton: "Enter", registerButton: "Register", forgotPassword: "Forgot your password?", helloText: "Hello,", yourCodeText: "Your code:", friendsTitle: "Friends", selectFriendText: "Select a friend", sendButton: "Send", languageTitle: "Language", accessibilityTitle: "Accessibility", largeText: "Larger Text", highContrast: "High Contrast Mode" }
+        };
 
         function init() {
             if(document.getElementById('particles-js')) particlesJS('particles-js',{"particles":{"number":{"value":80,"density":{"enable":true,"value_area":800}},"color":{"value":"#ffffff"},"shape":{"type":"circle"},"opacity":{"value":0.5,"random":false},"size":{"value":3,"random":true},"line_linked":{"enable":true,"distance":150,"color":"#ffffff","opacity":0.4,"width":1},"move":{"enable":true,"speed":6}}});
@@ -256,6 +264,10 @@
             showView('view-menu');
         }
 
+        function cleanAIResponse(text) {
+            return text.replace(/```html|```/g, '').trim();
+        }
+
         async function getAIResponse(endpoint, body = {}, method = 'POST') {
             const options = { method, headers: { 'Content-Type': 'application/json' } };
             if (method === 'POST') options.body = JSON.stringify(body);
@@ -264,7 +276,7 @@
             try {
                 const res = await fetch(endpoint, options);
                 const data = await res.json();
-                if (res.ok) return data.explanation || data.problems || data.tips;
+                if (res.ok) return cleanAIResponse(data.explanation || data.problems || data.tips);
                 return `<p style="color:red;">${data.error || 'Error de la IA.'}</p>`;
             } catch (error) { return `<p style="color:red;">Error de conexión.</p>`; }
             finally { if(button) button.disabled = false; }
@@ -319,12 +331,22 @@
                     document.documentElement.lang = ui.ajustes.lang.value;
                     document.body.classList.toggle('large-text', ui.ajustes.fontSizeToggle.checked);
                     document.body.classList.toggle('dark-theme', ui.ajustes.contrastToggle.checked);
+                    applyTranslations();
                 }
             };
             settings.load();
             ui.ajustes.lang.addEventListener('change', () => settings.save());
             ui.ajustes.fontSizeToggle.addEventListener('change', () => settings.save());
             ui.ajustes.contrastToggle.addEventListener('change', () => settings.save());
+        }
+
+        function applyTranslations() {
+            const lang = ui.ajustes.lang.value || 'es';
+            document.querySelectorAll('[data-lang-key]').forEach(el => {
+                const key = el.dataset.langKey;
+                const translation = (translations[lang] && translations[lang][key]) || translations['es'][key];
+                if (translation) el.innerHTML = translation;
+            });
         }
 
         function setupChat() {
