@@ -10,39 +10,28 @@
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-      :root{--primary-gradient:linear-gradient(90deg, #1abc9c, #16a085);--primary-color:#16a085;--secondary-color:#2c3e50;--bg-color:#f4f7f9;--card-bg:#ffffff;--text-dark:#34495e;--text-light:#7f8c8d;--shadow:0 8px 30px rgba(0,0,0,0.06);--radius:16px;--online-color:#2ecc71;--offline-color:#bdc3c7;--font-base-size:16px;}
+      :root{--primary-gradient:linear-gradient(90deg, #1abc9c, #16a085);--primary-color:#16a085;--secondary-color:#2c3e50;--bg-color:#f4f7f9;--card-bg:#ffffff;--text-dark:#34495e;--text-light:#7f8c8d;--shadow:0 8px 30px rgba(0,0,0,0.06);--radius:16px;--font-base-size:16px;}
       *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
-      body{font-family:'Poppins',sans-serif;background-color:var(--bg-color);color:var(--text-dark);line-height:1.7;font-size:var(--font-base-size);-webkit-font-smoothing: antialiased;-moz-osx-font-smoothing: grayscale;}
+      body{font-family:'Poppins',sans-serif;background-color:var(--bg-color);color:var(--text-dark);line-height:1.7;font-size:var(--font-base-size);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
       main{display:none}.page-section{display:none}.page-section.active{display:block;animation:fadeInUp 0.6s ease-out forwards}
       .container{max-width:1100px;margin:0 auto;padding:2rem}.page-header{margin-bottom:2.5rem;text-align:center}
-      .page-header h2{font-family:'Poppins',sans-serif;font-weight:700;font-size:calc(var(--font-base-size)*2.2);color:var(--secondary-color)}.page-header p{font-size:calc(var(--font-base-size)*1.1);color:var(--text-light);max-width:700px;margin:.5rem auto 0; font-family: 'Lato', sans-serif;}
-      .btn{display:inline-block;padding:.8rem 2rem;background:var(--primary-gradient);color:white;border:none;border-radius:50px;font-weight:700;text-decoration:none;cursor:pointer;transition: all 0.3s ease;box-shadow:0 4px 15px rgba(22,160,133,.3);font-size:var(--font-base-size)}.btn:hover:not(:disabled){transform:translateY(-4px);box-shadow:0 8px 25px rgba(22,160,133,.4)}.btn:disabled{background:#bdc3c7;cursor:not-allowed;box-shadow:none;}
-      .btn-secondary{background:#dbe0e2;color:var(--text-dark);box-shadow:none}.btn-secondary:hover:not(:disabled){background:#c8cfd2; transform: translateY(-2px);}
-      .card{background-color:var(--card-bg);border-radius:var(--radius);padding:2.5rem;box-shadow:var(--shadow);transition: all 0.3s ease; border: 1px solid #e9ecef;}
+      .page-header h2{font-family:'Poppins',sans-serif;font-weight:700;font-size:calc(var(--font-base-size)*2.2);color:var(--secondary-color)}.page-header p{font-size:calc(var(--font-base-size)*1.1);color:var(--text-light);max-width:700px;margin:.5rem auto 0;font-family:'Lato',sans-serif;}
+      .btn{display:inline-block;padding:.8rem 2rem;background:var(--primary-gradient);color:white;border:none;border-radius:50px;font-weight:700;text-decoration:none;cursor:pointer;transition:all 0.3s ease;box-shadow:0 4px 15px rgba(22,160,133,.3);font-size:var(--font-base-size)}.btn:hover:not(:disabled){transform:translateY(-4px);box-shadow:0 8px 25px rgba(22,160,133,.4)}.btn:disabled{background:#bdc3c7;cursor:not-allowed;box-shadow:none;}
+      .btn-secondary{background:#dbe0e2;color:var(--text-dark);box-shadow:none}.btn-secondary:hover:not(:disabled){background:#c8cfd2;transform:translateY(-2px);}
+      .card{background-color:var(--card-bg);border-radius:var(--radius);padding:2.5rem;box-shadow:var(--shadow);transition:all 0.3s ease;border:1px solid #e9ecef;}
       .input-group{display:flex;gap:.5rem;margin-bottom:1rem}.input-field{width:100%;padding:.8rem 1rem;border:1px solid #dde2e6;background-color:#f9fafb;color:var(--text-dark);border-radius:10px;font-size:var(--font-base-size);transition:border-color .2s,box-shadow .2s}.input-field:focus{outline:none;border-color:var(--primary-color);box-shadow:0 0 0 3px rgba(22,160,133,.2)}
-      
-      /* --- ANIMACIONES --- */
-      @keyframes fadeInUp {from {opacity:0;transform:translateY(20px)} to {opacity:1;transform:translateY(0)}}
-      @keyframes fadeIn {from {opacity:0} to {opacity:1}}
-
-      /* --- PORTADA ANIMADA --- */
-      #view-inicio{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;z-index:1000;color:white;padding:1rem;background-color:#1c2541; overflow: hidden;}
+      @keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+      #view-inicio{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;z-index:1000;color:white;padding:1rem;background-color:#1c2541;overflow:hidden;}
       #particles-js{position:absolute;width:100%;height:100%;z-index:-1;}
-      .inicio-content h1, .inicio-content p, .inicio-content .btn { opacity: 0; animation: fadeInUp 0.8s ease-out forwards; }
-      .inicio-content h1 { font-size:clamp(3rem, 10vw, 5.5rem); letter-spacing:1px; animation-delay: 0.2s; }
-      .inicio-content p { font-size:1.5rem;color:rgba(255,255,255,.8);margin-bottom:2.5rem; animation-delay: 0.4s; font-family: 'Lato', sans-serif;}
-      .inicio-content .btn { padding:1rem 3rem;font-size:1.2rem; animation-delay: 0.6s; }
-      
-      /* --- NUEVO DISEÑO DE MENÚ Y TARJETAS --- */
-      .menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem}.menu-card{text-align:center;text-decoration:none;color:var(--text-dark)}.menu-card .icon{font-size:2.5rem;color:var(--primary-color);margin-bottom:1rem; transition: transform 0.3s ease;}.menu-card h3{font-family:'Poppins';font-weight:600;font-size:1.3rem; margin-bottom: 0.5rem;}.menu-card p{font-family: 'Lato', sans-serif; color: var(--text-light);}.menu-card.card:hover{transform:translateY(-10px);box-shadow: 0 12px 40px rgba(0,0,0,0.08);}.menu-card.card:hover .icon{transform: scale(1.1);}
-
-      /* --- NUEVO DISEÑO PRÁCTICA Y CONSEJOS --- */
-      #practice-results{margin-top:2rem;display:grid;grid-template-columns:1fr;gap:1.5rem;}.problem-card{background-color:#f9fafb;padding:1.5rem;border-radius:var(--radius); border: 1px solid #e9ecef;}.solution{margin-top:1rem;padding:1rem;background-color:#eaf6f4;border-radius:8px;border-left:4px solid var(--primary-color);}
-      #consejos-container .card { text-align: left; }
-
-      /* --- AUTENTICACIÓN Y CHAT --- */
-      #auth-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;z-index:1000; animation: fadeIn 0.3s;}.auth-card{width:100%;max-width:400px;text-align:center}.auth-toggle{margin-bottom:1.5rem;}.auth-toggle button{background:none;border:none;cursor:pointer;padding:0.5rem 1rem;font-size:1.1rem;color:var(--text-light); transition: color 0.2s;}.auth-toggle button.active{font-weight:bold;color:var(--primary-color);border-bottom:2px solid var(--primary-color)}#register-form{display:none;}#auth-feedback{margin-top:1rem;color:red;min-height:1.2em;}.forgot-password{font-size:0.9rem;color:var(--text-light);text-decoration:underline;cursor:pointer;margin-top:1rem;display:inline-block}
+      .inicio-content h1,.inicio-content p,.inicio-content .btn{opacity:0;animation:fadeInUp 0.8s ease-out forwards;}
+      .inicio-content h1{font-size:clamp(3rem,10vw,5.5rem);letter-spacing:1px;animation-delay:0.2s;}
+      .inicio-content p{font-size:1.5rem;color:rgba(255,255,255,.8);margin-bottom:2.5rem;animation-delay:0.4s;font-family:'Lato',sans-serif;}
+      .inicio-content .btn{padding:1rem 3rem;font-size:1.2rem;animation-delay:0.6s;}
+      .menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem}.menu-card{text-align:center;text-decoration:none;color:var(--text-dark)}.menu-card .icon{font-size:2.5rem;color:var(--primary-color);margin-bottom:1rem;transition:transform 0.3s ease;}.menu-card h3{font-family:'Poppins';font-weight:600;font-size:1.3rem;margin-bottom:0.5rem;}.menu-card p{font-family:'Lato',sans-serif;color:var(--text-light);}.menu-card.card:hover{transform:translateY(-10px);box-shadow:0 12px 40px rgba(0,0,0,0.08);}.menu-card.card:hover .icon{transform:scale(1.1);}
+      #practice-results{margin-top:2rem;display:grid;grid-template-columns:1fr;gap:1.5rem;}.problem-card{background-color:#f9fafb;padding:1.5rem;border-radius:var(--radius);border:1px solid #e9ecef;}.solution{margin-top:1rem;padding:1rem;background-color:#eaf6f4;border-radius:8px;border-left:4px solid var(--primary-color);}
+      #auth-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;z-index:1000;animation:fadeIn 0.3s;}.auth-card{width:100%;max-width:400px;text-align:center}.auth-toggle{margin-bottom:1.5rem;}.auth-toggle button{background:none;border:none;cursor:pointer;padding:0.5rem 1rem;font-size:1.1rem;color:var(--text-light);transition:color 0.2s;}.auth-toggle button.active{font-weight:bold;color:var(--primary-color);border-bottom:2px solid var(--primary-color)}#register-form{display:none;}#auth-feedback{margin-top:1rem;color:red;min-height:1.2em;}.forgot-password{font-size:0.9rem;color:var(--text-light);text-decoration:underline;cursor:pointer;margin-top:1rem;display:inline-block}
       .chat-layout{display:grid;grid-template-columns:300px 1fr;gap:1.5rem;height:75vh;max-height:700px}
+      .settings-container h3{font-family:'Poppins',sans-serif}.toggle-switch{display:flex;align-items:center;justify-content:space-between;margin-top:.5rem}.slider{position:relative;cursor:pointer;width:50px;height:26px;background-color:#ccc;border-radius:26px;transition:.4s}.slider:before{position:absolute;content:"";height:18px;width:18px;left:4px;bottom:4px;background-color:white;border-radius:50%;transition:.4s}input:checked+.slider{background-color:var(--primary-color)}input:checked+.slider:before{transform:translateX(24px)}
     </style>
 </head>
 <body>
@@ -111,9 +100,11 @@
 
             <section id="view-ajustes" class="page-section">
                 <div class="page-header"><h2>Ajustes</h2></div>
-                <div class="card">
-                     <!-- Aquí puedes volver a añadir la lógica de ajustes como el cambio de idioma, etc. -->
-                     <p>Sección de ajustes en construcción.</p>
+                <div class="card" style="max-width: 600px; margin: auto;">
+                    <div class="settings-container" style="display:flex;flex-direction:column;gap:2.5rem;">
+                        <div><h3>Idioma</h3><select id="language-selector" class="input-field"><option value="es">Español</option><option value="en">English</option></select></div>
+                        <div><h3>Accesibilidad</h3><div class="toggle-switch"><p>Texto más grande</p><label><input type="checkbox" id="font-size-toggle" style="opacity:0; width:0; height:0;"><span class="slider"></span></label></div><div class="toggle-switch" style="margin-top:1rem;"><p>Modo de Alto Contraste</p><label><input type="checkbox" id="contrast-toggle" style="opacity:0; width:0; height:0;"><span class="slider"></span></label></div></div>
+                    </div>
                 </div>
                 <button class="btn btn-secondary btn-back">Regresar</button>
             </section>
@@ -137,10 +128,11 @@
             consejos: { container: document.getElementById('consejos-container') },
             auth: { overlay: document.getElementById('auth-overlay'), showLogin: document.getElementById('show-login'), showRegister: document.getElementById('show-register'), loginForm: document.getElementById('login-form'), registerForm: document.getElementById('register-form'), feedback: document.getElementById('auth-feedback'), forgotPassword: document.querySelector('.forgot-password') },
             chat: { yourUsername: document.getElementById('your-username'), yourCode: document.getElementById('your-code'), addForm: document.getElementById('add-friend-form'), friendInput: document.getElementById('friend-code-input'), list: document.getElementById('friends-list'), header: document.getElementById('chat-header'), messages: document.getElementById('chat-messages'), chatForm: document.getElementById('chat-form'), chatInput: document.getElementById('chat-input'), sendBtn: document.getElementById('chat-form').querySelector('button') },
-            quienes: { container: document.getElementById('quienes-somos-container') }
+            quienes: { container: document.getElementById('quienes-somos-container') },
+            ajustes: { lang: document.getElementById('language-selector'), fontSizeToggle: document.getElementById('font-size-toggle'), contrastToggle: document.getElementById('contrast-toggle') }
         };
         const socket = io();
-        const quienesSomosText = `<p>Somos un grupo de estudiantes de Educación para el Trabajo que hemos creado el proyecto “Potencia tu mente con matemáticas”, una plataforma web diseñada para apoyar el aprendizaje de las matemáticas de manera sencilla, práctica e interactiva. Nuestro objetivo es brindar a los estudiantes una herramienta accesible y motivadora que les permita reforzar sus conocimientos y superar las dificultades más comunes en esta área.</p><p>Nos caracterizamos por ser un equipo responsable, creativo y comprometido con la innovación educativa. Cada integrante aporta sus ideas, habilidades y talentos, lo que nos permite trabajar de manera colaborativa y complementaria. Nos guía la convicción de que la educación es la clave para el desarrollo personal y social, y que el uso de la tecnología puede convertirse en un aliado poderoso para mejorar los procesos de enseñanza y aprendizaje.</p><p>A través de este proyecto, buscamos ofrecer un servicio que no solo enseñe matemáticas, sino que también despierte en los estudiantes la confianza y el gusto por aprender. Queremos que “Potencia tu mente con matemáticas” sea un espacio digital donde cada usuario se sienta acompañado en su proceso educativo, encontrando materiales claros, niveles de práctica graduados y actividades interactivas que hagan del aprendizaje una experiencia dinámica.</p><p>Creemos firmemente que nuestro esfuerzo contribuirá al desarrollo académico de los estudiantes y al fortalecimiento de sus competencias matemáticas, demostrando que con constancia, innovación y dedicación se puede transformar la manera en que aprendemos.</p>`;
+        const quienesSomosText = `<p>Somos un grupo de estudiantes de Educación para el Trabajo que hemos creado el proyecto “Potencia tu mente con matemáticas”, una plataforma web diseñada para apoyar el aprendizaje de las matemáticas de manera sencilla, práctica e interactiva. Nuestro objetivo es brindar a los estudiantes una herramienta accesible y motivadora que les permita reforzar sus conocimientos y superar las dificultades más comunes en esta área.</p><p style="margin-top:1rem;">Nos caracterizamos por ser un equipo responsable, creativo y comprometido con la innovación educativa. Cada integrante aporta sus ideas, habilidades y talentos, lo que nos permite trabajar de manera colaborativa y complementaria. Nos guía la convicción de que la educación es la clave para el desarrollo personal y social, y que el uso de la tecnología puede convertirse en un aliado poderoso para mejorar los procesos de enseñanza y aprendizaje.</p><p style="margin-top:1rem;">A través de este proyecto, buscamos ofrecer un servicio que no solo enseñe matemáticas, sino que también despierte en los estudiantes la confianza y el gusto por aprender. Queremos que “Potencia tu mente con matemáticas” sea un espacio digital donde cada usuario se sienta acompañado en su proceso educativo, encontrando materiales claros, niveles de práctica graduados y actividades interactivas que hagan del aprendizaje una experiencia dinámica.</p><p style="margin-top:1rem;">Creemos firmemente que nuestro esfuerzo contribuirá al desarrollo académico de los estudiantes y al fortalecimiento de sus competencias matemáticas, demostrando que con constancia, innovación y dedicación se puede transformar la manera en que aprendemos.</p>`;
 
         function init() {
             if(document.getElementById('particles-js')) particlesJS('particles-js',{"particles":{"number":{"value":80,"density":{"enable":true,"value_area":800}},"color":{"value":"#ffffff"},"shape":{"type":"circle"},"opacity":{"value":0.5,"random":false},"size":{"value":3,"random":true},"line_linked":{"enable":true,"distance":150,"color":"#ffffff","opacity":0.4,"width":1},"move":{"enable":true,"speed":6}}});
@@ -149,6 +141,7 @@
             setupPractice();
             setupAuth();
             setupChat();
+            setupAjustes();
             ui.quienes.container.innerHTML = quienesSomosText;
             loadState();
         }
@@ -305,6 +298,34 @@
             ui.consejos.container.innerHTML = `<p style="text-align:center;">Generando consejos frescos...</p>`;
             ui.consejos.container.innerHTML = await getAIResponse('/api/generate-tips', {}, 'GET');
         }
+        function setupAjustes() {
+            const settings = {
+                load: function() {
+                    const lang = localStorage.getItem('appLang')||'es';
+                    const fontSize = localStorage.getItem('appFontSize')==='true';
+                    const contrast = localStorage.getItem('appContrast')==='true';
+                    ui.ajustes.lang.value = lang;
+                    ui.ajustes.fontSizeToggle.checked = fontSize;
+                    ui.ajustes.contrastToggle.checked = contrast;
+                    this.apply();
+                },
+                save: function() {
+                    localStorage.setItem('appLang', ui.ajustes.lang.value);
+                    localStorage.setItem('appFontSize', ui.ajustes.fontSizeToggle.checked);
+                    localStorage.setItem('appContrast', ui.ajustes.contrastToggle.checked);
+                    this.apply();
+                },
+                apply: function() {
+                    document.documentElement.lang = ui.ajustes.lang.value;
+                    document.body.classList.toggle('large-text', ui.ajustes.fontSizeToggle.checked);
+                    document.body.classList.toggle('dark-theme', ui.ajustes.contrastToggle.checked);
+                }
+            };
+            settings.load();
+            ui.ajustes.lang.addEventListener('change', () => settings.save());
+            ui.ajustes.fontSizeToggle.addEventListener('change', () => settings.save());
+            ui.ajustes.contrastToggle.addEventListener('change', () => settings.save());
+        }
 
         function setupChat() {
             socket.on('online users update', (users) => { state.onlineFriends = users; renderFriends(); });
@@ -316,51 +337,12 @@
             });
             ui.chat.chatForm.addEventListener('submit', sendChatMessage);
         }
-        function addFriend(e) {
-            e.preventDefault();
-            const code = ui.chat.friendInput.value.trim();
-            if (!code || code === state.currentUser.code) return;
-            socket.emit('add friend', code, (res) => {
-                if (res.success && !state.friends.find(f => f.code === res.friend.code)) {
-                    state.friends.push(res.friend);
-                    renderFriends();
-                } else { alert('Código no válido o amigo ya añadido.'); }
-            });
-            ui.chat.friendInput.value = '';
-        }
-        function renderFriends() {
-            if (!state.currentUser) return;
-            ui.chat.yourUsername.textContent = state.currentUser.username;
-            ui.chat.yourCode.textContent = state.currentUser.code;
-            ui.chat.list.innerHTML = state.friends.map(f => `<div class="card" data-code="${f.code}" style="cursor:pointer; padding: 0.8rem; margin-bottom: 0.5rem; ${f.code === state.activeChat ? 'background-color:#e0e6e8;' : ''}">${f.username}</div>`).join('');
-        }
-        function setActiveChat(code) {
-            state.activeChat = code;
-            ui.chat.header.textContent = `Chateando con ${state.friends.find(f=>f.code===code).username}`;
-            ui.chat.chatInput.disabled = false; ui.chat.sendBtn.disabled = false;
-            renderFriends(); renderMessages();
-        }
-        function sendChatMessage(e) {
-            e.preventDefault();
-            const text = ui.chat.chatInput.value.trim();
-            if (!text || !state.activeChat) return;
-            const message = { id: Date.now(), text };
-            socket.emit('private message', { toCode: state.activeChat, message });
-            handleNewMessage({ from: state.currentUser.username, message });
-            ui.chat.chatInput.value = '';
-        }
-        function handleNewMessage({ from, message }) {
-            const partnerCode = from === state.currentUser.username ? state.activeChat : state.friends.find(f => f.username === from)?.code;
-            if (!partnerCode) return;
-            state.messages[partnerCode] = state.messages[partnerCode] || [];
-            state.messages[partnerCode].push({ from, ...message });
-            if (partnerCode === state.activeChat) renderMessages();
-        }
-        function renderMessages() {
-            const chatMessagesDiv = ui.chat.messages;
-            chatMessagesDiv.innerHTML = (state.messages[state.activeChat] || []).map(({from, text}) => `<div class="message-bubble ${from === state.currentUser.username ? 'sent' : 'received'}">${text}</div>`).join('');
-            chatMessagesDiv.scrollTop = chatMessagesDiv.scrollHeight;
-        }
+        function addFriend(e) { e.preventDefault(); const code = ui.chat.friendInput.value.trim(); if (!code || !state.currentUser || code === state.currentUser.code) return; socket.emit('add friend', code, (res) => { if (res.success && !state.friends.find(f => f.code === res.friend.code)) { state.friends.push(res.friend); renderFriends(); } else { alert('Código no válido o amigo ya añadido.'); } }); ui.chat.friendInput.value = '';}
+        function renderFriends() { if (!state.currentUser) return; ui.chat.yourUsername.textContent = state.currentUser.username; ui.chat.yourCode.textContent = state.currentUser.code; ui.chat.list.innerHTML = state.friends.map(f => `<div class="card" data-code="${f.code}" style="cursor:pointer; padding: 0.8rem; margin-bottom: 0.5rem; ${f.code === state.activeChat ? 'background-color:#e0e6e8;' : ''}">${f.username}</div>`).join('');}
+        function setActiveChat(code) { state.activeChat = code; ui.chat.header.textContent = `Chateando con ${state.friends.find(f=>f.code===code).username}`; ui.chat.chatInput.disabled = false; ui.chat.sendBtn.disabled = false; renderFriends(); renderMessages(); }
+        function sendChatMessage(e) { e.preventDefault(); const text = ui.chat.chatInput.value.trim(); if (!text || !state.activeChat) return; const message = { id: Date.now(), text }; socket.emit('private message', { toCode: state.activeChat, message }); handleNewMessage({ from: state.currentUser.username, message }); ui.chat.chatInput.value = '';}
+        function handleNewMessage({ from, message }) { const partnerCode = from === state.currentUser.username ? state.activeChat : state.friends.find(f => f.username === from)?.code; if (!partnerCode) return; state.messages[partnerCode] = state.messages[partnerCode] || []; state.messages[partnerCode].push({ from, ...message }); if (partnerCode === state.activeChat) renderMessages();}
+        function renderMessages() { const chatMessagesDiv = ui.chat.messages; chatMessagesDiv.innerHTML = (state.messages[state.activeChat] || []).map(({from, text}) => `<div class="message-bubble ${from === state.currentUser.username ? 'sent' : 'received'}">${text}</div>`).join(''); chatMessagesDiv.scrollTop = chatMessagesDiv.scrollHeight;}
 
         init();
     });

@@ -1,4 +1,4 @@
-// server.js - VERSIÓN FINAL CON TODAS LAS NUEVAS FUNCIONALIDADES
+// server.js - VERSIÓN FINAL Y COMPLETA
 
 const express = require('express');
 const http = require('http');
@@ -6,7 +6,7 @@ const path = require('path');
 const socketIo = require('socket.io');
 const mongoose = require('mongoose');
 const { customAlphabet } = require('nanoid');
-const bcrypt = require('bcrypt'); // Librería para encriptar contraseñas
+const bcrypt = require('bcrypt');
 require('dotenv').config();
 
 const { GoogleGenerativeAI } = require("@google/generative-ai");
@@ -32,18 +32,13 @@ mongoose.connect(DATABASE_URL)
     .then(() => console.log('✅✅✅ CONEXIÓN CON LA BASE DE DATOS EXITOSA! ✅✅✅'))
     .catch(err => console.error('❌❌❌ ERROR AL CONECTAR A LA DB:', err));
 
-// --- MODELO DE DATOS (ACTUALIZADO) ---
 const UserSchema = new mongoose.Schema({
     code: { type: String, required: true, unique: true },
     username: { type: String, required: true, unique: true, index: true },
-    password: { type: String, required: true } // Campo para la contraseña encriptada
+    password: { type: String, required: true }
 });
 const User = mongoose.model('User', UserSchema);
 
-const ConceptHistorySchema = new mongoose.Schema({ userCode: { type: String, required: true, index: true }, topic: { type: String, required: true }, date: { type: Date, default: Date.now } });
-const ConceptHistory = mongoose.model('ConceptHistory', ConceptHistorySchema);
-
-// --- SERVIDOR WEB EXPRESS ---
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 
@@ -51,114 +46,109 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// --- NUEVAS RUTAS DE AUTENTICACIÓN ---
-
-// REGISTRO
+// --- RUTAS DE AUTENTICACIÓN ---
 app.post('/api/register', async (req, res) => {
-    const { username, password } = req.body;
-    if (!username || !password || password.length < 4) {
-        return res.status(400).json({ success: false, message: 'Usuario y contraseña (mín. 4 caracteres) son requeridos.' });
+    try {
+        const { username, password } = req.body;
+        if (!username || !password || password.length < 4) {
+            return res.status(400).json({ success: false, message: 'Usuario y contraseña (mín. 4 caracteres) son requeridos.' });
+        }
+        const existingUser = await User.findOne({ username });
+        if (existingUser) {
+            return res.status(409).json({ success: false, message: 'El nombre de usuario ya existe.' });
+        }
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+        const userCode = customAlphabet('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890', 6)();
+        const newUser = new User({ username, password: hashedPassword, code: userCode });
+        await newUser.save();
+        res.status(201).json({ success: true, message: 'Usuario creado exitosamente.' });
+    } catch (error) {
+        res.status(500).json({ success: false, message: 'Error en el servidor.' });
     }
-    const existingUser = await User.findOne({ username });
-    if (existingUser) {
-        return res.status(409).json({ success: false, message: 'El nombre de usuario ya existe.' });
-    }
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
-    const userCode = customAlphabet('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890', 6)();
-    const newUser = new User({ username, password: hashedPassword, code: userCode });
-    await newUser.save();
-    res.status(201).json({ success: true, message: 'Usuario creado exitosamente.' });
 });
-
-// LOGIN
 app.post('/api/login', async (req, res) => {
-    const { username, password } = req.body;
-    const user = await User.findOne({ username });
-    if (!user) {
-        return res.status(404).json({ success: false, message: 'Usuario o contraseña incorrectos.' });
+    try {
+        const { username, password } = req.body;
+        const user = await User.findOne({ username });
+        if (!user) {
+            return res.status(401).json({ success: false, message: 'Usuario o contraseña incorrectos.' });
+        }
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            return res.status(401).json({ success: false, message: 'Usuario o contraseña incorrectos.' });
+        }
+        res.json({ success: true, message: 'Inicio de sesión exitoso.', user: { username: user.username, code: user.code } });
+    } catch (error) {
+        res.status(500).json({ success: false, message: 'Error en el servidor.' });
     }
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-        return res.status(401).json({ success: false, message: 'Usuario o contraseña incorrectos.' });
-    }
-    res.json({ success: true, message: 'Inicio de sesión exitoso.', user: { username: user.username, code: user.code } });
 });
-
-// BORRAR CUENTA ("Restaurar Contraseña")
 app.post('/api/delete-account', async (req, res) => {
-    const { username } = req.body;
-    const result = await User.deleteOne({ username });
-    if (result.deletedCount > 0) {
-        res.json({ success: true, message: 'Cuenta eliminada. Ahora puedes registrarte de nuevo.' });
-    } else {
-        res.status(404).json({ success: false, message: 'No se encontró un usuario con ese nombre.' });
+    try {
+        const { username } = req.body;
+        const result = await User.deleteOne({ username });
+        if (result.deletedCount > 0) {
+            res.json({ success: true, message: 'Cuenta eliminada. Ahora puedes registrarte de nuevo.' });
+        } else {
+            res.status(404).json({ success: false, message: 'No se encontró un usuario con ese nombre.' });
+        }
+    } catch (error) {
+        res.status(500).json({ success: false, message: 'Error en el servidor.' });
     }
 });
 
-
-// --- RUTAS DE IA (ACTUALIZADAS Y NUEVAS) ---
-
-// Tutor IA (sin cambios)
-app.post('/api/explain-math', async (req, res) => { /* ...código sin cambios... */ });
-
-// NUEVA RUTA: Práctica con IA
-app.post('/api/generate-problems', async (req, res) => {
-    if (!model) return res.status(503).json({ error: "El servicio de IA no está disponible." });
+// --- RUTAS DE IA ---
+app.post('/api/explain-math', async (req, res) => {
+    if (!model) return res.status(503).json({ error: "Servicio de IA no disponible." });
     const { topic } = req.body;
     if (!topic) return res.status(400).json({ error: "El tema es requerido." });
-
     try {
-        const prompt = `Genera 4 problemas matemáticos para un estudiante de secundaria sobre el tema: "${topic}". Varía la dificultad. Incluye una mezcla de ejercicios directos y situaciones problemáticas. Devuelve la respuesta como HTML, usando una estructura de <h4> para la pregunta y <p> para la respuesta, que inicialmente estará oculta. Ejemplo de un problema: <div class="problem-card"><h4>Problema 1: ...</h4><p class="solution" style="display:none;">Respuesta: ...</p><button class="show-solution-btn">Ver Respuesta</button></div>`;
+        const prompt = `Como tutor de matemáticas, explica el concepto "${topic}" para un estudiante de secundaria. Usa HTML (h3, p, ul, li). Cubre: 1. Definición simple. 2. Fórmula o pasos clave. 3. Ejemplo práctico. 4. Errores comunes.`;
+        const result = await model.generateContent(prompt);
+        res.json({ explanation: result.response.text() });
+    } catch (error) { console.error("Error en Tutor IA:", error); res.status(500).json({ error: "No se pudo generar la explicación." }); }
+});
+app.post('/api/generate-problems', async (req, res) => {
+    if (!model) return res.status(503).json({ error: "Servicio de IA no disponible." });
+    const { topic } = req.body;
+    if (!topic) return res.status(400).json({ error: "El tema es requerido." });
+    try {
+        const prompt = `Crea 4 problemas matemáticos sobre "${topic}" para secundaria. Mezcla ejercicios y situaciones problemáticas. Devuelve la respuesta en HTML, usando esta estructura para cada uno: <div class="problem-card"><h4>Problema X: [Pregunta]</h4><p class="solution" style="display:none;">Respuesta: [Solución]</p><button class="show-solution-btn">Ver Respuesta</button></div>`;
         const result = await model.generateContent(prompt);
         res.json({ problems: result.response.text() });
-    } catch (error) {
-        res.status(500).json({ error: "No se pudo generar los problemas." });
-    }
+    } catch (error) { console.error("Error en Práctica IA:", error); res.status(500).json({ error: "No se pudo generar los problemas." }); }
 });
-
-// NUEVA RUTA: Consejos con IA
 app.get('/api/generate-tips', async (req, res) => {
-    if (!model) return res.status(503).json({ error: "El servicio de IA no está disponible." });
+    if (!model) return res.status(503).json({ error: "Servicio de IA no disponible." });
     try {
-        const prompt = `Genera 6 consejos cortos y creativos para estudiar matemáticas. Deben ser para estudiantes de secundaria. Devuelve la respuesta como HTML, donde cada consejo es un <div> con un <h3> para el título y <p> para la descripción. Ejemplo: <div><h3>Visualiza el Problema</h3><p>Dibuja diagramas o gráficos...</p></div>`;
+        const prompt = `Genera 6 consejos cortos y creativos para estudiar matemáticas para secundaria. Formatea la respuesta en HTML, donde cada consejo es un div con clase "card menu-card", un div con clase "icon" y un ícono de font-awesome (ej: <i class="fas fa-lightbulb"></i>), un <h3> para el título y un <p> para la descripción.`;
         const result = await model.generateContent(prompt);
         res.json({ tips: result.response.text() });
-    } catch (error) {
-        res.status(500).json({ error: "No se pudo generar los consejos." });
-    }
+    } catch (error) { console.error("Error en Consejos IA:", error); res.status(500).json({ error: "No se pudo generar los consejos." }); }
 });
 
-
-// --- LÓGICA DEL CHAT (Socket.io) ---
+// --- LÓGICA DEL CHAT ---
 const onlineUsers = {}; const userSockets = {};
 io.on('connection', (socket) => {
-    // La conexión ahora se maneja post-login desde el cliente
     socket.on('register user', ({ username, code }) => {
-        socket.username = username;
-        socket.userCode = code;
-        onlineUsers[username] = code;
-        userSockets[code] = socket.id;
+        socket.username = username; socket.userCode = code;
+        onlineUsers[username] = code; userSockets[code] = socket.id;
         io.emit('online users update', Object.keys(onlineUsers));
     });
-
     socket.on('add friend', async (friendCode, callback) => {
-        const friend = await User.findOne({ code: friendCode }, 'username code');
-        callback({ success: !!friend, friend: friend });
+        const friend = await User.findOne({ code: friendCode }, 'username code').lean();
+        callback({ success: !!friend, friend });
     });
-
     socket.on('private message', ({ toCode, message }) => {
         if (!socket.username) return;
         const recipientSocketId = userSockets[toCode];
         if (recipientSocketId) { io.to(recipientSocketId).emit('private message', { from: socket.username, message }); }
     });
-    
     socket.on('disconnect', () => {
         if (socket.username) { delete onlineUsers[socket.username]; delete userSockets[socket.userCode]; io.emit('online users update', Object.keys(onlineUsers)); }
     });
 });
 
-// --- INICIAR SERVIDOR ---
 server.listen(PORT, () => {
     console.log(`🚀 Servidor 'Potencia Tu Mente' corriendo en http://localhost:${PORT}`);
 });
