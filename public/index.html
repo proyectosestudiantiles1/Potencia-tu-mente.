@@ -177,6 +177,7 @@
         function showView(viewId) {
             const currentView = viewId || 'view-menu';
             
+            // Lógica de visualización principal
             if (sessionStorage.getItem('visitedBefore')) {
                 ui.main.style.display = 'block';
                 ui.inicio.view.style.display = 'none';
@@ -186,19 +187,28 @@
                 ui.inicio.view.style.display = 'flex';
                 return;
             }
-            
-            ui.auth.overlay.style.display = 'none'; // Ocultar overlay por defecto
-            if (currentView === 'view-chat' && !state.currentUser) {
-                ui.auth.overlay.style.display = 'flex';
-            }
 
+            // Ocultar overlay y chat por defecto
+            ui.auth.overlay.style.display = 'none';
+            ui.chat.view.style.display = 'none';
+            
+            // Ocultar todas las secciones
             ui.sections.forEach(s => s.classList.remove('active'));
+            
             const activeSection = document.getElementById(currentView);
-            if (activeSection) {
-                 activeSection.classList.add('active');
-                 ui.chat.view.style.display = (currentView === 'view-chat' && state.currentUser) ? 'block' : 'none';
+
+            // Lógica específica para la vista de chat
+            if (currentView === 'view-chat') {
+                document.getElementById('view-chat').classList.add('active');
+                if (state.currentUser) {
+                    ui.chat.view.style.display = 'block';
+                } else {
+                    ui.auth.overlay.style.display = 'flex';
+                }
+            } else if (activeSection) {
+                activeSection.classList.add('active');
             } else {
-                 document.getElementById('view-menu').classList.add('active');
+                document.getElementById('view-menu').classList.add('active');
             }
 
             if (currentView === 'view-consejos') generateTips();
@@ -242,7 +252,7 @@
                 sessionStorage.setItem('currentUser', JSON.stringify(data.user));
                 ui.logoutButton.style.display = 'block';
                 socket.emit('register user', state.currentUser);
-                navigateTo('view-chat');
+                navigateTo('view-chat'); // Navega a la vista de chat, que ahora se mostrará correctamente
             } else { ui.auth.feedback.textContent = data.message; }
         }
         async function handleRegister(e) {
