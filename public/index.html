@@ -198,6 +198,8 @@
                 state.currentUser = JSON.parse(user);
                 ui.logoutButton.style.display = 'block';
                 socket.emit('register user', state.currentUser);
+            } else {
+                 ui.logoutButton.style.display = 'none';
             }
             showView(location.hash.substring(1) || 'view-menu');
         }
@@ -264,10 +266,7 @@
             showView('view-menu');
         }
 
-        function cleanAIResponse(text) {
-            return text.replace(/```html|```/g, '').trim();
-        }
-
+        function cleanAIResponse(text) { return text.replace(/```html|```/g, '').trim(); }
         async function getAIResponse(endpoint, body = {}, method = 'POST') {
             const options = { method, headers: { 'Content-Type': 'application/json' } };
             if (method === 'POST') options.body = JSON.stringify(body);
@@ -339,7 +338,6 @@
             ui.ajustes.fontSizeToggle.addEventListener('change', () => settings.save());
             ui.ajustes.contrastToggle.addEventListener('change', () => settings.save());
         }
-
         function applyTranslations() {
             const lang = ui.ajustes.lang.value || 'es';
             document.querySelectorAll('[data-lang-key]').forEach(el => {

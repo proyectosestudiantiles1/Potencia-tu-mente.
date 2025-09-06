@@ -103,7 +103,7 @@ app.post('/api/generate-problems', async (req, res) => {
     const { topic } = req.body;
     if (!topic) return res.status(400).json({ error: "El tema es requerido." });
     try {
-        const prompt = `Crea 4 problemas matemáticos sobre "${topic}" para un estudiante de secundaria. Varía la dificultad e incluye una mezcla de ejercicios directos y situaciones problemáticas. Devuelve la respuesta usando únicamente HTML, con esta estructura exacta para cada problema: <div class="problem-card"><h4>Problema X: [Aquí la pregunta]</h4><p class="solution" style="display:none;">Respuesta: [Aquí la solución concisa]</p><button class="show-solution-btn btn btn-secondary">Ver Respuesta</button></div> No incluyas markdown como \`\`\`.`;
+        const prompt = `Crea 4 problemas matemáticos sobre "${topic}" para secundaria. Mezcla ejercicios y situaciones problemáticas. Devuelve la respuesta en HTML, usando esta estructura exacta para cada uno: <div class="problem-card"><h4>Problema X: [Aquí la pregunta]</h4><p class="solution" style="display:none;">Respuesta: [Aquí la solución concisa]</p><button class="show-solution-btn btn btn-secondary">Ver Respuesta</button></div> No incluyas markdown como \`\`\`.`;
         const result = await model.generateContent(prompt);
         res.json({ problems: result.response.text() });
     } catch (error) { console.error("Error en Práctica IA:", error); res.status(500).json({ error: "No se pudo generar los problemas." }); }
