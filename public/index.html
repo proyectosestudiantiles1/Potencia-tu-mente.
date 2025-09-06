@@ -34,18 +34,12 @@
       #auth-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;z-index:1000;animation:fadeIn 0.3s;}.auth-card{width:100%;max-width:400px;text-align:center}.auth-toggle{margin-bottom:1.5rem;}.auth-toggle button{background:none;border:none;cursor:pointer;padding:0.5rem 1rem;font-size:1.1rem;color:var(--text-light);transition:color 0.2s;}.auth-toggle button.active{font-weight:bold;color:var(--primary-color);border-bottom:2px solid var(--primary-color)}#register-form{display:none;}#auth-feedback{margin-top:1rem;color:red;min-height:1.2em;}.forgot-password{font-size:0.9rem;color:var(--text-light);text-decoration:underline;cursor:pointer;margin-top:1rem;display:inline-block}
       #login-form, #register-form { margin-top: 1.5rem; }
       
-      /* --- FIX DEFINITIVO: Estilos del Chat --- */
+      /* --- ESTILOS DEFINITIVOS DEL CHAT (USANDO FLEXBOX) --- */
       .chat-container {
-        /* Por defecto, no tiene layout complejo */
-        opacity: 0; /* Empieza invisible para evitar parpadeos */
-      }
-      .chat-container.layout-active {
-        display: flex; /* El layout se activa con JS */
+        display: flex;
         gap: 1.5rem;
         height: 75vh;
         max-height: 700px;
-        opacity: 1;
-        transition: opacity 0.3s;
       }
       .friends-panel {
         width: 300px;
@@ -63,7 +57,7 @@
       .message-bubble{padding: .6rem 1rem; border-radius: 20px; margin-bottom: .5rem; max-width: 80%; word-wrap: break-word;}.message-bubble.sent{background: var(--primary-gradient); color: white; margin-left: auto; border-bottom-right-radius: 5px;}.message-bubble.received{background: var(--card-bg); color: var(--text-dark); margin-right: auto; border-bottom-left-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);}
       #add-friend-form button { padding: 0; min-width: 46px; max-width: 46px; height: 46px; flex-shrink: 0; line-height: 1; font-size: 1.5rem; }
       .btn-back { display: block; margin: 1.5rem auto 0; width: fit-content; }
-      /* -------------------------------------- */
+      /* -------------------------------------------------------- */
 
       .settings-container h3{font-family:'Poppins',sans-serif}.toggle-switch{display:flex;align-items:center;justify-content:space-between;margin-top:.5rem}.slider{position:relative;cursor:pointer;width:50px;height:26px;background-color:#ccc;border-radius:26px;transition:.4s}.slider:before{position:absolute;content:"";height:18px;width:18px;left:4px;bottom:4px;background-color:white;border-radius:50%;transition:.4s}input:checked+.slider{background-color:var(--primary-color)}input:checked+.slider:before{transform:translateX(24px)}
     </style>
@@ -110,7 +104,7 @@
                 
                 <div class="chat-view" style="display: none;">
                     <div class="page-header"><h2 data-lang-key="chatTitle">Aprendamos Juntos</h2></div>
-                    <div id="chat-container" class="chat-container">
+                    <div class="chat-container">
                         <aside class="card friends-panel">
                             <p data-lang-key="helloText">Hola, <strong id="your-username" style="color:var(--primary-color)"></strong></p>
                             <p style="font-size:0.9em;" data-lang-key="yourCodeText">Tu código: <strong id="your-code" title="Clic para copiar" style="cursor:pointer; user-select:all;"></strong></p>
@@ -161,7 +155,6 @@
             auth: { overlay: document.getElementById('auth-overlay'), showLogin: document.getElementById('show-login'), showRegister: document.getElementById('show-register'), loginForm: document.getElementById('login-form'), registerForm: document.getElementById('register-form'), feedback: document.getElementById('auth-feedback'), forgotPassword: document.querySelector('.forgot-password') },
             chat: { 
                 view: document.querySelector('.chat-view'), 
-                container: document.getElementById('chat-container'),
                 yourUsername: document.getElementById('your-username'), 
                 yourCode: document.getElementById('your-code'), 
                 addForm: document.getElementById('add-friend-form'), 
@@ -214,7 +207,7 @@
             showView(viewId);
         }
         
-        // --- FIX DEFINITIVO: Lógica de showView que FUERZA el renderizado ---
+        // --- LÓGICA DE VISUALIZACIÓN REESCRITA Y A PRUEBA DE ERRORES ---
         function showView(viewId) {
             const currentView = viewId || 'view-menu';
             
@@ -228,10 +221,8 @@
             ui.main.style.display = 'block';
             ui.inicio.view.style.display = 'none';
             
-            // Oculta todas las secciones y quita el layout activo del chat
             ui.sections.forEach(s => s.classList.remove('active'));
-            ui.chat.container.classList.remove('layout-active');
-
+            
             const activeSection = document.getElementById(currentView);
             if (activeSection) {
                  activeSection.classList.add('active');
@@ -239,26 +230,34 @@
                 document.getElementById('view-menu').classList.add('active');
             }
 
+            // Lógica específica solo para el chat
             if (currentView === 'view-chat') {
-                // Actualiza los datos del usuario CADA VEZ que se muestra el chat
-                updateChatUI();
-
-                if (state.currentUser) {
-                    ui.auth.overlay.style.display = 'none';
-                    ui.chat.view.style.display = 'block';
-                    // FUERZA BRUTA: Espera un instante (0ms) para que el DOM se actualice a "block"
-                    // y LUEGO añade la clase que activa el layout flexbox.
-                    // Esto obliga al navegador a recalcular el layout correctamente.
-                    setTimeout(() => {
-                        ui.chat.container.classList.add('layout-active');
-                    }, 0);
-                } else {
-                    ui.auth.overlay.style.display = 'flex';
-                    ui.chat.view.style.display = 'none';
-                }
+                handleChatView();
             }
 
             if (currentView === 'view-consejos') generateTips();
+        }
+        
+        // --- FUNCIÓN DEDICADA Y CENTRALIZADA PARA MANEJAR EL CHAT ---
+        function handleChatView() {
+            if (state.currentUser) {
+                // Si el usuario está logueado, se configura la vista del chat
+                ui.auth.overlay.style.display = 'none';
+                ui.chat.view.style.display = 'block';
+                ui.logoutButton.style.display = 'block';
+
+                // **LA CLAVE**: Se actualizan los datos AHORA que la vista es visible.
+                ui.chat.yourUsername.textContent = state.currentUser.username;
+                ui.chat.yourCode.textContent = state.currentUser.code;
+                
+                socket.emit('register user', state.currentUser);
+                renderFriends();
+            } else {
+                // Si no, se muestra el formulario de login
+                ui.auth.overlay.style.display = 'flex';
+                ui.chat.view.style.display = 'none';
+                ui.logoutButton.style.display = 'none';
+            }
         }
 
         function loadStateAndShowView() {
@@ -266,13 +265,26 @@
             if (user) {
                 state.currentUser = JSON.parse(user);
                 loadFriends(); 
-                updateChatUI();
-            } else {
-                 ui.logoutButton.style.display = 'none';
             }
             showView(location.hash.substring(1));
         }
 
+        async function handleLogin(e) {
+            e.preventDefault();
+            const username = ui.auth.loginForm.querySelector('#login-username').value;
+            const password = ui.auth.loginForm.querySelector('#login-password').value;
+            const res = await fetch('/api/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username, password }) });
+            const data = await res.json();
+            if (data.success) {
+                state.currentUser = data.user;
+                sessionStorage.setItem('currentUser', JSON.stringify(data.user));
+                loadFriends();
+                // Simplemente navega. `showView` y `handleChatView` harán el resto.
+                navigateTo('view-chat');
+            } else { ui.auth.feedback.textContent = data.message; }
+        }
+
+        // --- El resto del código JS no necesita cambios ---
         function setupAuth() {
             ui.auth.showLogin.addEventListener('click', () => toggleAuthForms(true));
             ui.auth.showRegister.addEventListener('click', () => toggleAuthForms(false));
@@ -288,19 +300,6 @@
             ui.auth.showRegister.classList.toggle('active', !showLogin);
             ui.auth.feedback.textContent = '';
         }
-        async function handleLogin(e) {
-            e.preventDefault();
-            const username = ui.auth.loginForm.querySelector('#login-username').value;
-            const password = ui.auth.loginForm.querySelector('#login-password').value;
-            const res = await fetch('/api/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username, password }) });
-            const data = await res.json();
-            if (data.success) {
-                state.currentUser = data.user;
-                sessionStorage.setItem('currentUser', JSON.stringify(data.user));
-                loadFriends();
-                navigateTo('view-chat');
-            } else { ui.auth.feedback.textContent = data.message; }
-        }
         async function handleRegister(e) { e.preventDefault(); const username = ui.auth.registerForm.querySelector('#register-username').value; const password = ui.auth.registerForm.querySelector('#register-password').value; const res = await fetch('/api/register', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username, password }) }); const data = await res.json(); if (data.success) { alert('¡Cuenta creada! Ahora puedes iniciar sesión.'); toggleAuthForms(true); } else { ui.auth.feedback.textContent = data.message; } }
         async function handleForgotPassword() { const username = prompt('Ingresa tu nombre de usuario para eliminar tu cuenta y poder registrarte de nuevo.'); if (!username) return; if (confirm(`¿Estás seguro? Se eliminará tu cuenta y tu lista de amigos permanentemente. Esta acción no se puede deshacer.`)) { const res = await fetch('/api/delete-account', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username }) }); const data = await res.json(); alert(data.message); if (data.success && state.currentUser && state.currentUser.username === username) { handleLogout(); } } }
         function handleLogout() { if (state.currentUser) { localStorage.removeItem(`friends_${state.currentUser.username}`); } state.currentUser = null; state.friends = []; sessionStorage.removeItem('currentUser'); navigateTo('view-menu'); location.reload(); }
@@ -314,7 +313,6 @@
         function applyTranslations() { const lang = ui.ajustes.lang.value || 'es'; document.querySelectorAll('[data-lang-key]').forEach(el => { const key = el.dataset.langKey; const translation = (translations[lang] && translations[lang][key]) || translations['es'][key]; if (translation) el.innerHTML = translation; }); }
 
         function setupChat() { socket.on('online users update', (users) => { state.onlineFriends = users; renderFriends(); }); socket.on('private message', handleNewMessage); ui.chat.addForm.addEventListener('submit', addFriend); ui.chat.list.addEventListener('click', (e) => { const friendItem = e.target.closest('[data-code]'); if (friendItem) setActiveChat(friendItem.dataset.code); }); ui.chat.chatForm.addEventListener('submit', sendChatMessage); }
-        function updateChatUI() { if (!state.currentUser) return; ui.logoutButton.style.display = 'block'; ui.chat.yourUsername.textContent = state.currentUser.username; ui.chat.yourCode.textContent = state.currentUser.code; socket.emit('register user', state.currentUser); renderFriends(); }
         function saveFriends() { if (state.currentUser) { localStorage.setItem(`friends_${state.currentUser.username}`, JSON.stringify(state.friends)); } }
         function loadFriends() { if (state.currentUser) { const savedFriends = localStorage.getItem(`friends_${state.currentUser.username}`); state.friends = savedFriends ? JSON.parse(savedFriends) : []; } }
         function addFriend(e) { e.preventDefault(); const code = ui.chat.friendInput.value.trim(); if (!code || !state.currentUser || code === state.currentUser.code) return; socket.emit('add friend', code, (res) => { if (res.success && !state.friends.find(f => f.code === res.friend.code)) { state.friends.push(res.friend); saveFriends(); renderFriends(); } else { alert('Código no válido o amigo ya añadido.'); } }); ui.chat.friendInput.value = ''; }
