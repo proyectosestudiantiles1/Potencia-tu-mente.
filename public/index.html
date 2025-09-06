@@ -94,7 +94,7 @@
                         <aside class="card"><p data-lang-key="helloText">Hola, <strong id="your-username" style="color:var(--primary-color)"></strong></p><p style="font-size:0.9em;" data-lang-key="yourCodeText">Tu código: <strong id="your-code" title="Clic para copiar" style="cursor:pointer; user-select:all;"></strong></p><h3 style="margin-top:1.5rem;" data-lang-key="friendsTitle">Amigos</h3><form id="add-friend-form" class="input-group"><input id="friend-code-input" class="input-field" placeholder="Código de amigo..." required><button type="submit" class="btn">+</button></form><div id="friends-list"></div></aside>
                         <div class="card chat-window"><h3 id="chat-header" data-lang-key="selectFriendText">Selecciona un amigo</h3><div id="chat-messages" style="border:1px solid #ddd; padding:1rem; border-radius:var(--radius); flex-grow:1; overflow-y:auto; margin-bottom:1rem;"></div><form id="chat-form" class="input-group"><input id="chat-input" class="input-field" placeholder="Escribe un mensaje..." autocomplete="off" required disabled><button type="submit" class="btn" disabled data-lang-key="sendButton">Enviar</button></form></div>
                     </div>
-                    <button class="btn btn-secondary btn-back" style="margin: 1rem auto; display: block;">Regresar al Menú</button>
+                    <button class="btn btn-secondary btn-back">Regresar</button>
                 </div>
             </section>
 
@@ -187,13 +187,13 @@
                 return;
             }
             
+            ui.sections.forEach(s => s.classList.remove('active'));
+            const activeSection = document.getElementById(currentView);
+
+            // Lógica de visibilidad centralizada
             ui.auth.overlay.style.display = 'none';
             ui.chat.view.style.display = 'none';
             
-            ui.sections.forEach(s => s.classList.remove('active'));
-            
-            const activeSection = document.getElementById(currentView);
-
             if (currentView === 'view-chat') {
                 document.getElementById('view-chat').classList.add('active');
                 if (state.currentUser) {
