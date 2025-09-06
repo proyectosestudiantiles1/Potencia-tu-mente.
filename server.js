@@ -1,4 +1,4 @@
-// server.js - VERSIÓN FINAL DEFINITIVA
+// server.js - VERSIÓN FINAL Y COMPLETA
 
 const express = require('express');
 const http = require('http');
@@ -65,6 +65,7 @@ app.post('/api/register', async (req, res) => {
         res.status(201).json({ success: true, message: 'Usuario creado exitosamente.' });
     } catch (error) { res.status(500).json({ success: false, message: 'Error en el servidor.' }); }
 });
+
 app.post('/api/login', async (req, res) => {
     try {
         const { username, password } = req.body;
@@ -75,6 +76,7 @@ app.post('/api/login', async (req, res) => {
         res.json({ success: true, user: { username: user.username, code: user.code } });
     } catch (error) { res.status(500).json({ success: false, message: 'Error en el servidor.' }); }
 });
+
 app.post('/api/delete-account', async (req, res) => {
     try {
         const { username } = req.body;

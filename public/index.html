@@ -83,7 +83,7 @@
                     <div class="card auth-card">
                         <div class="auth-toggle"><button id="show-login" class="active" data-lang-key="loginTitle">Iniciar Sesión</button><button id="show-register" data-lang-key="registerTitle">Crear Cuenta</button></div>
                         <form id="login-form"><div class="input-group" style="flex-direction:column; gap: 0.5rem;"><input type="text" id="login-username" class="input-field" placeholder="Nombre de usuario" required><input type="password" id="login-password" class="input-field" placeholder="Contraseña" required></div><button type="submit" class="btn" data-lang-key="loginButton">Entrar</button></form>
-                        <form id="register-form"><div class="input-group" style="flex-direction:column; gap: 0.5rem;"><input type="text" id="register-username" class="input-field" placeholder="Nuevo nombre de usuario" required><input type="password" id="register-password" class="input-field" placeholder="Nueva contraseña (mín. 4 caracteres)" required minlength="4"></div><button type="submit" class="btn" data-lang-key="registerButton">Registrarme</button></form>
+                        <form id="register-form" style="display:none;"><div class="input-group" style="flex-direction:column; gap: 0.5rem;"><input type="text" id="register-username" class="input-field" placeholder="Nuevo nombre de usuario" required><input type="password" id="register-password" class="input-field" placeholder="Nueva contraseña (mín. 4 caracteres)" required minlength="4"></div><button type="submit" class="btn" data-lang-key="registerButton">Registrarme</button></form>
                         <p id="auth-feedback"></p>
                         <a class="forgot-password" data-lang-key="forgotPassword">¿Olvidaste tu contraseña?</a>
                     </div>
@@ -94,7 +94,7 @@
                         <aside class="card"><p data-lang-key="helloText">Hola, <strong id="your-username" style="color:var(--primary-color)"></strong></p><p style="font-size:0.9em;" data-lang-key="yourCodeText">Tu código: <strong id="your-code" title="Clic para copiar" style="cursor:pointer; user-select:all;"></strong></p><h3 style="margin-top:1.5rem;" data-lang-key="friendsTitle">Amigos</h3><form id="add-friend-form" class="input-group"><input id="friend-code-input" class="input-field" placeholder="Código de amigo..." required><button type="submit" class="btn">+</button></form><div id="friends-list"></div></aside>
                         <div class="card chat-window"><h3 id="chat-header" data-lang-key="selectFriendText">Selecciona un amigo</h3><div id="chat-messages" style="border:1px solid #ddd; padding:1rem; border-radius:var(--radius); flex-grow:1; overflow-y:auto; margin-bottom:1rem;"></div><form id="chat-form" class="input-group"><input id="chat-input" class="input-field" placeholder="Escribe un mensaje..." autocomplete="off" required disabled><button type="submit" class="btn" disabled data-lang-key="sendButton">Enviar</button></form></div>
                     </div>
-                    <button class="btn btn-secondary btn-back">Regresar</button>
+                    <button class="btn btn-secondary btn-back" style="margin: 1rem auto; display: block;">Regresar al Menú</button>
                 </div>
             </section>
 
@@ -177,7 +177,6 @@
         function showView(viewId) {
             const currentView = viewId || 'view-menu';
             
-            // Lógica de visualización principal
             if (sessionStorage.getItem('visitedBefore')) {
                 ui.main.style.display = 'block';
                 ui.inicio.view.style.display = 'none';
@@ -187,30 +186,26 @@
                 ui.inicio.view.style.display = 'flex';
                 return;
             }
-
-            // Ocultar overlay y chat por defecto
+            
             ui.auth.overlay.style.display = 'none';
             ui.chat.view.style.display = 'none';
             
-            // Ocultar todas las secciones
             ui.sections.forEach(s => s.classList.remove('active'));
             
             const activeSection = document.getElementById(currentView);
-
-            // Lógica específica para la vista de chat
+            if (activeSection) {
+                activeSection.classList.add('active');
+            } else {
+                document.getElementById('view-menu').classList.add('active');
+            }
+            
             if (currentView === 'view-chat') {
-                document.getElementById('view-chat').classList.add('active');
                 if (state.currentUser) {
                     ui.chat.view.style.display = 'block';
                 } else {
                     ui.auth.overlay.style.display = 'flex';
                 }
-            } else if (activeSection) {
-                activeSection.classList.add('active');
-            } else {
-                document.getElementById('view-menu').classList.add('active');
             }
-
             if (currentView === 'view-consejos') generateTips();
         }
 
@@ -252,7 +247,7 @@
                 sessionStorage.setItem('currentUser', JSON.stringify(data.user));
                 ui.logoutButton.style.display = 'block';
                 socket.emit('register user', state.currentUser);
-                navigateTo('view-chat'); // Navega a la vista de chat, que ahora se mostrará correctamente
+                navigateTo('view-chat');
             } else { ui.auth.feedback.textContent = data.message; }
         }
         async function handleRegister(e) {
