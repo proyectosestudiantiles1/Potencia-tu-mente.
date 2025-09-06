@@ -160,49 +160,46 @@
             ui.inicio.button.addEventListener('click', enterApp);
             ui.navLinks.forEach(link => link.addEventListener('click', handleNav));
             ui.backButtons.forEach(btn => btn.addEventListener('click', () => { window.history.back(); }));
-            window.addEventListener('popstate', () => showView(location.hash.substring(1)));
+            window.addEventListener('popstate', () => showView(location.hash.substring(1) || 'view-menu'));
         }
-
         function enterApp() {
             sessionStorage.setItem('visitedBefore', 'true');
             navigateTo('view-menu');
         }
-
         function handleNav(e) {
             e.preventDefault();
             navigateTo(e.currentTarget.getAttribute('href').substring(1));
         }
-
         function navigateTo(viewId) {
             history.pushState({viewId}, '', `#${viewId}`);
             showView(viewId);
         }
-
         function showView(viewId) {
             const currentView = viewId || 'view-menu';
             
-            if (currentView === 'view-chat' && !state.currentUser) {
-                ui.auth.overlay.style.display = 'flex';
-                ui.chat.view.style.display = 'none'; // Asegúrate de que el chat está oculto
-                document.getElementById(currentView)?.classList.add('active'); // Mantiene la sección activa en segundo plano
-                return;
-            }
-
             if (sessionStorage.getItem('visitedBefore')) {
                 ui.main.style.display = 'block';
                 ui.inicio.view.style.display = 'none';
             } else {
+                if (currentView !== 'view-menu' && currentView !== '') history.replaceState(null, '', '#');
                 ui.main.style.display = 'none';
                 ui.inicio.view.style.display = 'flex';
                 return;
             }
+            
+            ui.auth.overlay.style.display = 'none'; // Ocultar overlay por defecto
+            if (currentView === 'view-chat' && !state.currentUser) {
+                ui.auth.overlay.style.display = 'flex';
+            }
 
             ui.sections.forEach(s => s.classList.remove('active'));
             const activeSection = document.getElementById(currentView);
-            if (activeSection) activeSection.classList.add('active');
-            else document.getElementById('view-menu').classList.add('active');
-            
-            ui.chat.view.style.display = (currentView === 'view-chat' && state.currentUser) ? 'block' : 'none';
+            if (activeSection) {
+                 activeSection.classList.add('active');
+                 ui.chat.view.style.display = (currentView === 'view-chat' && state.currentUser) ? 'block' : 'none';
+            } else {
+                 document.getElementById('view-menu').classList.add('active');
+            }
 
             if (currentView === 'view-consejos') generateTips();
         }
@@ -243,7 +240,6 @@
             if (data.success) {
                 state.currentUser = data.user;
                 sessionStorage.setItem('currentUser', JSON.stringify(data.user));
-                ui.auth.overlay.style.display = 'none';
                 ui.logoutButton.style.display = 'block';
                 socket.emit('register user', state.currentUser);
                 navigateTo('view-chat');
@@ -284,14 +280,14 @@
             const options = { method, headers: { 'Content-Type': 'application/json' } };
             if (method === 'POST') options.body = JSON.stringify(body);
             const button = body.topic ? (endpoint.includes('problems') ? ui.practice.button : ui.ia.button) : null;
-            if(button) button.disabled = true;
+            if (button) button.disabled = true;
             try {
                 const res = await fetch(endpoint, options);
                 const data = await res.json();
                 if (res.ok) return cleanAIResponse(data.explanation || data.problems || data.tips);
                 return `<p style="color:red;">${data.error || 'Error de la IA.'}</p>`;
             } catch (error) { return `<p style="color:red;">Error de conexión.</p>`; }
-            finally { if(button) button.disabled = false; }
+            finally { if (button) button.disabled = false; }
         }
         
         function setupIA() {

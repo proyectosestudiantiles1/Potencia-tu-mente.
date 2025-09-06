@@ -32,6 +32,7 @@ mongoose.connect(DATABASE_URL)
     .then(() => console.log('✅✅✅ CONEXIÓN CON LA BASE DE DATOS EXITOSA! ✅✅✅'))
     .catch(err => console.error('❌❌❌ ERROR AL CONECTAR A LA DB:', err));
 
+// Esquema de usuario completo
 const UserSchema = new mongoose.Schema({
     code: { type: String, required: true, unique: true },
     username: { type: String, required: true, unique: true, index: true },
