@@ -1,4 +1,4 @@
-// server.js - VERSIÓN FINAL DEFINITIVA Y ROBUSTA
+// server.js - VERSIÓN FINAL Y COMPLETA
 
 const express = require('express');
 const http = require('http');
@@ -6,6 +6,7 @@ const path = require('path');
 const socketIo = require('socket.io');
 const mongoose = require('mongoose');
 const { customAlphabet } = require('nanoid');
+const bcrypt = require('bcrypt');
 require('dotenv').config();
 
 const { GoogleGenerativeAI } = require("@google/generative-ai");
@@ -31,10 +32,11 @@ mongoose.connect(DATABASE_URL)
     .then(() => console.log('✅✅✅ CONEXIÓN CON LA BASE DE DATOS EXITOSA! ✅✅✅'))
     .catch(err => console.error('❌❌❌ ERROR AL CONECTAR A LA DB:', err));
 
-// Esquema de usuario simplificado (sin contraseña)
+// Esquema de usuario completo
 const UserSchema = new mongoose.Schema({
     code: { type: String, required: true, unique: true },
     username: { type: String, required: true, unique: true, index: true },
+    password: { type: String, required: true }
 });
 const User = mongoose.model('User', UserSchema);
 
@@ -45,8 +47,49 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
+// --- RUTAS DE AUTENTICACIÓN ---
+app.post('/api/register', async (req, res) => {
+    try {
+        const { username, password } = req.body;
+        if (!username || !password || password.length < 4) {
+            return res.status(400).json({ success: false, message: 'Usuario y contraseña (mín. 4 caracteres) son requeridos.' });
+        }
+        const existingUser = await User.findOne({ username });
+        if (existingUser) {
+            return res.status(409).json({ success: false, message: 'El nombre de usuario ya existe.' });
+        }
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+        const userCode = customAlphabet('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', 6)();
+        await new User({ username, password: hashedPassword, code: userCode }).save();
+        res.status(201).json({ success: true, message: 'Usuario creado exitosamente.' });
+    } catch (error) { res.status(500).json({ success: false, message: 'Error en el servidor.' }); }
+});
 
-// --- RUTAS DE IA (Optimizadas) ---
+app.post('/api/login', async (req, res) => {
+    try {
+        const { username, password } = req.body;
+        const user = await User.findOne({ username });
+        if (!user || !(await bcrypt.compare(password, user.password))) {
+            return res.status(401).json({ success: false, message: 'Usuario o contraseña incorrectos.' });
+        }
+        res.json({ success: true, user: { username: user.username, code: user.code } });
+    } catch (error) { res.status(500).json({ success: false, message: 'Error en el servidor.' }); }
+});
+
+app.post('/api/delete-account', async (req, res) => {
+    try {
+        const { username } = req.body;
+        const result = await User.deleteOne({ username });
+        if (result.deletedCount > 0) {
+            res.json({ success: true, message: 'Cuenta eliminada. Ahora puedes registrarte de nuevo.' });
+        } else {
+            res.status(404).json({ success: false, message: 'No se encontró un usuario con ese nombre.' });
+        }
+    } catch (error) { res.status(500).json({ success: false, message: 'Error en el servidor.' }); }
+});
+
+// --- RUTAS DE IA ---
 app.post('/api/explain-math', async (req, res) => {
     if (!model) return res.status(503).json({ error: "Servicio de IA no disponible." });
     const { topic } = req.body;
@@ -57,6 +100,7 @@ app.post('/api/explain-math', async (req, res) => {
         res.json({ explanation: result.response.text() });
     } catch (error) { console.error("Error en Tutor IA:", error); res.status(500).json({ error: "No se pudo generar la explicación." }); }
 });
+
 app.post('/api/generate-problems', async (req, res) => {
     if (!model) return res.status(503).json({ error: "Servicio de IA no disponible." });
     const { topic } = req.body;
@@ -67,6 +111,7 @@ app.post('/api/generate-problems', async (req, res) => {
         res.json({ problems: result.response.text() });
     } catch (error) { console.error("Error en Práctica IA:", error); res.status(500).json({ error: "No se pudo generar los problemas." }); }
 });
+
 app.get('/api/generate-tips', async (req, res) => {
     if (!model) return res.status(503).json({ error: "Servicio de IA no disponible." });
     try {
@@ -76,49 +121,23 @@ app.get('/api/generate-tips', async (req, res) => {
     } catch (error) { console.error("Error en Consejos IA:", error); res.status(500).json({ error: "No se pudo generar los consejos." }); }
 });
 
-// --- LÓGICA DEL CHAT (Simplificada y Robusta) ---
+// --- LÓGICA DEL CHAT ---
 const onlineUsers = {}; const userSockets = {};
 io.on('connection', (socket) => {
-    
-    // El único punto de autenticación: simple y directo.
-    socket.on('register user', async (username, callback) => {
-        try {
-            if (onlineUsers[username]) {
-                return callback({ success: false, message: 'Este nombre de usuario ya está en uso. Elige otro.' });
-            }
-
-            let user = await User.findOne({ username });
-
-            if (!user) { // Si el usuario es nuevo, lo creamos
-                const code = customAlphabet('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', 6)();
-                user = await new User({ username, code }).save();
-            }
-
-            // Guardamos la información del usuario en el socket actual
-            socket.username = user.username;
-            socket.userCode = user.code;
-            onlineUsers[user.username] = user.code;
-            userSockets[user.code] = socket.id;
-            
-            io.emit('online users update', Object.keys(onlineUsers));
-            callback({ success: true, user: { username: user.username, code: user.code } });
-
-        } catch (error) {
-            callback({ success: false, message: 'Error en el servidor.' });
-        }
+    socket.on('register user', ({ username, code }) => {
+        socket.username = username; socket.userCode = code;
+        onlineUsers[username] = code; userSockets[code] = socket.id;
+        io.emit('online users update', Object.keys(onlineUsers));
     });
-
     socket.on('add friend', async (friendCode, callback) => {
         const friend = await User.findOne({ code: friendCode }, 'username code').lean();
         callback({ success: !!friend, friend });
     });
-
     socket.on('private message', ({ toCode, message }) => {
         if (!socket.username) return;
         const recipientSocketId = userSockets[toCode];
         if (recipientSocketId) { io.to(recipientSocketId).emit('private message', { from: socket.username, message }); }
     });
-    
     socket.on('disconnect', () => {
         if (socket.username) { delete onlineUsers[socket.username]; delete userSockets[socket.userCode]; io.emit('online users update', Object.keys(onlineUsers)); }
     });

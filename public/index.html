@@ -31,8 +31,7 @@
       .inicio-content .btn{padding:1rem 3rem;font-size:1.2rem;animation-delay:0.6s;}
       .menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem}.menu-card{text-align:center;text-decoration:none;color:var(--text-dark)}.menu-card .icon{font-size:2.5rem;color:var(--primary-color);margin-bottom:1rem;transition:transform 0.3s ease;}.menu-card h3{font-family:'Poppins';font-weight:600;font-size:1.3rem;margin-bottom:0.5rem;}.menu-card p{font-family:'Lato',sans-serif;color:var(--text-light);}.menu-card.card:hover{transform:translateY(-10px);box-shadow:0 12px 40px rgba(0,0,0,0.08);}.menu-card.card:hover .icon{transform:scale(1.1);}
       #practice-results{margin-top:2rem;display:grid;grid-template-columns:1fr;gap:1.5rem;}.problem-card{background-color:#f9fafb;padding:1.5rem;border-radius:var(--radius);border:1px solid #e9ecef;}.solution{margin-top:1rem;padding:1rem;background-color:#eaf6f4;border-radius:8px;border-left:4px solid var(--primary-color);}
-      #auth-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;z-index:1000;animation:fadeIn 0.3s;}
-      .auth-card{width:100%;max-width:400px;text-align:center} #auth-feedback{color:red;min-height:1.2em; margin-top:0.5rem;}
+      #auth-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;z-index:1000;animation:fadeIn 0.3s;}.auth-card{width:100%;max-width:400px;text-align:center}.auth-toggle{margin-bottom:1.5rem;}.auth-toggle button{background:none;border:none;cursor:pointer;padding:0.5rem 1rem;font-size:1.1rem;color:var(--text-light);transition:color 0.2s;}.auth-toggle button.active{font-weight:bold;color:var(--primary-color);border-bottom:2px solid var(--primary-color)}#register-form{display:none;}#auth-feedback{margin-top:1rem;color:red;min-height:1.2em;}.forgot-password{font-size:0.9rem;color:var(--text-light);text-decoration:underline;cursor:pointer;margin-top:1rem;display:inline-block}
       .chat-layout{display:grid;grid-template-columns:300px 1fr;gap:1.5rem;height:75vh;max-height:700px}
       .settings-container h3{font-family:'Poppins',sans-serif}.toggle-switch{display:flex;align-items:center;justify-content:space-between;margin-top:.5rem}.slider{position:relative;cursor:pointer;width:50px;height:26px;background-color:#ccc;border-radius:26px;transition:.4s}.slider:before{position:absolute;content:"";height:18px;width:18px;left:4px;bottom:4px;background-color:white;border-radius:50%;transition:.4s}input:checked+.slider{background-color:var(--primary-color)}input:checked+.slider:before{transform:translateX(24px)}
     </style>
@@ -46,23 +45,21 @@
     <main>
         <div class="container">
             <section id="view-menu" class="page-section">
-                <div class="card">
-                    <div class="page-header"><h2 data-lang-key="menuTitle">Menú Principal</h2></div>
-                    <div class="menu-grid">
-                        <a href="#view-ia" class="menu-card nav-link card"><div class="icon"><i class="fas fa-robot"></i></div><h3 data-lang-key="iaTitle">Tutor IA</h3><p data-lang-key="iaMenuDesc">Resuelve cualquier duda.</p></a>
-                        <a href="#view-practice" class="menu-card nav-link card"><div class="icon"><i class="fas fa-pencil-ruler"></i></div><h3 data-lang-key="practiceTitle">Práctica con IA</h3><p data-lang-key="practiceMenuDesc">Genera problemas para resolver.</p></a>
-                        <a href="#view-consejos" class="menu-card nav-link card"><div class="icon"><i class="fas fa-lightbulb"></i></div><h3 data-lang-key="tipsTitle">Consejos de IA</h3><p data-lang-key="tipsMenuDesc">Descubre nuevas estrategias.</p></a>
-                        <a href="#view-chat" class="menu-card nav-link card"><div class="icon"><i class="fas fa-comments"></i></div><h3 data-lang-key="chatTitle">Aprendamos Juntos</h3><p data-lang-key="chatMenuDesc">Chatea con amigos.</p></a>
-                        <a href="#view-quienes-somos" class="menu-card nav-link card"><div class="icon"><i class="fas fa-users"></i></div><h3 data-lang-key="whoTitle">Quiénes Somos</h3><p data-lang-key="whoMenuDesc">Conoce al equipo.</p></a>
-                        <a href="#view-ajustes" class="menu-card nav-link card"><div class="icon"><i class="fas fa-cog"></i></div><h3 data-lang-key="settingsTitle">Ajustes</h3><p data-lang-key="settingsMenuDesc">Personaliza tu experiencia.</p></a>
-                    </div>
-                    <button class="btn btn-secondary" id="logout-button" style="display:none; margin: 2rem auto 0; background: #e74c3c; color: white;" data-lang-key="logoutButton">Cerrar Sesión</button>
+                <div class="page-header"><h2 data-lang-key="menuTitle">Menú Principal</h2></div>
+                <div class="menu-grid">
+                    <a href="#view-ia" class="menu-card nav-link card"><div class="icon"><i class="fas fa-robot"></i></div><h3 data-lang-key="iaTitle">Tutor IA</h3><p data-lang-key="iaMenuDesc">Resuelve cualquier duda.</p></a>
+                    <a href="#view-practice" class="menu-card nav-link card"><div class="icon"><i class="fas fa-pencil-ruler"></i></div><h3 data-lang-key="practiceTitle">Práctica con IA</h3><p data-lang-key="practiceMenuDesc">Genera problemas para resolver.</p></a>
+                    <a href="#view-consejos" class="menu-card nav-link card"><div class="icon"><i class="fas fa-lightbulb"></i></div><h3 data-lang-key="tipsTitle">Consejos de IA</h3><p data-lang-key="tipsMenuDesc">Descubre nuevas estrategias.</p></a>
+                    <a href="#view-chat" class="menu-card nav-link card"><div class="icon"><i class="fas fa-comments"></i></div><h3 data-lang-key="chatTitle">Aprendamos Juntos</h3><p data-lang-key="chatMenuDesc">Chatea con amigos.</p></a>
+                    <a href="#view-quienes-somos" class="menu-card nav-link card"><div class="icon"><i class="fas fa-users"></i></div><h3 data-lang-key="whoTitle">Quiénes Somos</h3><p data-lang-key="whoMenuDesc">Conoce al equipo.</p></a>
+                    <a href="#view-ajustes" class="menu-card nav-link card"><div class="icon"><i class="fas fa-cog"></i></div><h3 data-lang-key="settingsTitle">Ajustes</h3><p data-lang-key="settingsMenuDesc">Personaliza tu experiencia.</p></a>
                 </div>
+                <button class="btn btn-secondary" id="logout-button" style="display:none; margin: 2rem auto 0; background: #e74c3c; color: white;" data-lang-key="logoutButton">Cerrar Sesión</button>
             </section>
             
             <section id="view-ia" class="page-section">
-                <div class="page-header"><h2 data-lang-key="iaTitle">Tutor IA</h2><p data-lang-key="iaPageDesc">Pregúntale cualquier concepto o problema matemático a la IA.</p></div>
-                <div class="card"><div class="input-group"><input id="ia-input" type="text" class="input-field" placeholder="Ej: ¿Qué es el Teorema de Pitágoras?" /><button id="ia-button" class="btn" data-lang-key="consultButton">Consultar</button></div><div id="ia-explanation" style="min-height:200px;"><p style="color:var(--text-light)" data-lang-key="explanationPlaceholder">Aquí aparecerá la explicación...</p></div></div>
+                <div class="page-header"><h2 data-lang-key="iaTitle">Tutor IA</h2><p data-lang-key="iaPageDesc">Pregúntale cualquier concepto, ejercicio o problema matemático a la IA.</p></div>
+                <div class="card"><div class="input-group"><input id="ia-input" type="text" class="input-field" placeholder="Ej: ¿Qué es el Teorema de Pitágoras?" /><button id="ia-button" class="btn" data-lang-key="consultButton">Consultar</button></div><div id="ia-explanation" style="min-height: 200px;"><p style="color: var(--text-light)" data-lang-key="explanationPlaceholder">Aquí aparecerá la explicación...</p></div></div>
                 <button class="btn btn-secondary btn-back" data-lang-key="backButton">Regresar</button>
             </section>
 
@@ -82,13 +79,11 @@
             <section id="view-chat" class="page-section">
                 <div id="auth-overlay">
                     <div class="card auth-card">
-                        <h3>Identifícate</h3>
-                        <p style="margin:1rem 0; font-family:'Lato', sans-serif; color:var(--text-light)">Elige un nombre de usuario para chatear. Si ya lo usaste, te reconoceremos.</p>
-                        <form id="auth-form" class="input-group">
-                            <input type="text" id="auth-username" class="input-field" placeholder="Nombre de usuario" required minlength="3">
-                            <button type="submit" class="btn">Entrar</button>
-                        </form>
+                        <div class="auth-toggle"><button id="show-login" class="active" data-lang-key="loginTitle">Iniciar Sesión</button><button id="show-register" data-lang-key="registerTitle">Crear Cuenta</button></div>
+                        <form id="login-form"><div class="input-group" style="flex-direction:column; gap: 0.5rem;"><input type="text" id="login-username" class="input-field" placeholder="Nombre de usuario" required><input type="password" id="login-password" class="input-field" placeholder="Contraseña" required></div><button type="submit" class="btn" data-lang-key="loginButton">Entrar</button></form>
+                        <form id="register-form" style="display:none;"><div class="input-group" style="flex-direction:column; gap: 0.5rem;"><input type="text" id="register-username" class="input-field" placeholder="Nuevo nombre de usuario" required><input type="password" id="register-password" class="input-field" placeholder="Nueva contraseña (mín. 4 caracteres)" required minlength="4"></div><button type="submit" class="btn" data-lang-key="registerButton">Registrarme</button></form>
                         <p id="auth-feedback"></p>
+                        <a class="forgot-password" data-lang-key="forgotPassword">¿Olvidaste tu contraseña?</a>
                     </div>
                 </div>
                 <div class="chat-view" style="display: none;">
@@ -97,7 +92,7 @@
                         <aside class="card"><p data-lang-key="helloText">Hola, <strong id="your-username" style="color:var(--primary-color)"></strong></p><p style="font-size:0.9em;" data-lang-key="yourCodeText">Tu código: <strong id="your-code" title="Clic para copiar" style="cursor:pointer; user-select:all;"></strong></p><h3 style="margin-top:1.5rem;" data-lang-key="friendsTitle">Amigos</h3><form id="add-friend-form" class="input-group"><input id="friend-code-input" class="input-field" placeholder="Código de amigo..." required><button type="submit" class="btn">+</button></form><div id="friends-list"></div></aside>
                         <div class="card chat-window"><h3 id="chat-header" data-lang-key="selectFriendText">Selecciona un amigo</h3><div id="chat-messages" style="border:1px solid #ddd; padding:1rem; border-radius:var(--radius); flex-grow:1; overflow-y:auto; margin-bottom:1rem;"></div><form id="chat-form" class="input-group"><input id="chat-input" class="input-field" placeholder="Escribe un mensaje..." autocomplete="off" required disabled><button type="submit" class="btn" disabled data-lang-key="sendButton">Enviar</button></form></div>
                     </div>
-                    <button class="btn btn-secondary btn-back" style="margin: 1rem auto; display: block;">Regresar al Menú</button>
+                    <button class="btn btn-secondary btn-back">Regresar</button>
                 </div>
             </section>
 
@@ -135,7 +130,7 @@
             ia: { input: document.getElementById('ia-input'), button: document.getElementById('ia-button'), explanation: document.getElementById('ia-explanation') },
             practice: { input: document.getElementById('practice-input'), button: document.getElementById('practice-button'), results: document.getElementById('practice-results') },
             consejos: { container: document.getElementById('consejos-container') },
-            auth: { overlay: document.getElementById('auth-overlay'), form: document.getElementById('auth-form'), usernameInput: document.getElementById('auth-username'), feedback: document.getElementById('auth-feedback') },
+            auth: { overlay: document.getElementById('auth-overlay'), showLogin: document.getElementById('show-login'), showRegister: document.getElementById('show-register'), loginForm: document.getElementById('login-form'), registerForm: document.getElementById('register-form'), feedback: document.getElementById('auth-feedback'), forgotPassword: document.querySelector('.forgot-password') },
             chat: { view: document.querySelector('.chat-view'), yourUsername: document.getElementById('your-username'), yourCode: document.getElementById('your-code'), addForm: document.getElementById('add-friend-form'), friendInput: document.getElementById('friend-code-input'), list: document.getElementById('friends-list'), header: document.getElementById('chat-header'), messages: document.getElementById('chat-messages'), chatForm: document.getElementById('chat-form'), chatInput: document.getElementById('chat-input') },
             quienes: { container: document.getElementById('quienes-somos-container') },
             ajustes: { lang: document.getElementById('language-selector'), fontSizeToggle: document.getElementById('font-size-toggle'), contrastToggle: document.getElementById('contrast-toggle') }
@@ -165,22 +160,18 @@
             ui.backButtons.forEach(btn => btn.addEventListener('click', () => { window.history.back(); }));
             window.addEventListener('popstate', () => showView(location.hash.substring(1) || 'view-menu'));
         }
-
         function enterApp() {
             sessionStorage.setItem('visitedBefore', 'true');
             navigateTo('view-menu');
         }
-
         function handleNav(e) {
             e.preventDefault();
             navigateTo(e.currentTarget.getAttribute('href').substring(1));
         }
-
         function navigateTo(viewId) {
             history.pushState({viewId}, '', `#${viewId}`);
             showView(viewId);
         }
-        
         function showView(viewId) {
             const currentView = viewId || 'view-menu';
             
@@ -217,11 +208,11 @@
         }
 
         function loadStateAndShowView() {
-            const user = localStorage.getItem('currentUser'); // Cambiado a localStorage para persistencia
+            const user = sessionStorage.getItem('currentUser');
             if (user) {
                 state.currentUser = JSON.parse(user);
                 ui.logoutButton.style.display = 'block';
-                socket.emit('register user', state.currentUser.username, () => {});
+                socket.emit('register user', state.currentUser);
             } else {
                  ui.logoutButton.style.display = 'none';
             }
@@ -229,30 +220,60 @@
         }
 
         function setupAuth() {
-            ui.auth.form.addEventListener('submit', handleLogin);
+            ui.auth.showLogin.addEventListener('click', () => toggleAuthForms(true));
+            ui.auth.showRegister.addEventListener('click', () => toggleAuthForms(false));
+            ui.auth.loginForm.addEventListener('submit', handleLogin);
+            ui.auth.registerForm.addEventListener('submit', handleRegister);
+            ui.auth.forgotPassword.addEventListener('click', handleForgotPassword);
             ui.logoutButton.addEventListener('click', handleLogout);
         }
-        function handleLogin(e) {
+        function toggleAuthForms(showLogin) {
+            ui.auth.loginForm.style.display = showLogin ? 'block' : 'none';
+            ui.auth.registerForm.style.display = showLogin ? 'none' : 'block';
+            ui.auth.showLogin.classList.toggle('active', showLogin);
+            ui.auth.showRegister.classList.toggle('active', !showLogin);
+            ui.auth.feedback.textContent = '';
+        }
+        async function handleLogin(e) {
             e.preventDefault();
-            const username = ui.auth.usernameInput.value;
-            if (username.length < 3) {
-                ui.auth.feedback.textContent = "El nombre debe tener al menos 3 caracteres.";
-                return;
-            }
-            socket.emit('register user', username, (res) => {
-                if (res.success) {
-                    state.currentUser = res.user;
-                    localStorage.setItem('currentUser', JSON.stringify(res.user)); // Guardar en localStorage
-                    ui.logoutButton.style.display = 'block';
-                    navigateTo('view-chat');
-                } else {
-                    ui.auth.feedback.textContent = res.message;
+            const username = ui.auth.loginForm.querySelector('#login-username').value;
+            const password = ui.auth.loginForm.querySelector('#login-password').value;
+            const res = await fetch('/api/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username, password }) });
+            const data = await res.json();
+            if (data.success) {
+                state.currentUser = data.user;
+                sessionStorage.setItem('currentUser', JSON.stringify(data.user));
+                ui.logoutButton.style.display = 'block';
+                socket.emit('register user', state.currentUser);
+                navigateTo('view-chat');
+            } else { ui.auth.feedback.textContent = data.message; }
+        }
+        async function handleRegister(e) {
+            e.preventDefault();
+            const username = ui.auth.registerForm.querySelector('#register-username').value;
+            const password = ui.auth.registerForm.querySelector('#register-password').value;
+            const res = await fetch('/api/register', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username, password }) });
+            const data = await res.json();
+            if (data.success) {
+                alert('¡Cuenta creada! Ahora puedes iniciar sesión.');
+                toggleAuthForms(true);
+            } else { ui.auth.feedback.textContent = data.message; }
+        }
+        async function handleForgotPassword() {
+            const username = prompt('Ingresa tu nombre de usuario para eliminar tu cuenta y poder registrarte de nuevo.');
+            if (!username) return;
+            if (confirm(`¿Estás seguro? Se eliminará tu cuenta y tu lista de amigos permanentemente. Esta acción no se puede deshacer.`)) {
+                const res = await fetch('/api/delete-account', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username }) });
+                const data = await res.json();
+                alert(data.message);
+                if (data.success && state.currentUser && state.currentUser.username === username) {
+                    handleLogout();
                 }
-            });
+            }
         }
         function handleLogout() {
             state.currentUser = null;
-            localStorage.removeItem('currentUser'); // Limpiar de localStorage
+            sessionStorage.removeItem('currentUser');
             navigateTo('view-menu');
             location.reload(); 
         }
