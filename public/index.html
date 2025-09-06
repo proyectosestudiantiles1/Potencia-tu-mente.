@@ -88,12 +88,14 @@
                         <a class="forgot-password" data-lang-key="forgotPassword">¿Olvidaste tu contraseña?</a>
                     </div>
                 </div>
-                <div class="page-header"><h2 data-lang-key="chatTitle">Aprendamos Juntos</h2></div>
-                <div class="chat-layout">
-                    <aside class="card"><p data-lang-key="helloText">Hola, <strong id="your-username" style="color:var(--primary-color)"></strong></p><p style="font-size:0.9em;" data-lang-key="yourCodeText">Tu código: <strong id="your-code" title="Clic para copiar" style="cursor:pointer; user-select:all;"></strong></p><h3 style="margin-top:1.5rem;" data-lang-key="friendsTitle">Amigos</h3><form id="add-friend-form" class="input-group"><input id="friend-code-input" class="input-field" placeholder="Código de amigo..." required><button type="submit" class="btn">+</button></form><div id="friends-list"></div></aside>
-                    <div class="card chat-window"><h3 id="chat-header" data-lang-key="selectFriendText">Selecciona un amigo</h3><div id="chat-messages" style="border:1px solid #ddd; padding:1rem; border-radius:var(--radius); flex-grow:1; overflow-y:auto; margin-bottom:1rem;"></div><form id="chat-form" class="input-group"><input id="chat-input" class="input-field" placeholder="Escribe un mensaje..." autocomplete="off" required disabled><button type="submit" class="btn" disabled data-lang-key="sendButton">Enviar</button></form></div>
+                <div class="chat-view" style="display: none;">
+                    <div class="page-header"><h2 data-lang-key="chatTitle">Aprendamos Juntos</h2></div>
+                    <div class="chat-layout">
+                        <aside class="card"><p data-lang-key="helloText">Hola, <strong id="your-username" style="color:var(--primary-color)"></strong></p><p style="font-size:0.9em;" data-lang-key="yourCodeText">Tu código: <strong id="your-code" title="Clic para copiar" style="cursor:pointer; user-select:all;"></strong></p><h3 style="margin-top:1.5rem;" data-lang-key="friendsTitle">Amigos</h3><form id="add-friend-form" class="input-group"><input id="friend-code-input" class="input-field" placeholder="Código de amigo..." required><button type="submit" class="btn">+</button></form><div id="friends-list"></div></aside>
+                        <div class="card chat-window"><h3 id="chat-header" data-lang-key="selectFriendText">Selecciona un amigo</h3><div id="chat-messages" style="border:1px solid #ddd; padding:1rem; border-radius:var(--radius); flex-grow:1; overflow-y:auto; margin-bottom:1rem;"></div><form id="chat-form" class="input-group"><input id="chat-input" class="input-field" placeholder="Escribe un mensaje..." autocomplete="off" required disabled><button type="submit" class="btn" disabled data-lang-key="sendButton">Enviar</button></form></div>
+                    </div>
+                    <button class="btn btn-secondary btn-back">Regresar</button>
                 </div>
-                <button class="btn btn-secondary btn-back" data-lang-key="backButton">Regresar</button>
             </section>
 
             <section id="view-quienes-somos" class="page-section">
@@ -131,7 +133,7 @@
             practice: { input: document.getElementById('practice-input'), button: document.getElementById('practice-button'), results: document.getElementById('practice-results') },
             consejos: { container: document.getElementById('consejos-container') },
             auth: { overlay: document.getElementById('auth-overlay'), showLogin: document.getElementById('show-login'), showRegister: document.getElementById('show-register'), loginForm: document.getElementById('login-form'), registerForm: document.getElementById('register-form'), feedback: document.getElementById('auth-feedback'), forgotPassword: document.querySelector('.forgot-password') },
-            chat: { yourUsername: document.getElementById('your-username'), yourCode: document.getElementById('your-code'), addForm: document.getElementById('add-friend-form'), friendInput: document.getElementById('friend-code-input'), list: document.getElementById('friends-list'), header: document.getElementById('chat-header'), messages: document.getElementById('chat-messages'), chatForm: document.getElementById('chat-form'), chatInput: document.getElementById('chat-input') },
+            chat: { view: document.querySelector('.chat-view'), yourUsername: document.getElementById('your-username'), yourCode: document.getElementById('your-code'), addForm: document.getElementById('add-friend-form'), friendInput: document.getElementById('friend-code-input'), list: document.getElementById('friends-list'), header: document.getElementById('chat-header'), messages: document.getElementById('chat-messages'), chatForm: document.getElementById('chat-form'), chatInput: document.getElementById('chat-input') },
             quienes: { container: document.getElementById('quienes-somos-container') },
             ajustes: { lang: document.getElementById('language-selector'), fontSizeToggle: document.getElementById('font-size-toggle'), contrastToggle: document.getElementById('contrast-toggle') }
         };
@@ -151,52 +153,61 @@
             setupChat();
             setupAjustes();
             ui.quienes.container.innerHTML = quienesSomosText;
-            loadState();
+            loadStateAndShowView();
         }
 
         function setupNavigation() {
             ui.inicio.button.addEventListener('click', enterApp);
             ui.navLinks.forEach(link => link.addEventListener('click', handleNav));
-            ui.backButtons.forEach(btn => btn.addEventListener('click', () => history.back()));
-            window.addEventListener('popstate', () => showView(location.hash.substring(1) || 'view-menu'));
+            ui.backButtons.forEach(btn => btn.addEventListener('click', () => { window.history.back(); }));
+            window.addEventListener('popstate', () => showView(location.hash.substring(1)));
         }
+
         function enterApp() {
             sessionStorage.setItem('visitedBefore', 'true');
-            ui.inicio.view.style.display = 'none';
-            ui.main.style.display = 'block';
-            history.pushState(null, '', '#view-menu');
-            showView('view-menu');
+            navigateTo('view-menu');
         }
+
         function handleNav(e) {
             e.preventDefault();
-            const viewId = e.currentTarget.getAttribute('href').substring(1);
-            if (viewId === 'view-chat' && !state.currentUser) {
-                ui.auth.overlay.style.display = 'flex';
-                return;
-            }
-            history.pushState(null, '', `#${viewId}`);
+            navigateTo(e.currentTarget.getAttribute('href').substring(1));
+        }
+
+        function navigateTo(viewId) {
+            history.pushState({viewId}, '', `#${viewId}`);
             showView(viewId);
         }
+
         function showView(viewId) {
             const currentView = viewId || 'view-menu';
-             if (sessionStorage.getItem('visitedBefore')) {
+            
+            if (currentView === 'view-chat' && !state.currentUser) {
+                ui.auth.overlay.style.display = 'flex';
+                ui.chat.view.style.display = 'none'; // Asegúrate de que el chat está oculto
+                document.getElementById(currentView)?.classList.add('active'); // Mantiene la sección activa en segundo plano
+                return;
+            }
+
+            if (sessionStorage.getItem('visitedBefore')) {
                 ui.main.style.display = 'block';
                 ui.inicio.view.style.display = 'none';
             } else {
-                if(currentView !== 'view-menu') history.replaceState(null, '', '#view-menu');
                 ui.main.style.display = 'none';
                 ui.inicio.view.style.display = 'flex';
                 return;
             }
+
             ui.sections.forEach(s => s.classList.remove('active'));
             const activeSection = document.getElementById(currentView);
             if (activeSection) activeSection.classList.add('active');
             else document.getElementById('view-menu').classList.add('active');
+            
+            ui.chat.view.style.display = (currentView === 'view-chat' && state.currentUser) ? 'block' : 'none';
 
             if (currentView === 'view-consejos') generateTips();
         }
 
-        function loadState() {
+        function loadStateAndShowView() {
             const user = sessionStorage.getItem('currentUser');
             if (user) {
                 state.currentUser = JSON.parse(user);
@@ -205,7 +216,7 @@
             } else {
                  ui.logoutButton.style.display = 'none';
             }
-            showView(location.hash.substring(1) || 'view-menu');
+            showView(location.hash.substring(1));
         }
 
         function setupAuth() {
@@ -235,8 +246,7 @@
                 ui.auth.overlay.style.display = 'none';
                 ui.logoutButton.style.display = 'block';
                 socket.emit('register user', state.currentUser);
-                history.pushState(null, '', '#view-chat');
-                showView('view-chat');
+                navigateTo('view-chat');
             } else { ui.auth.feedback.textContent = data.message; }
         }
         async function handleRegister(e) {
@@ -265,10 +275,8 @@
         function handleLogout() {
             state.currentUser = null;
             sessionStorage.removeItem('currentUser');
-            ui.logoutButton.style.display = 'none';
-            history.pushState(null, '', '#view-menu');
-            showView('view-menu');
-            socket.disconnect().connect();
+            navigateTo('view-menu');
+            location.reload(); 
         }
 
         function cleanAIResponse(text) { return text.replace(/```html|```/g, '').trim(); }
@@ -276,14 +284,14 @@
             const options = { method, headers: { 'Content-Type': 'application/json' } };
             if (method === 'POST') options.body = JSON.stringify(body);
             const button = body.topic ? (endpoint.includes('problems') ? ui.practice.button : ui.ia.button) : null;
-            if (button) button.disabled = true;
+            if(button) button.disabled = true;
             try {
                 const res = await fetch(endpoint, options);
                 const data = await res.json();
                 if (res.ok) return cleanAIResponse(data.explanation || data.problems || data.tips);
                 return `<p style="color:red;">${data.error || 'Error de la IA.'}</p>`;
             } catch (error) { return `<p style="color:red;">Error de conexión.</p>`; }
-            finally { if (button) button.disabled = false; }
+            finally { if(button) button.disabled = false; }
         }
         
         function setupIA() {

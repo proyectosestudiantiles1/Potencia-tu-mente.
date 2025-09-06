@@ -32,7 +32,6 @@ mongoose.connect(DATABASE_URL)
     .then(() => console.log('✅✅✅ CONEXIÓN CON LA BASE DE DATOS EXITOSA! ✅✅✅'))
     .catch(err => console.error('❌❌❌ ERROR AL CONECTAR A LA DB:', err));
 
-// Esquema de usuario completo
 const UserSchema = new mongoose.Schema({
     code: { type: String, required: true, unique: true },
     username: { type: String, required: true, unique: true, index: true },
@@ -60,9 +59,8 @@ app.post('/api/register', async (req, res) => {
         }
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
-        const userCode = customAlphabet('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890', 6)();
-        const newUser = new User({ username, password: hashedPassword, code: userCode });
-        await newUser.save();
+        const userCode = customAlphabet('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', 6)();
+        await new User({ username, password: hashedPassword, code: userCode }).save();
         res.status(201).json({ success: true, message: 'Usuario creado exitosamente.' });
     } catch (error) { res.status(500).json({ success: false, message: 'Error en el servidor.' }); }
 });
@@ -70,9 +68,9 @@ app.post('/api/login', async (req, res) => {
     try {
         const { username, password } = req.body;
         const user = await User.findOne({ username });
-        if (!user) return res.status(401).json({ success: false, message: 'Usuario o contraseña incorrectos.' });
-        const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) return res.status(401).json({ success: false, message: 'Usuario o contraseña incorrectos.' });
+        if (!user || !(await bcrypt.compare(password, user.password))) {
+            return res.status(401).json({ success: false, message: 'Usuario o contraseña incorrectos.' });
+        }
         res.json({ success: true, user: { username: user.username, code: user.code } });
     } catch (error) { res.status(500).json({ success: false, message: 'Error en el servidor.' }); }
 });
