@@ -15,7 +15,14 @@
       body.dark-theme{--primary-gradient:linear-gradient(90deg, #1abc9c, #1dd2af);--primary-color:#1abc9c;--secondary-color:#ecf0f1;--bg-color:#2c3e50;--card-bg:#34495e;--text-dark:#ecf0f1;--text-light:#95a5a6;}
       *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
       body{font-family:'Poppins',sans-serif;background-color:var(--bg-color);color:var(--text-dark);line-height:1.7;font-size:var(--font-base-size);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;transition:background-color 0.3s,color 0.3s;}
-      main{display:none}.page-section{display:none}.page-section.active{display:block;animation:fadeInUp 0.6s ease-out forwards}
+      
+      main{display:none}
+      .page-section{display:none}
+      
+      /* --- [LA CORRECCIÓN CLAVE ESTÁ AQUÍ] --- */
+      /* Se eliminó 'display:block;' de esta regla para que no interfiera con los layouts de grid/flex internos. */
+      .page-section.active{animation:fadeInUp 0.6s ease-out forwards}
+
       .container{max-width:1100px;margin:0 auto;padding:2rem}.page-header{margin-bottom:2.5rem;text-align:center}
       .page-header h2{font-family:'Poppins',sans-serif;font-weight:700;font-size:calc(var(--font-base-size)*2.2);color:var(--secondary-color)}.page-header p{font-size:calc(var(--font-base-size)*1.1);color:var(--text-light);max-width:700px;margin:.5rem auto 0;font-family:'Lato',sans-serif;}
       .btn{display:inline-block;padding:.8rem 2rem;background:var(--primary-gradient);color:white;border:none;border-radius:50px;font-weight:700;text-decoration:none;cursor:pointer;transition:all 0.3s ease;box-shadow:0 4px 15px rgba(22,160,133,.3);font-size:var(--font-base-size)}.btn:hover:not(:disabled){transform:translateY(-4px);box-shadow:0 8px 25px rgba(22,160,133,.4)}.btn:disabled{background:#bdc3c7;cursor:not-allowed;box-shadow:none;}
@@ -32,21 +39,20 @@
       .menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem}.menu-card{text-align:center;text-decoration:none;color:var(--text-dark)}.menu-card .icon{font-size:2.5rem;color:var(--primary-color);margin-bottom:1rem;transition:transform 0.3s ease;}.menu-card h3{font-family:'Poppins';font-weight:600;font-size:1.3rem;margin-bottom:0.5rem;}.menu-card p{font-family:'Lato',sans-serif;color:var(--text-light);}.menu-card.card:hover{transform:translateY(-10px);box-shadow:0 12px 40px rgba(0,0,0,0.08);}.menu-card.card:hover .icon{transform:scale(1.1);}
       #practice-results{margin-top:2rem;display:grid;grid-template-columns:1fr;gap:1.5rem;}.problem-card{background-color:#f9fafb;padding:1.5rem;border-radius:var(--radius);border:1px solid #e9ecef;}.solution{margin-top:1rem;padding:1rem;background-color:#eaf6f4;border-radius:8px;border-left:4px solid var(--primary-color);}
       
-      /* --- [INICIO] CSS CORREGIDO --- */
+      /* --- CSS PARA EL CHAT Y LA AUTENTICACIÓN --- */
       #auth-overlay {
         position: fixed;
         inset: 0;
-        background: rgba(44, 62, 80, 0.7); /* Color de fondo más oscuro */
+        background: rgba(44, 62, 80, 0.7);
         backdrop-filter: blur(8px);
         -webkit-backdrop-filter: blur(8px);
-        /* ESTA ES LA CLAVE PARA CENTRAR EL FORMULARIO */
         display: flex;
         align-items: center;
         justify-content: center;
         z-index: 1000;
         animation: fadeIn 0.4s ease;
-        padding: 1rem; /* Espacio para pantallas pequeñas */
-        display: none; /* Controlado por JS */
+        padding: 1rem;
+        display: none;
       }
       .auth-card {
         width: 100%;
@@ -59,14 +65,14 @@
       #login-form, #register-form { margin-top: 1.5rem; }
       
       .chat-container {
-        display: grid; /* Usar grid para mejor responsividad */
+        display: grid;
         grid-template-columns: 300px 1fr;
         gap: 1.5rem;
         height: 75vh;
         max-height: 700px;
       }
       .friends-panel {
-        width: 100%; /* El grid ya controla el ancho */
+        width: 100%;
         flex-shrink: 0;
         display: flex;
         flex-direction: column;
@@ -99,17 +105,14 @@
       .message-bubble{padding: .6rem 1rem; border-radius: 20px; margin-bottom: .5rem; max-width: 80%; word-wrap: break-word;}.message-bubble.sent{background: var(--primary-gradient); color: white; margin-left: auto; border-bottom-right-radius: 5px;}.message-bubble.received{background: var(--card-bg); color: var(--text-dark); margin-right: auto; border-bottom-left-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);}
       #add-friend-form button { padding: 0; min-width: 46px; max-width: 46px; height: 46px; flex-shrink: 0; line-height: 1; font-size: 1.5rem; }
       .btn-back { display: block; margin: 1.5rem auto 0; width: fit-content; }
-      /* --------------------------- */
-
+      
       .settings-container h3{font-family:'Poppins',sans-serif}.toggle-switch{display:flex;align-items:center;justify-content:space-between;margin-top:.5rem}.slider{position:relative;cursor:pointer;width:50px;height:26px;background-color:#ccc;border-radius:26px;transition:.4s}.slider:before{position:absolute;content:"";height:18px;width:18px;left:4px;bottom:4px;background-color:white;border-radius:50%;transition:.4s}input:checked+.slider{background-color:var(--primary-color)}input:checked+.slider:before{transform:translateX(24px)}
 
-      /* Media query para hacer el chat responsive en móviles */
       @media (max-width: 768px) {
         .chat-container {
           grid-template-columns: 1fr;
           height: 80vh;
         }
-        .friends-panel { display: none; /* En móvil, podríamos ocultar la lista o cambiar la UI */ }
       }
     </style>
 </head>
@@ -143,7 +146,6 @@
             <section id="view-ajustes" class="page-section"><div class="page-header"><h2 data-lang-key="settingsTitle">Ajustes</h2></div><div class="card" style="max-width:600px; margin:auto;"><div class="settings-container" style="display:flex; flex-direction:column; gap:2.5rem;"><div><h3 data-lang-key="languageTitle">Idioma</h3><select id="language-selector" class="input-field"><option value="es">Español</option><option value="en">English</option></select></div><div><h3 data-lang-key="accessibilityTitle">Accesibilidad</h3><div class="toggle-switch"><p data-lang-key="largeText">Texto más grande</p><label><input type="checkbox" id="font-size-toggle" style="opacity:0; width:0; height:0;"><span class="slider"></span></label></div><div class="toggle-switch" style="margin-top:1rem;"><p data-lang-key="highContrast">Modo de Alto Contraste</p><label><input type="checkbox" id="contrast-toggle" style="opacity:0; width:0; height:0;"><span class="slider"></span></label></div></div></div></div><button class="btn btn-secondary btn-back" data-lang-key="backButton">Regresar</button></section>
 
             <section id="view-chat" class="page-section">
-                <!-- El overlay de autenticación ahora se centrará perfectamente -->
                 <div id="auth-overlay">
                     <div class="card auth-card">
                         <div class="auth-toggle"><button id="show-login" class="active" data-lang-key="loginTitle">Iniciar Sesión</button><button id="show-register" data-lang-key="registerTitle">Crear Cuenta</button></div>
@@ -158,7 +160,6 @@
                     <div class="page-header"><h2 data-lang-key="chatTitle">Aprendamos Juntos</h2></div>
                     <div class="chat-container">
                         <aside class="card friends-panel">
-                            <!-- Estos campos ahora se mostrarán correctamente -->
                             <p data-lang-key="helloText">Hola, <strong id="your-username" style="color:var(--primary-color)"></strong></p>
                             <p style="font-size:0.9em;" data-lang-key="yourCodeText">Tu código: <strong id="your-code" title="Clic para copiar" style="cursor:pointer; user-select:all;"></strong></p>
                             <h3 style="margin-top:1.5rem;" data-lang-key="friendsTitle">Amigos</h3>
@@ -254,65 +255,51 @@
             ui.quienes.container.innerHTML = quienesSomosText;
         }
 
-        // --- [SOLUCIÓN CLAVE 1] MANEJO DE VISTAS ---
-        // Esta función ahora es la única responsable de cambiar qué sección se ve.
-        // Evita errores de diseño y asegura que todo se cargue en el orden correcto.
+        // --- MANEJO DE VISTAS (LÓGICA CENTRAL) ---
         function showView(viewId) {
             const currentView = viewId || 'view-menu';
             
-            // Si es la primera visita, muestra la pantalla de bienvenida
             if (!sessionStorage.getItem('visitedBefore')) {
                 ui.main.style.display = 'none';
                 ui.inicio.view.style.display = 'flex';
-                // Si el usuario intenta ir a otra URL, lo reseteamos al inicio
                 if (currentView !== 'view-menu') history.replaceState(null, '', '#');
                 return;
             }
 
-            // Si ya ha entrado, oculta la bienvenida y muestra el contenido principal
             ui.main.style.display = 'block';
             ui.inicio.view.style.display = 'none';
             
-            // 1. Oculta TODAS las secciones para empezar de cero
             ui.sections.forEach(s => {
                 s.classList.remove('active');
                 s.style.display = 'none';
             });
             
-            // 2. Encuentra y muestra SOLO la sección activa
             const activeSection = document.getElementById(currentView) || document.getElementById('view-menu');
             activeSection.style.display = 'block';
-            // Forzar un "reflow" para que la animación se reinicie siempre
             void activeSection.offsetWidth; 
             activeSection.classList.add('active');
 
-            // 3. Lógica específica para cada vista
             if (currentView === 'view-chat') {
-                renderChatView(); // [SOLUCIÓN CLAVE 2]
+                renderChatView();
             }
             if (currentView === 'view-consejos') {
                 generateTips();
             }
-            // Muestra u oculta el botón de cerrar sesión
             ui.logoutButton.style.display = state.currentUser ? 'block' : 'none';
         }
         
-        // --- [SOLUCIÓN CLAVE 2] RENDERIZADO DE LA VISTA DE CHAT ---
-        // Esta función se llama DESPUÉS de que la sección de chat sea visible.
-        // Esto garantiza que los elementos del DOM existen y el navegador puede actualizarlos.
         function renderChatView() {
             if (state.currentUser) {
                 ui.auth.overlay.style.display = 'none';
                 ui.chat.view.style.display = 'block';
                 
-                // ¡AHORA SÍ FUNCIONA! Los elementos son visibles cuando se ejecuta este código.
                 ui.chat.yourUsername.textContent = state.currentUser.username;
                 ui.chat.yourCode.textContent = state.currentUser.code;
                 
                 socket.emit('register user', state.currentUser);
                 renderFriends();
             } else {
-                ui.auth.overlay.style.display = 'flex'; // Usar flex para centrar
+                ui.auth.overlay.style.display = 'flex';
                 ui.chat.view.style.display = 'none';
             }
         }
@@ -360,7 +347,7 @@
         function handleNewMessage({ from, message }) { const partnerCode = from === state.currentUser.username ? state.activeChat : state.friends.find(f => f.username === from)?.code; if (!partnerCode) return; if (!state.messages[partnerCode]) state.messages[partnerCode] = []; state.messages[partnerCode].push({ from, ...message }); if (partnerCode === state.activeChat) renderMessages(); }
         function renderMessages() { const chatMessagesDiv = ui.chat.messages; chatMessagesDiv.innerHTML = (state.messages[state.activeChat] || []).map(({ from, text }) => `<div class="message-bubble ${from === state.currentUser.username ? 'sent' : 'received'}">${text}</div>`).join(''); chatMessagesDiv.scrollTop = chatMessagesDiv.scrollHeight; }
         function setupChatListeners() {
-            socket.on('online users update', (users) => { state.onlineFriends = users; /* Podríamos añadir indicador online en el futuro */ });
+            socket.on('online users update', (users) => { state.onlineFriends = users; });
             socket.on('private message', handleNewMessage);
             ui.chat.addForm.addEventListener('submit', addFriend);
             ui.chat.list.addEventListener('click', (e) => { const friendItem = e.target.closest('[data-code]'); if (friendItem) setActiveChat(friendItem.dataset.code); });
