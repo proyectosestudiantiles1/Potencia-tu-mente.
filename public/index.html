@@ -123,7 +123,7 @@
         const socket = io({ autoConnect: false });
         
         // [SOLUCIÓN 3] - Texto completo para "Quiénes Somos"
-        const quienesSomosText = <p>Somos un grupo de estudiantes de Educación para el Trabajo que hemos creado el proyecto “Potencia tu mente con matemáticas”, una plataforma web diseñada para apoyar el aprendizaje de las matemáticas de manera sencilla, práctica e interactiva. Nuestro objetivo es brindar a los estudiantes una herramienta accesible y motivadora que les permita reforzar sus conocimientos y superar las dificultades más comunes en esta área.</p><p style="margin-top:1rem;">Creemos firmemente que nuestro esfuerzo contribuirá al desarrollo académico de los estudiantes y al fortalecimiento de sus competencias matemáticas, demostrando que con constancia, innovación y dedicación se puede transformar la manera en que aprendemos.</p>;
+        const quienesSomosText = `<p>Somos un grupo de estudiantes de Educación para el Trabajo que hemos creado el proyecto “Potencia tu mente con matemáticas”, una plataforma web diseñada para apoyar el aprendizaje de las matemáticas de manera sencilla, práctica e interactiva. Nuestro objetivo es brindar a los estudiantes una herramienta accesible y motivadora que les permita reforzar sus conocimientos y superar las dificultades más comunes en esta área.</p><p style="margin-top:1rem;">Creemos firmemente que nuestro esfuerzo contribuirá al desarrollo académico de los estudiantes y al fortalecimiento de sus competencias matemáticas, demostrando que con constancia, innovación y dedicación se puede transformar la manera en que aprendemos.</p>`;
 
         function init() {
             if (document.getElementById('particles-js')) particlesJS('particles-js',{"particles":{"number":{"value":80,"density":{"enable":true,"value_area":800}},"color":{"value":"#ffffff"},"move":{"enable":true,"speed":6}}});
@@ -172,7 +172,7 @@
             }
         }
         
-        function navigateTo(viewId) { history.pushState({viewId}, '', #${viewId}); showView(viewId); }
+        function navigateTo(viewId) { history.pushState({viewId}, '', `#${viewId}`); showView(viewId); }
         function setupNavigationListeners() {
             ui.inicio.button.addEventListener('click', () => { sessionStorage.setItem('visitedBefore', 'true'); navigateTo('view-menu'); });
             ui.navLinks.forEach(link => link.addEventListener('click', e => { e.preventDefault(); navigateTo(e.currentTarget.getAttribute('href').substring(1)); }));
@@ -189,7 +189,7 @@
         }
         async function handleLogin(e) { e.preventDefault(); const username = ui.auth.loginForm.querySelector('#login-username').value; const password = ui.auth.loginForm.querySelector('#login-password').value; const res = await fetch('/api/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username, password }) }); const data = await res.json(); if (data.success) { state.currentUser = data.user; sessionStorage.setItem('currentUser', JSON.stringify(data.user)); loadFriends(); connectUser(); renderChatView(); } else { ui.auth.feedback.textContent = data.message; } }
         async function handleRegister(e) { e.preventDefault(); const username = ui.auth.registerForm.querySelector('#register-username').value; const password = ui.auth.registerForm.querySelector('#register-password').value; const res = await fetch('/api/register', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username, password }) }); const data = await res.json(); if (data.success) { alert('¡Cuenta creada!'); toggleAuthForms(true); } else { ui.auth.feedback.textContent = data.message; } }
-        function handleLogout() { sessionStorage.removeItem('currentUser'); if(state.currentUser) localStorage.removeItem(friends_${state.currentUser.username}); state.currentUser = null; socket.disconnect(); navigateTo('view-menu'); }
+        function handleLogout() { sessionStorage.removeItem('currentUser'); if(state.currentUser) localStorage.removeItem(`friends_${state.currentUser.username}`); state.currentUser = null; socket.disconnect(); navigateTo('view-menu'); }
         function toggleAuthForms(showLogin) { ui.auth.loginForm.style.display = showLogin ? 'block' : 'none'; ui.auth.registerForm.style.display = showLogin ? 'none' : 'block'; ui.auth.showLogin.classList.toggle('active', showLogin); ui.auth.showRegister.classList.toggle('active', !showLogin); }
 
         function setupChatListeners() {
@@ -200,26 +200,26 @@
             socket.on('private message', handleNewMessage);
         }
         function connectUser() { if (!socket.connected) { socket.connect(); } socket.emit('register user', state.currentUser); }
-        function loadFriends() { if (state.currentUser) state.friends = JSON.parse(localStorage.getItem(friends_${state.currentUser.username})) || []; }
-        function saveFriends() { if (state.currentUser) localStorage.setItem(friends_${state.currentUser.username}, JSON.stringify(state.friends)); }
-        function renderFriends() { if (!state.currentUser) return; ui.chat.list.innerHTML = state.friends.map(f => <div class="card" data-code="${f.code}" style="cursor:pointer;padding:.8rem;margin-bottom:.5rem;${f.code===state.activeChat?'background-color:#eaf6f4':''}">${f.username}</div>).join(''); }
+        function loadFriends() { if (state.currentUser) state.friends = JSON.parse(localStorage.getItem(`friends_${state.currentUser.username}`)) || []; }
+        function saveFriends() { if (state.currentUser) localStorage.setItem(`friends_${state.currentUser.username}`, JSON.stringify(state.friends)); }
+        function renderFriends() { if (!state.currentUser) return; ui.chat.list.innerHTML = state.friends.map(f => `<div class="card" data-code="${f.code}" style="cursor:pointer;padding:.8rem;margin-bottom:.5rem;${f.code===state.activeChat?'background-color:#eaf6f4':''}">${f.username}</div>`).join(''); }
         function addFriend(e) { e.preventDefault(); const code = ui.chat.friendInput.value.trim().toUpperCase(); if (!code) return; socket.emit('add friend', code, (res) => { if (res.success && !state.friends.find(f => f.code === res.friend.code)) { state.friends.push(res.friend); saveFriends(); renderFriends(); } else { alert('Código no válido.'); } }); ui.chat.friendInput.value = ''; }
-        function setActiveChat(code) { state.activeChat = code; renderFriends(); const friend = state.friends.find(f=>f.code===code); ui.chat.header.textContent = Chateando con ${friend.username}; ui.chat.chatInput.disabled = false; ui.chat.sendButton.disabled = false; }
+        function setActiveChat(code) { state.activeChat = code; renderFriends(); const friend = state.friends.find(f=>f.code===code); ui.chat.header.textContent = `Chateando con ${friend.username}`; ui.chat.chatInput.disabled = false; ui.chat.sendButton.disabled = false; }
         function sendChatMessage(e) { e.preventDefault(); const text = ui.chat.chatInput.value.trim(); if (!text) return; const message = { text }; socket.emit('private message', { toCode: state.activeChat, message }); ui.chat.chatInput.value = ''; handleNewMessage({from: state.currentUser.username, message}); }
         function handleNewMessage({from, message}) { const code = from === state.currentUser.username ? state.activeChat : state.friends.find(f=>f.username===from)?.code; if(!code) return; state.messages[code] = state.messages[code] || []; state.messages[code].push({from, text: message.text}); renderMessages(code); }
-        function renderMessages(code) { if (code !== state.activeChat) return; ui.chat.messages.innerHTML = (state.messages[code] || []).map(m => <div class="message-bubble ${m.from === state.currentUser.username ? 'sent':'received'}">${m.text}</div>).join(''); ui.chat.messages.scrollTop = ui.chat.messages.scrollHeight; }
+        function renderMessages(code) { if (code !== state.activeChat) return; ui.chat.messages.innerHTML = (state.messages[code] || []).map(m => `<div class="message-bubble ${m.from === state.currentUser.username ? 'sent':'received'}">${m.text}</div>`).join(''); ui.chat.messages.scrollTop = ui.chat.messages.scrollHeight; }
 
-        function setupIAListeners() { ui.ia.button.addEventListener('click', async () => { const topic = ui.ia.input.value; if (!topic) return; ui.ia.explanation.innerHTML = <p>Consultando...</p>; const res = await fetch('/api/explain-math', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ topic }) }); const data = await res.json(); ui.ia.explanation.innerHTML = data.explanation; }); }
+        function setupIAListeners() { ui.ia.button.addEventListener('click', async () => { const topic = ui.ia.input.value; if (!topic) return; ui.ia.explanation.innerHTML = `<p>Consultando...</p>`; const res = await fetch('/api/explain-math', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ topic }) }); const data = await res.json(); ui.ia.explanation.innerHTML = data.explanation; }); }
         
         // [SOLUCIÓN 1] - Función para "Práctica con IA"
         function setupPracticeListeners() {
             ui.practice.button.addEventListener('click', async () => {
                 const topic = ui.practice.input.value.trim();
                 if (!topic) return;
-                ui.practice.results.innerHTML = <p>Generando problemas sobre ${topic}...</p>;
+                ui.practice.results.innerHTML = `<p>Generando problemas sobre ${topic}...</p>`;
                 const res = await fetch('/api/generate-problems', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ topic }) });
                 const data = await res.json();
-                ui.practice.results.innerHTML = data.problems || <p style="color:red">${data.error}</p>;
+                ui.practice.results.innerHTML = data.problems || `<p style="color:red">${data.error}</p>`;
                 ui.practice.results.querySelectorAll('.show-solution-btn').forEach(btn => {
                     btn.addEventListener('click', () => {
                         const solution = btn.previousElementSibling;
@@ -230,13 +230,13 @@
         }
         
         async function generateTips() {
-            ui.consejos.container.innerHTML = <p style="grid-column:1/-1;text-align:center;">Generando consejos...</p>;
+            ui.consejos.container.innerHTML = `<p style="grid-column:1/-1;text-align:center;">Generando consejos...</p>`;
             try {
                 const res = await fetch('/api/generate-tips');
                 const data = await res.json();
                 // [SOLUCIÓN 4] - Limpiamos la respuesta de la IA
                 let tipsHtml = data.tips || '<p>No se pudieron cargar los consejos.</p>';
-                tipsHtml = tipsHtml.replace(/html\n?/g, '').replace(//g, '');
+                tipsHtml = tipsHtml.replace(/```html\n?/g, '').replace(/```/g, '');
                 ui.consejos.container.innerHTML = tipsHtml;
             } catch (e) {
                 ui.consejos.container.innerHTML = '<p style="color:red;">Error al cargar consejos.</p>';
