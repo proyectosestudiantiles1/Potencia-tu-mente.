@@ -1,4 +1,4 @@
-// server.js - VERSIÓN FINAL Y COMPATIBLE
+// server.js - VERSIÓN FINAL Y COMPATIBLE (Con rutas de archivos corregidas para Render)
 
 const express = require('express');
 const http = require('http');
@@ -40,7 +40,6 @@ const UserSchema = new mongoose.Schema({
 });
 const User = mongoose.model('User', UserSchema);
 
-// ¡NUEVO! Esquema para guardar el historial de la IA
 const ConceptHistorySchema = new mongoose.Schema({
     userCode: { type: String, required: true, index: true },
     topic: { type: String, required: true },
@@ -48,15 +47,16 @@ const ConceptHistorySchema = new mongoose.Schema({
 });
 const ConceptHistory = mongoose.model('ConceptHistory', ConceptHistorySchema);
 
-
-app.use(express.static(__dirname)); // Servir archivos estáticos desde la raíz
+// Le decimos que los archivos estáticos (como CSS o JS si estuvieran separados) están en la carpeta raíz
+app.use(express.static(path.join(__dirname, '..'))); // <-- CORRECCIÓN 1
 app.use(express.json());
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+    // Le decimos que busque index.html una carpeta hacia arriba
+    res.sendFile(path.join(__dirname, '..', 'index.html')); // <-- CORRECCIÓN 2
 });
 
-// --- RUTAS DE AUTENTICACIÓN (Sin cambios, ya son correctas) ---
+// --- RUTAS DE AUTENTICACIÓN ---
 app.post('/api/register', async (req, res) => {
     try {
         const { username, password } = req.body;
@@ -86,17 +86,16 @@ app.post('/api/login', async (req, res) => {
     } catch (error) { res.status(500).json({ success: false, message: 'Error en el servidor.' }); }
 });
 
-// --- RUTAS DE IA (Actualizadas con historial) ---
+// --- RUTAS DE IA ---
 app.post('/api/explain-math', async (req, res) => {
     if (!model) return res.status(503).json({ error: "Servicio de IA no disponible." });
-    const { topic, userCode } = req.body; // Recibimos el userCode
+    const { topic, userCode } = req.body;
     if (!topic) return res.status(400).json({ error: "El tema es requerido." });
     try {
         const prompt = `Como tutor experto en matemáticas, explica detalladamente el concepto "${topic}" para un estudiante de secundaria. Usa únicamente etiquetas HTML (h3, p, ul, li, strong) para estructurar la respuesta. No incluyas markdown.`;
         const result = await model.generateContent(prompt);
         const explanation = result.response.text();
         
-        // ¡NUEVO! Guardar la consulta en el historial si el usuario está logueado
         if (userCode) {
             await new ConceptHistory({ userCode, topic }).save();
         }
@@ -105,7 +104,6 @@ app.post('/api/explain-math', async (req, res) => {
     } catch (error) { console.error("Error en Tutor IA:", error); res.status(500).json({ error: "No se pudo generar la explicación." }); }
 });
 
-// ¡NUEVO! Endpoint para OBTENER el historial
 app.get('/api/concept-history', async (req, res) => {
     const { userCode } = req.query;
     if (!userCode) return res.status(400).json({ error: "Se requiere el código de usuario." });
@@ -113,7 +111,6 @@ app.get('/api/concept-history', async (req, res) => {
     res.json({ history });
 });
 
-// ¡NUEVO! Endpoint para BORRAR un item del historial
 app.delete('/api/concept-history/:id', async (req, res) => {
     try {
         await ConceptHistory.findByIdAndDelete(req.params.id);
@@ -123,7 +120,6 @@ app.delete('/api/concept-history/:id', async (req, res) => {
     }
 });
 
-// ... el resto de las rutas de IA y la lógica del chat permanecen igual ...
 app.get('/api/generate-tips', async (req, res) => {
     if (!model) return res.status(503).json({ error: "Servicio de IA no disponible." });
     try {
@@ -133,8 +129,7 @@ app.get('/api/generate-tips', async (req, res) => {
     } catch (error) { res.status(500).json({ error: "No se pudo generar los consejos." }); }
 });
 
-
-// --- LÓGICA DEL CHAT (Sin cambios) ---
+// --- LÓGICA DEL CHAT ---
 const onlineUsers = {}; const userSockets = {};
 io.on('connection', (socket) => {
     socket.on('register user', (user) => {
