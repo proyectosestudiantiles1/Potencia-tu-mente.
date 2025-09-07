@@ -1,4 +1,4 @@
-// server.js - CORREGIDO PARA LA ESTRUCTURA CON CARPETA 'public'
+// server.js - VERSIÓN FINAL Y COMPATIBLE
 
 const express = require('express');
 const http = require('http');
@@ -39,13 +39,11 @@ const UserSchema = new mongoose.Schema({
 });
 const User = mongoose.model('User', UserSchema);
 
-// --- [CORRECCIÓN CLAVE] ---
-// 1. Le decimos a Express que nuestra carpeta de archivos estáticos (HTML, CSS, etc.) es 'public'.
+// --- SIRVIENDO ARCHIVOS ESTÁTICOS ---
+// Le decimos a Express que nuestra carpeta de archivos estáticos es 'public'.
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
-
-// 2. La ruta principal '/' ahora servirá automáticamente el index.html de la carpeta 'public'.
-// Ya no necesitamos un app.get('/') específico para el HTML. Express.static se encarga.
+// La ruta principal '/' ahora servirá automáticamente el index.html de la carpeta 'public'.
 
 // --- RUTAS DE AUTENTICACIÓN ---
 app.post('/api/register', async (req, res) => {
@@ -98,21 +96,62 @@ app.post('/api/explain-math', async (req, res) => {
         const prompt = `Como tutor experto en matemáticas, explica detalladamente el concepto "${topic}" para un estudiante de secundaria. Usa únicamente etiquetas HTML (h3, p, ul, li, strong) para estructurar la respuesta. No incluyas markdown.`;
         const result = await model.generateContent(prompt);
         res.json({ explanation: result.response.text() });
-    } catch (error) { console.error("Error en Tutor IA:", error); res.status(500).json({ error: "No se pudo generar la explicación." }); }
+    } catch (error) { res.status(500).json({ error: "No se pudo generar la explicación." }); }
 });
 
 app.post('/api/generate-problems', async (req, res) => {
-    // ...código de las otras rutas de IA...
+    if (!model) return res.status(503).json({ error: "Servicio de IA no disponible." });
+    const { topic } = req.body;
+    if (!topic) return res.status(400).json({ error: "El tema es requerido." });
+    try {
+        const prompt = `Crea 3 problemas matemáticos sobre "${topic}". Devuelve la respuesta en HTML usando esta estructura: <div class="problem-card"><h4>Problema X</h4><p>[Pregunta]</p><div class="solution" style="display:none;">Respuesta: [Solución]</div><button class="show-solution-btn">Ver Respuesta</button></div>`;
+        const result = await model.generateContent(prompt);
+        res.json({ problems: result.response.text() });
+    } catch (error) { res.status(500).json({ error: "No se pudo generar problemas." }); }
 });
 
 app.get('/api/generate-tips', async (req, res) => {
-    // ...código de las otras rutas de IA...
+    if (!model) return res.status(503).json({ error: "Servicio de IA no disponible." });
+    try {
+        const prompt = `Genera 4 consejos para estudiar matemáticas. Formatea cada consejo en HTML como un <div class="card menu-card"><p>[Texto del consejo]</p></div>. No incluyas nada más que esos divs.`;
+        const result = await model.generateContent(prompt);
+        res.json({ tips: result.response.text() });
+    } catch (error) { res.status(500).json({ error: "No se pudo generar consejos." }); }
 });
 
 // --- LÓGICA DEL CHAT ---
 const onlineUsers = {}; const userSockets = {};
 io.on('connection', (socket) => {
-    // ...código del chat...
+    socket.on('register user', (user) => {
+        if (user && user.username && user.code) {
+            socket.username = user.username;
+            socket.userCode = user.code;
+            onlineUsers[user.username] = user.code;
+            userSockets[user.code] = socket.id;
+            io.emit('online users update', Object.keys(onlineUsers));
+        }
+    });
+
+    socket.on('add friend', async (friendCode, callback) => {
+        const friend = await User.findOne({ code: friendCode }, 'username code').lean();
+        callback({ success: !!friend, friend });
+    });
+
+    socket.on('private message', ({ toCode, message }) => {
+        if (!socket.username) return;
+        const recipientSocketId = userSockets[toCode];
+        if (recipientSocketId) {
+            io.to(recipientSocketId).emit('private message', { from: socket.username, message });
+        }
+    });
+
+    socket.on('disconnect', () => {
+        if (socket.username) {
+            delete onlineUsers[socket.username];
+            delete userSockets[socket.userCode];
+            io.emit('online users update', Object.keys(onlineUsers));
+        }
+    });
 });
 
 server.listen(PORT, () => {
