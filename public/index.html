@@ -32,39 +32,16 @@
       .menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem}.menu-card{text-align:center;text-decoration:none;color:var(--text-dark)}.menu-card .icon{font-size:2.5rem;color:var(--primary-color);margin-bottom:1rem;transition:transform 0.3s ease;}.menu-card h3{font-family:'Poppins';font-weight:600;font-size:1.3rem;margin-bottom:0.5rem;}.menu-card p{font-family:'Lato',sans-serif;color:var(--text-light);}.menu-card.card:hover{transform:translateY(-10px);box-shadow:0 12px 40px rgba(0,0,0,0.08);}.menu-card.card:hover .icon{transform:scale(1.1);}
       #practice-results{margin-top:2rem;display:grid;grid-template-columns:1fr;gap:1.5rem;}.problem-card{background-color:var(--bg-color);padding:1.5rem;border-radius:var(--radius);border:1px solid #e9ecef;}.solution{margin-top:1rem;padding:1rem;background-color:#eaf6f4;border-radius:8px;border-left:4px solid var(--primary-color);}
       
-      /* [SOLUCIÓN FINAL CSS] - Bloque 100% centrado */
-      #auth-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background: rgba(0,0,0,.5);
-        backdrop-filter: blur(8px);
-        z-index: 1000;
-        animation: fadeIn .3s;
-        display: none; /* Oculto por defecto */
-        justify-content: center;
-        align-items: center;
-      }
-      #auth-overlay.active {
-        display: flex !important; /* Se muestra con flexbox al activarse */
-      }
-      .auth-card {
-        width: 100%;
-        max-width: 400px;
-        background: var(--card-bg); /* Usando variable para dark mode */
-        border-radius: 20px;
-        padding: 2rem;
-        margin: 0;
-        text-align: center;
-        box-shadow: 0 10px 40px rgba(0,0,0,.2);
-        animation: fadeInUp 0.4s ease-out;
-      }
+      #auth-overlay {position: fixed;top: 0;left: 0;width: 100vw;height: 100vh;background: rgba(0,0,0,.5);backdrop-filter: blur(8px);z-index: 1000;animation: fadeIn .3s;display: none; justify-content: center;align-items: center;}
+      #auth-overlay.active { display: flex !important; }
+      .auth-card {width: 100%;max-width: 400px;background: var(--card-bg);border-radius: 20px;padding: 2rem;margin: 0;text-align: center;box-shadow: 0 10px 40px rgba(0,0,0,.2);animation: fadeInUp 0.4s ease-out;}
       .auth-toggle button{background:none;border:none;cursor:pointer;padding:.5rem 1rem;font-size:1.1rem;color:var(--text-light);transition:color .2s}.auth-toggle button.active{font-weight:bold;color:var(--primary-color);border-bottom:2px solid var(--primary-color)}#register-form{display:none}#auth-feedback{margin-top:1rem;color:red;min-height:1.2em}#login-form,#register-form{margin-top:1.5rem}
       
       .chat-container{display:flex;gap:1.5rem;height:75vh;max-height:700px}.friends-panel{width:300px;flex-shrink:0;display:flex;flex-direction:column}#friends-list{flex-grow:1;overflow-y:auto;margin-top:1rem}.chat-window{flex-grow:1;display:flex;flex-direction:column}#chat-messages{border:1px solid #dde2e6;padding:1rem;border-radius:var(--radius);flex-grow:1;overflow-y:auto;margin-bottom:1rem;background-color:var(--bg-color)}.message-bubble{padding:.6rem 1rem;border-radius:20px;margin-bottom:.5rem;max-width:80%;word-wrap:break-word}.message-bubble.sent{background:var(--primary-gradient);color:#fff;margin-left:auto;border-bottom-right-radius:5px}.message-bubble.received{background:var(--card-bg);color:var(--text-dark);margin-right:auto;border-bottom-left-radius:5px;box-shadow:0 2px 5px rgba(0,0,0,.05)}#add-friend-form button{padding:0;min-width:46px;max-width:46px;height:46px;flex-shrink:0;line-height:1;font-size:1.5rem}.btn-back{display:block;margin:1.5rem auto 0;width:fit-content}
       .settings-container h3{font-family:'Poppins',sans-serif}.toggle-switch{display:flex;align-items:center;justify-content:space-between;margin-top:.5rem}.slider{position:relative;cursor:pointer;width:50px;height:26px;background-color:#ccc;border-radius:26px;transition:.4s}.slider:before{position:absolute;content:"";height:18px;width:18px;left:4px;bottom:4px;background-color:#fff;border-radius:50%;transition:.4s}input:checked+.slider{background-color:var(--primary-color)}input:checked+.slider:before{transform:translateX(24px)}
+      
+      /* [SOLUCIÓN] - Reducir espacio en blanco en la vista de chat */
+      #view-chat .page-header { margin-bottom: 1.5rem; }
     </style>
 </head>
 <body>
@@ -166,6 +143,7 @@
             setupPracticeListeners();
             setupAuthListeners();
             setupChatListeners();
+            setupAjustesListeners(); // <-- [SOLUCIÓN] Llamamos a la nueva función
             ui.quienes.container.innerHTML = quienesSomosText;
         }
 
@@ -231,9 +209,22 @@
         function saveFriends() { if (state.currentUser) localStorage.setItem(`friends_${state.currentUser.username}`, JSON.stringify(state.friends)); }
         function renderFriends() { if (!state.currentUser) return; ui.chat.list.innerHTML = state.friends.map(f => `<div class="card" data-code="${f.code}" style="cursor:pointer;padding:.8rem;margin-bottom:.5rem;${f.code===state.activeChat?'background-color:#eaf6f4':''}">${f.username}</div>`).join(''); }
         function addFriend(e) { e.preventDefault(); const code = ui.chat.friendInput.value.trim().toUpperCase(); if (!code) return; socket.emit('add friend', code, (res) => { if (res.success && !state.friends.find(f => f.code === res.friend.code)) { state.friends.push(res.friend); saveFriends(); renderFriends(); } else { alert('Código no válido.'); } }); ui.chat.friendInput.value = ''; }
-        function setActiveChat(code) { state.activeChat = code; renderFriends(); const friend = state.friends.find(f=>f.code===code); ui.chat.header.textContent = `Chateando con ${friend.username}`; ui.chat.chatInput.disabled = false; ui.chat.sendButton.disabled = false; }
-        function sendChatMessage(e) { e.preventDefault(); const text = ui.chat.chatInput.value.trim(); if (!text) return; const message = { text }; socket.emit('private message', { toCode: state.activeChat, message }); ui.chat.chatInput.value = ''; handleNewMessage({from: state.currentUser.username, message}); }
-        function handleNewMessage({from, message}) { const code = from === state.currentUser.username ? state.activeChat : state.friends.find(f=>f.username===from)?.code; if(!code) return; state.messages[code] = state.messages[code] || []; state.messages[code].push({from, text: message.text}); renderMessages(code); }
+        
+        // [SOLUCIÓN] - Función de chat corregida
+        function setActiveChat(code) {
+            state.activeChat = code;
+            renderFriends();
+            const friend = state.friends.find(f => f.code === code);
+            ui.chat.header.textContent = `Chateando con ${friend.username}`;
+            ui.chat.chatInput.disabled = false;
+            ui.chat.sendButton.disabled = false;
+            ui.chat.chatInput.value = ''; // Limpiar input
+            renderMessages(code); // Cargar los mensajes correctos
+            ui.chat.chatInput.focus(); // Poner el foco en el input
+        }
+        
+        function sendChatMessage(e) { e.preventDefault(); const text = ui.chat.chatInput.value.trim(); if (!text || !state.activeChat) return; const message = { text }; socket.emit('private message', { toCode: state.activeChat, message }); ui.chat.chatInput.value = ''; handleNewMessage({ from: state.currentUser.username, to: state.activeChat, message }); }
+        function handleNewMessage({ from, to, message }) { const friendCode = from === state.currentUser.username ? to : state.friends.find(f => f.username === from)?.code; if (!friendCode) return; if (!state.messages[friendCode]) { state.messages[friendCode] = []; } state.messages[friendCode].push({ from, text: message.text }); if (friendCode === state.activeChat) { renderMessages(friendCode); } }
         function renderMessages(code) { if (code !== state.activeChat) return; ui.chat.messages.innerHTML = (state.messages[code] || []).map(m => `<div class="message-bubble ${m.from === state.currentUser.username ? 'sent':'received'}">${m.text}</div>`).join(''); ui.chat.messages.scrollTop = ui.chat.messages.scrollHeight; }
 
         function setupIAListeners() { ui.ia.button.addEventListener('click', async () => { const topic = ui.ia.input.value; if (!topic) return; ui.ia.explanation.innerHTML = `<p>Consultando...</p>`; const res = await fetch('/api/explain-math', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ topic }) }); const data = await res.json(); ui.ia.explanation.innerHTML = data.explanation; }); }
@@ -265,6 +256,28 @@
                 ui.consejos.container.innerHTML = tipsHtml;
             } catch (e) {
                 ui.consejos.container.innerHTML = '<p style="color:red;">Error al cargar consejos.</p>';
+            }
+        }
+        
+        // [SOLUCIÓN] - Nueva función para manejar la lógica de Ajustes
+        function setupAjustesListeners() {
+            ui.ajustes.fontSizeToggle.addEventListener('change', (e) => {
+                document.body.classList.toggle('large-text', e.target.checked);
+                localStorage.setItem('largeTextEnabled', e.target.checked);
+            });
+
+            ui.ajustes.contrastToggle.addEventListener('change', (e) => {
+                document.body.classList.toggle('dark-theme', e.target.checked);
+                localStorage.setItem('darkThemeEnabled', e.target.checked);
+            });
+
+            if (localStorage.getItem('largeTextEnabled') === 'true') {
+                ui.ajustes.fontSizeToggle.checked = true;
+                document.body.classList.add('large-text');
+            }
+            if (localStorage.getItem('darkThemeEnabled') === 'true') {
+                ui.ajustes.contrastToggle.checked = true;
+                document.body.classList.add('dark-theme');
             }
         }
         
