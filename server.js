@@ -25,7 +25,7 @@ if (GEMINI_API_KEY) {
     model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
     console.log('✅ Modelo de IA Gemini inicializado.');
 } else {
-    console.warn('⚠️ ADVERTENCIA: GEMINI_API_KEY no encontrada.');
+    console.warn('⚠ ADVERTENCIA: GEMINI_API_KEY no encontrada.');
 }
 
 mongoose.connect(DATABASE_URL)
@@ -97,7 +97,7 @@ app.post('/api/explain-math', async (req, res) => {
     const { topic } = req.body;
     if (!topic) return res.status(400).json({ error: "El tema es requerido." });
     try {
-        const prompt = `Como tutor experto en matemáticas, explica detalladamente el concepto "${topic}" para un estudiante de secundaria. Usa únicamente etiquetas HTML (h3, p, ul, li, strong) para estructurar la respuesta. No incluyas markdown. La explicación debe cubrir: 1. Definición clara. 2. Fórmula o pasos clave. 3. Un ejemplo práctico. 4. Errores comunes.`;
+        const prompt = Como tutor experto en matemáticas, explica detalladamente el concepto "${topic}" para un estudiante de secundaria. Usa únicamente etiquetas HTML (h3, p, ul, li, strong) para estructurar la respuesta. No incluyas markdown. La explicación debe cubrir: 1. Definición clara. 2. Fórmula o pasos clave. 3. Un ejemplo práctico. 4. Errores comunes.;
         const result = await model.generateContent(prompt);
         res.json({ explanation: result.response.text() });
     } catch (error) { console.error("Error en Tutor IA:", error); res.status(500).json({ error: "No se pudo generar la explicación." }); }
@@ -108,7 +108,7 @@ app.post('/api/generate-problems', async (req, res) => {
     const { topic } = req.body;
     if (!topic) return res.status(400).json({ error: "El tema es requerido." });
     try {
-        const prompt = `Crea 4 problemas matemáticos sobre "${topic}" para secundaria. Mezcla ejercicios y situaciones problemáticas. Devuelve la respuesta en HTML, usando esta estructura exacta para cada problema: <div class="problem-card"><h4>Problema X: [Aquí la pregunta]</h4><p class="solution" style="display:none;">Respuesta: [Aquí la solución concisa]</p><button class="show-solution-btn btn btn-secondary">Ver Respuesta</button></div> No incluyas markdown.`;
+        const prompt = Crea 4 problemas matemáticos sobre "${topic}" para secundaria. Mezcla ejercicios y situaciones problemáticas. Devuelve la respuesta en HTML, usando esta estructura exacta para cada problema: <div class="problem-card"><h4>Problema X: [Aquí la pregunta]</h4><p class="solution" style="display:none;">Respuesta: [Aquí la solución concisa]</p><button class="show-solution-btn btn btn-secondary">Ver Respuesta</button></div> No incluyas markdown.;
         const result = await model.generateContent(prompt);
         res.json({ problems: result.response.text() });
     } catch (error) { console.error("Error en Práctica IA:", error); res.status(500).json({ error: "No se pudo generar los problemas." }); }
@@ -117,7 +117,7 @@ app.post('/api/generate-problems', async (req, res) => {
 app.get('/api/generate-tips', async (req, res) => {
     if (!model) return res.status(503).json({ error: "Servicio de IA no disponible." });
     try {
-        const prompt = `Genera 6 consejos creativos para estudiar matemáticas. Formatea la respuesta usando HTML, donde cada consejo es un <div class="card menu-card">, que contiene un <div class="icon"> con un ícono de font-awesome, un <h3> para el título y un <p> para la descripción. No incluyas markdown.`;
+        const prompt = Genera 6 consejos creativos para estudiar matemáticas. Formatea la respuesta usando HTML, donde cada consejo es un <div class="card menu-card">, que contiene un <div class="icon"> con un ícono de font-awesome, un <h3> para el título y un <p> para la descripción. No incluyas markdown.;
         const result = await model.generateContent(prompt);
         res.json({ tips: result.response.text() });
     } catch (error) { console.error("Error en Consejos IA:", error); res.status(500).json({ error: "No se pudo generar los consejos." }); }
@@ -157,5 +157,5 @@ io.on('connection', (socket) => {
 });
 
 server.listen(PORT, () => {
-    console.log(`🚀 Servidor 'Potencia Tu Mente' corriendo en http://localhost:${PORT}`);
+    console.log(🚀 Servidor 'Potencia Tu Mente' corriendo en http://localhost:${PORT});
 });
