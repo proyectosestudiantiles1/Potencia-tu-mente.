@@ -12,7 +12,8 @@
     <style>
       :root{--primary-gradient:linear-gradient(90deg, #1abc9c, #16a085);--primary-color:#16a085;--secondary-color:#2c3e50;--bg-color:#f4f7f9;--card-bg:#ffffff;--text-dark:#34495e;--text-light:#7f8c8d;--shadow:0 8px 30px rgba(0,0,0,0.06);--radius:16px;--font-base-size:16px;}
       body.large-text{--font-base-size:18px;}
-      body.dark-theme{--primary-gradient:linear-gradient(90deg, #1abc9c, #1dd2af);--primary-color:#1abc9c;--secondary-color:#ecf0f1;--bg-color:#2c3e50;--card-bg:#34495e;--text-dark:#ecf0f1;--text-light:#95a5a6;}
+      /* [SOLUCIÓN] - Se cambió el selector de body.dark-theme a html.dark-theme */
+      html.dark-theme{--primary-gradient:linear-gradient(90deg, #1abc9c, #1dd2af);--primary-color:#1abc9c;--secondary-color:#ecf0f1;--bg-color:#2c3e50;--card-bg:#34495e;--text-dark:#ecf0f1;--text-light:#95a5a6;}
       *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
       body{font-family:'Poppins',sans-serif;background-color:var(--bg-color);color:var(--text-dark);line-height:1.7;font-size:var(--font-base-size);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;transition:background-color 0.3s,color 0.3s;}
       main{display:none}.page-section{display:none}.page-section.active{display:block;animation:fadeInUp 0.6s ease-out forwards}
@@ -40,7 +41,6 @@
       .chat-container{display:flex;gap:1.5rem;height:75vh;max-height:700px}.friends-panel{width:300px;flex-shrink:0;display:flex;flex-direction:column}#friends-list{flex-grow:1;overflow-y:auto;margin-top:1rem}.chat-window{flex-grow:1;display:flex;flex-direction:column}#chat-messages{border:1px solid #dde2e6;padding:1rem;border-radius:var(--radius);flex-grow:1;overflow-y:auto;margin-bottom:1rem;background-color:var(--bg-color)}.message-bubble{padding:.6rem 1rem;border-radius:20px;margin-bottom:.5rem;max-width:80%;word-wrap:break-word}.message-bubble.sent{background:var(--primary-gradient);color:#fff;margin-left:auto;border-bottom-right-radius:5px}.message-bubble.received{background:var(--card-bg);color:var(--text-dark);margin-right:auto;border-bottom-left-radius:5px;box-shadow:0 2px 5px rgba(0,0,0,.05)}#add-friend-form button{padding:0;min-width:46px;max-width:46px;height:46px;flex-shrink:0;line-height:1;font-size:1.5rem}.btn-back{display:block;margin:1.5rem auto 0;width:fit-content}
       .settings-container h3{font-family:'Poppins',sans-serif}.toggle-switch{display:flex;align-items:center;justify-content:space-between;margin-top:.5rem}.slider{position:relative;cursor:pointer;width:50px;height:26px;background-color:#ccc;border-radius:26px;transition:.4s}.slider:before{position:absolute;content:"";height:18px;width:18px;left:4px;bottom:4px;background-color:#fff;border-radius:50%;transition:.4s}input:checked+.slider{background-color:var(--primary-color)}input:checked+.slider:before{transform:translateX(24px)}
       
-      /* [SOLUCIÓN] - Reducir espacio en blanco en la vista de chat */
       #view-chat .page-header { margin-bottom: 1.5rem; }
     </style>
 </head>
@@ -143,7 +143,7 @@
             setupPracticeListeners();
             setupAuthListeners();
             setupChatListeners();
-            setupAjustesListeners(); // <-- [SOLUCIÓN] Llamamos a la nueva función
+            setupAjustesListeners();
             ui.quienes.container.innerHTML = quienesSomosText;
         }
 
@@ -210,7 +210,6 @@
         function renderFriends() { if (!state.currentUser) return; ui.chat.list.innerHTML = state.friends.map(f => `<div class="card" data-code="${f.code}" style="cursor:pointer;padding:.8rem;margin-bottom:.5rem;${f.code===state.activeChat?'background-color:#eaf6f4':''}">${f.username}</div>`).join(''); }
         function addFriend(e) { e.preventDefault(); const code = ui.chat.friendInput.value.trim().toUpperCase(); if (!code) return; socket.emit('add friend', code, (res) => { if (res.success && !state.friends.find(f => f.code === res.friend.code)) { state.friends.push(res.friend); saveFriends(); renderFriends(); } else { alert('Código no válido.'); } }); ui.chat.friendInput.value = ''; }
         
-        // [SOLUCIÓN] - Función de chat corregida
         function setActiveChat(code) {
             state.activeChat = code;
             renderFriends();
@@ -218,9 +217,9 @@
             ui.chat.header.textContent = `Chateando con ${friend.username}`;
             ui.chat.chatInput.disabled = false;
             ui.chat.sendButton.disabled = false;
-            ui.chat.chatInput.value = ''; // Limpiar input
-            renderMessages(code); // Cargar los mensajes correctos
-            ui.chat.chatInput.focus(); // Poner el foco en el input
+            ui.chat.chatInput.value = '';
+            renderMessages(code);
+            ui.chat.chatInput.focus();
         }
         
         function sendChatMessage(e) { e.preventDefault(); const text = ui.chat.chatInput.value.trim(); if (!text || !state.activeChat) return; const message = { text }; socket.emit('private message', { toCode: state.activeChat, message }); ui.chat.chatInput.value = ''; handleNewMessage({ from: state.currentUser.username, to: state.activeChat, message }); }
@@ -259,15 +258,15 @@
             }
         }
         
-        // [SOLUCIÓN] - Nueva función para manejar la lógica de Ajustes
         function setupAjustesListeners() {
             ui.ajustes.fontSizeToggle.addEventListener('change', (e) => {
                 document.body.classList.toggle('large-text', e.target.checked);
                 localStorage.setItem('largeTextEnabled', e.target.checked);
             });
 
+            // [SOLUCIÓN] - Aplicar clase a <html> (document.documentElement)
             ui.ajustes.contrastToggle.addEventListener('change', (e) => {
-                document.body.classList.toggle('dark-theme', e.target.checked);
+                document.documentElement.classList.toggle('dark-theme', e.target.checked);
                 localStorage.setItem('darkThemeEnabled', e.target.checked);
             });
 
@@ -277,7 +276,7 @@
             }
             if (localStorage.getItem('darkThemeEnabled') === 'true') {
                 ui.ajustes.contrastToggle.checked = true;
-                document.body.classList.add('dark-theme');
+                document.documentElement.classList.add('dark-theme');
             }
         }
         
